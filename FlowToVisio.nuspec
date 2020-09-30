@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>LinkeD365.FlowToVisio</id>
+    <title>Flow to Visio</title>
+    <version>$version$</version>
+    <authors>LinkeD365</authors>
+    <owners>LinkeD365</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/LinkeD365/FlowToVisio</projectUrl>
+    <iconUrl>https://linked365.blog/wp-content/uploads/2020/03/smallIcon.png</iconUrl>
+    <description>A XrmToolBox tool to create Visio diagram of your Power Automate Flows that are within your CDS</description>
+    <releaseNotes>
+      Initial Version
+    </releaseNotes>
+    <copyright>Copyright 2020</copyright>
+    <tags>XrmToolBox Plugins Flow Visio</tags>
+    <dependencies>
+      <dependency id="XrmToolBox" version="1.2020.6.40" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="FlowToVisio\bin\Release\LinkeD365.FlowToVisio.dll" target="lib\net472\Plugins" />
+  </files>
+</package>

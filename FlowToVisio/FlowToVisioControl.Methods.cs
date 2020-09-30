@@ -24,18 +24,12 @@ namespace LinkeD365.FlowToVisio
                 Message = "Retrieiving the Flows",
                 Work = (w, e) =>
                 {
-                    var flows = new List<BaseAction>();
-
                     var qe = new QueryExpression("workflow");
                     qe.ColumnSet.AddColumns("ismanaged", "clientdata", "description", "name", "createdon", "modifiedon", "modifiedby", "createdby");
                     qe.Criteria.AddCondition("category", ConditionOperator.Equal, 5);
 
                     var flowRecords = Service.RetrieveMultiple(qe);
 
-                    //foreach (Entity flowRecord in flowRecords.Entities)
-                    //{
-                    //    flows.Add(new Flow() { Name = flowRecord["name"].ToString(), Description = flowRecord["description"].ToString());
-                    //}
                     e.Result = flowRecords;
                 },
                 ProgressChanged = e =>

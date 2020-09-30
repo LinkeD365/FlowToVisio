@@ -8,8 +8,6 @@ using System.Text;
 using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
-using VisioAutomation.VDX;
-using VisioAutomation.VDX.Elements;
 using XrmToolBox.Extensibility;
 
 namespace LinkeD365.FlowToVisio
@@ -20,12 +18,6 @@ namespace LinkeD365.FlowToVisio
         public const string VisioXmlNamespace2006 = "{http://schemas.microsoft.com/visio/2006/extension}";
 
         private List<string> templates = new List<string> { "Default", "case", "HttpAction", "VariableAction", "Line", "condition", "Teams", "CDS", "Scope", "Compose", "Excel", "Flow", "Outlook", "PowerApp" };
-
-        // private Page page;
-        private static Template template = new Template();
-
-        private Drawing doc;
-        private Face face;
 
         private static double pageWidth = 11;
         private static double pageHeight = 8;

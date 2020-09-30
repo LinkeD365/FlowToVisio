@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowToVisio", "FlowToVisio\FlowToVisio.csproj", "{07FA101F-0839-4B46-8136-8D43F57A82FD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Soluton Items", "Soluton Items", "{4CB38560-C11D-4759-B817-BC19DA7127CC}"
+	ProjectSection(SolutionItems) = preProject
+		FlowToVisio.nuspec = FlowToVisio.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
