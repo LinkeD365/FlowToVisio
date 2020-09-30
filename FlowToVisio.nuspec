@@ -20,6 +20,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="FlowToVisio\bin\Release\LinkeD365.FlowToVisio.dll" target="lib\net472\Plugins" />
+    <file src="FlowToVisio\bin\Release\Plugins\LinkeD365.FlowToVisio.dll" target="lib\net472\Plugins" />
   </files>
 </package>
