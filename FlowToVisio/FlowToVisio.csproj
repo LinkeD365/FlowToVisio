@@ -160,6 +160,7 @@
     <Compile Include="Visio\ShapeXML.Conditions.cs" />
     <Compile Include="Visio\ShapeXml.cs" />
     <Compile Include="Visio\ShapeXml.DataOps.cs" />
+    <Compile Include="Visio\ShapeXml.SharePoint.cs" />
     <Compile Include="Visio\VisioGen.cs">
       <SubType>UserControl</SubType>
     </Compile>

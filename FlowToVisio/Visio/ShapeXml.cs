@@ -14,7 +14,16 @@ namespace LinkeD365.FlowToVisio
         public static int actionCount = 0;
         public static JObject Root { get; set; }
 
-        public static XDocument XMLPage { get; set; }
+        public static XDocument XMLPage
+        {
+            get => _xmlPage;
+            set
+            {
+                _xmlPage = value;
+                connects = null;
+            }
+        }
+        private static XDocument _xmlPage;
 
         private static XElement connects;
 
@@ -148,7 +157,7 @@ namespace LinkeD365.FlowToVisio
                         return new ChangeSetAction(actionProperty, parent, curCount, childCount);
 
                     default:
-                        Ai.WriteEvent("No Action: " + actionProperty.Value["type"].ToString());
+                        Ai.WriteEvent("No Action: " + actionProperty.Value["type"]);
 
                         return new Action(actionProperty, parent, curCount, childCount);
                 }
@@ -187,7 +196,7 @@ namespace LinkeD365.FlowToVisio
                     case "ApiConnection":
                         return CreateAPITrigger(actionProperty, parent, curCount, childCount);
                 }
-                Ai.WriteEvent("No Request Trigger: " + actionProperty.Value["kind"].ToString());
+                Ai.WriteEvent("No Request Trigger: " + actionProperty.Value["kind"]);
             }
             return new Action(actionProperty, parent, curCount, childCount);
         }
@@ -201,7 +210,7 @@ namespace LinkeD365.FlowToVisio
                     case "FlowStepRun":
                         return new CDSStepAction(actionProperty, parent, curCount, childCount);
                 }
-                Ai.WriteEvent("No API Trigger: " + actionProperty.Value["inputs"]?["operationId"].ToString());
+                Ai.WriteEvent("No API Trigger: " + actionProperty.Value["inputs"]?["operationId"]);
             }
 
             return new Action(actionProperty, parent, curCount, childCount);
@@ -232,6 +241,8 @@ namespace LinkeD365.FlowToVisio
 
                     case "shared_flowmanagement":
                         return new FlowAction(actionProperty, parent, curCount, childCount);
+                    case "shared_sharepointonline":
+                        return new SharePointAction(actionProperty, parent, curCount, childCount);
                 }
                 Ai.WriteEvent("No API Action: " + Connection.APIConnections.First(con => con.Name == connectionName).Api);
             }
@@ -252,6 +263,8 @@ namespace LinkeD365.FlowToVisio
                     case "shared_commondataserviceforapps":
                     case "shared_commondataservice":
                         return new CDSAction(actionProperty, parent, curCount, childCount);
+                    case "shared_sharepointonline":
+                        return new SharePointAction(actionProperty, parent, curCount, childCount);
                 }
                 Ai.WriteEvent("No Open API Action: " + Connection.APIConnections.First(con => con.Name == connectName).Api);
             }
@@ -318,7 +331,7 @@ namespace LinkeD365.FlowToVisio
         {
             get
             {
-                if (Property == null) return "Line." + Id.ToString();
+                if (Property == null) return "Line." + Id;
                 else return Property.Name;
             }
         }
@@ -430,9 +443,9 @@ namespace LinkeD365.FlowToVisio
                 SetAttributeValue("F", "_XFTRIGGER(Sheet." + parent.EndAction.Id + "!EventXFMod)");
             Shape.Elements().Where(el => el.Attribute("N").Value == "EndTrigger").First().
                 SetAttributeValue("F", "_XFTRIGGER(Sheet." + child.Id + "!EventXFMod)");
-            var connection = XElement.Parse("<Row T='Connection' IX='" + (current + 6).ToString() + "'>" +
+            var connection = XElement.Parse("<Row T='Connection' IX='" + (current + 6) + "'>" +
                    //  "<Cell N='X' V='0' U = 'MM' F = 'Width*1/5' />" +
-                   "<Cell N='X' F = 'Width*" + current.ToString() + '/' + (children + 1).ToString() + "'/>" +
+                   "<Cell N='X' F = 'Width*" + current + '/' + (children + 1) + "'/>" +
                     "<Cell N = 'Y' V = '0' U = 'MM' F = 'Height*0' />" +
                     "<Cell N = 'DirX' V = '0' />" +
                     "<Cell N = 'DirY' V = '1' />" +
@@ -631,7 +644,7 @@ namespace LinkeD365.FlowToVisio
         private void AddBaseText()
         {
             Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + PropertyName + "' U='STR'/></Row>"));
-            Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='" + Property.Value["type"].ToString() + "' U='STR'/></Row>"));
+            Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='" + Property.Value["type"] + "' U='STR'/></Row>"));
             // var sb = "<Text><cp IX = '0' /><pp IX = '0' />" + PropertyName + "\n";
             var textElement = Shape.Descendants().Where(el => el.Name.LocalName == "Text").First();
             var sb = new StringBuilder("<Text><![CDATA[Properties: ");
@@ -640,10 +653,10 @@ namespace LinkeD365.FlowToVisio
             {
                 foreach (var item in ((JObject)Property.Value).Properties().Where(p => p.Name != "runAfter"))
                 {
-                    sb.AppendLine(item.Name + " : " + @item.Value.ToString());
+                    sb.AppendLine(item.Name + " : " + @item.Value);
                 }
             }
-            textElement.ReplaceWith(XElement.Parse(sb.ToString() + "]]></Text>"));
+            textElement.ReplaceWith(XElement.Parse(sb + "]]></Text>"));
         }
 
         public void AddFillColour(string colour)
@@ -663,7 +676,7 @@ namespace LinkeD365.FlowToVisio
     {
         public Terminate(JProperty property, Action parent, int curCount, int children) : base(property, parent, curCount, children, "case")
         {
-            Props.Add(XElement.Parse("<Row N='ActionCase'> <Cell N='Value' V='" + PropertyName + " | Terminate | " + Property.Value["inputs"]["runStatus"].ToString() + "' U='STR'/></Row>"));
+            Props.Add(XElement.Parse("<Row N='ActionCase'> <Cell N='Value' V='" + PropertyName + " | Terminate | " + Property.Value["inputs"]["runStatus"] + "' U='STR'/></Row>"));
             AddFillColour("255,51,0");
         }
     }
@@ -678,7 +691,7 @@ namespace LinkeD365.FlowToVisio
             var textElement = Shape.Descendants().Where(el => el.Name.LocalName == "Text").First();
             var sb = new StringBuilder("<Text><![CDATA[Variable Name: ");
             sb.AppendLine((property.Value["inputs"] as JObject)["variables"][0]["name"].ToString());
-            sb.AppendLine("Type: " + (property.Value["inputs"] as JObject)["variables"][0]["type"].ToString() + "]]></Text>");
+            sb.AppendLine("Type: " + (property.Value["inputs"] as JObject)["variables"][0]["type"] + "]]></Text>");
 
             textElement.ReplaceWith(XElement.Parse(sb.ToString()));
         }
@@ -693,7 +706,7 @@ namespace LinkeD365.FlowToVisio
             var textElement = Shape.Descendants().Where(el => el.Name.LocalName == "Text").First();
             var sb = new StringBuilder("<Text><![CDATA[Variable Name: ");
             sb.AppendLine(property.Value["inputs"]["name"].ToString());
-            sb.AppendLine("Value: " + property.Value["inputs"]["value"].ToString() + "]]></Text>");
+            sb.AppendLine("Value: " + property.Value["inputs"]["value"] + "]]></Text>");
 
             textElement.ReplaceWith(XElement.Parse(sb.ToString()));
         }
@@ -708,14 +721,14 @@ namespace LinkeD365.FlowToVisio
             var textElement = Shape.Descendants().Where(el => el.Name.LocalName == "Text").First();
             var sb = new StringBuilder("<Text><![CDATA[Method: ");
             sb.AppendLine((property.Value["inputs"] as JObject)["method"].ToString());
-            sb.AppendLine("URI: " + (property.Value["inputs"] as JObject)["uri"].ToString());
+            sb.AppendLine("URI: " + (property.Value["inputs"] as JObject)["uri"]);
 
             if (property.Value["inputs"]["headers"] != null)
             {
                 sb.AppendLine("Headers:");
                 foreach (var header in property.Value["inputs"]["headers"] as JObject)
                 {
-                    sb.AppendLine(header.Key + " : " + header.Value.ToString());
+                    sb.AppendLine(header.Key + " : " + header.Value);
                 }
             }
             if (property.Value["inputs"]["body"] != null)
@@ -723,13 +736,13 @@ namespace LinkeD365.FlowToVisio
                 sb.AppendLine("Body:");
                 foreach (var header in property.Value["inputs"]["body"] as JObject)
                 {
-                    sb.AppendLine(header.Key + " : " + header.Value.ToString());
+                    sb.AppendLine(header.Key + " : " + header.Value);
                 }
             }
 
             //sb.AppendLine("Type: " + (property.Value["inputs"] as JObject)["variables"][0]["type"].ToString() + "]]></Text>");
 
-            textElement.ReplaceWith(XElement.Parse(sb.ToString() + "]]></Text>"));
+            textElement.ReplaceWith(XElement.Parse(sb + "]]></Text>"));
         }
     }
 
@@ -749,7 +762,7 @@ namespace LinkeD365.FlowToVisio
                 sb.AppendLine("Headers:");
                 foreach (var header in property.Value["inputs"]["headers"] as JObject)
                 {
-                    sb.AppendLine(header.Key + " : " + header.Value.ToString());
+                    sb.AppendLine(header.Key + " : " + header.Value);
                 }
             }
             if (property.Value["inputs"]["body"] != null)
@@ -757,13 +770,13 @@ namespace LinkeD365.FlowToVisio
                 sb.AppendLine("Body:");
                 foreach (var header in property.Value["inputs"]["body"] as JObject)
                 {
-                    sb.AppendLine(header.Key + " : " + header.Value.ToString());
+                    sb.AppendLine(header.Key + " : " + header.Value);
                 }
             }
 
             //sb.AppendLine("Type: " + (property.Value["inputs"] as JObject)["variables"][0]["type"].ToString() + "]]></Text>");
 
-            textElement.ReplaceWith(XElement.Parse(sb.ToString() + "]]></Text>"));
+            textElement.ReplaceWith(XElement.Parse(sb + "]]></Text>"));
         }
     }
 
@@ -774,7 +787,7 @@ namespace LinkeD365.FlowToVisio
             AddName();
             AddType("HTTP Request");
 
-            AddText("Schema: " + Property.Value["inputs"]["schema"].ToString());
+            AddText("Schema: " + Property.Value["inputs"]["schema"]);
         }
     }
 
@@ -816,7 +829,7 @@ namespace LinkeD365.FlowToVisio
                     case "CreateRecord":
                     case "PostItem_V2":
                         type = "Create Record";
-                        if (Property.Value["inputs"]?["parameters"]?["dataset"] != null) sb.AppendLine("Environment: " + Property.Value["inputs"]["parameters"]["dataset"].ToString());
+                        if (Property.Value["inputs"]?["parameters"]?["dataset"] != null) sb.AppendLine("Environment: " + Property.Value["inputs"]["parameters"]["dataset"]);
 
                         sb.AppendLine("Entity: " + (Property.Value["inputs"]?["parameters"]?["entityName"] != null ?
                             Property.Value["inputs"]["parameters"]["entityName"].ToString() : Property.Value["inputs"]["parameters"]["table"].ToString()));
@@ -824,14 +837,14 @@ namespace LinkeD365.FlowToVisio
                         sb.AppendLine("Fields: ");
                         foreach (var param in Property.Value["inputs"]["parameters"].Children<JProperty>())
                         {
-                            if (param.Name != "entityName" && param.Name != "table" && param.Name != "dataset") sb.AppendLine(param.Name.Substring(5, param.Name.Length - 5) + " : " + param.Value.ToString());
+                            if (param.Name != "entityName" && param.Name != "table" && param.Name != "dataset") sb.AppendLine(param.Name.Substring(5, param.Name.Length - 5) + " : " + param.Value);
                         }
                         break;
 
                     case "DeleteRecord":
                     case "DeleteItem":
                         type = "Delete Record";
-                        if (Property.Value["inputs"]?["parameters"]?["dataset"] != null) sb.AppendLine("Environment: " + Property.Value["inputs"]["parameters"]["dataset"].ToString());
+                        if (Property.Value["inputs"]?["parameters"]?["dataset"] != null) sb.AppendLine("Environment: " + Property.Value["inputs"]["parameters"]["dataset"]);
 
                         sb.AppendLine("Entity: " + (Property.Value["inputs"]?["parameters"]?["entityName"] != null ?
                                              Property.Value["inputs"]["parameters"]["entityName"].ToString() : Property.Value["inputs"]["parameters"]["table"].ToString()));
@@ -842,7 +855,7 @@ namespace LinkeD365.FlowToVisio
                     case "GetItem":
                     case "GetItem_V2":
                         type = "Get Record";
-                        if (Property.Value["inputs"]?["parameters"]?["dataset"] != null) sb.AppendLine("Environment: " + Property.Value["inputs"]["parameters"]["dataset"].ToString());
+                        if (Property.Value["inputs"]?["parameters"]?["dataset"] != null) sb.AppendLine("Environment: " + Property.Value["inputs"]["parameters"]["dataset"]);
 
                         sb.AppendLine("Entity: " + (Property.Value["inputs"]?["parameters"]?["entityName"] != null ?
                                              Property.Value["inputs"]["parameters"]["entityName"].ToString() : Property.Value["inputs"]["parameters"]["table"].ToString()));
@@ -853,26 +866,26 @@ namespace LinkeD365.FlowToVisio
                         omitList = new List<string> { "entityName", "recordId", "dataset", "table", "id" };
                         foreach (var param in Property.Value["inputs"]["parameters"].Children<JProperty>().Where(el => !omitList.Any(o => o == el.Name)))
                         {
-                            sb.AppendLine(param.Name.Substring(5, param.Name.Length - 5) + " : " + param.Value.ToString());
+                            sb.AppendLine(param.Name.Substring(5, param.Name.Length - 5) + " : " + param.Value);
                         }
                         break;
 
                     case "GetEntityFileImageFieldContent":
                         type = "Get File or Image Content";
-                        sb.AppendLine("Entity: " + Property.Value["inputs"]["parameters"]["entityName"].ToString());
-                        sb.AppendLine("Record Id: " + Property.Value["inputs"]["parameters"]["recordId"].ToString());
-                        sb.AppendLine("Field: " + Property.Value["inputs"]["parameters"]["fileImageFieldName"].ToString());
+                        sb.AppendLine("Entity: " + Property.Value["inputs"]["parameters"]["entityName"]);
+                        sb.AppendLine("Record Id: " + Property.Value["inputs"]["parameters"]["recordId"]);
+                        sb.AppendLine("Field: " + Property.Value["inputs"]["parameters"]["fileImageFieldName"]);
 
                         foreach (var param in Property.Value["inputs"]["parameters"].Children<JProperty>())
                         {
-                            if (param.Name != "entityName" && param.Name != "recordId" && param.Name != "fileImageFieldName") sb.AppendLine(param.Name + " : " + param.Value.ToString());
+                            if (param.Name != "entityName" && param.Name != "recordId" && param.Name != "fileImageFieldName") sb.AppendLine(param.Name + " : " + param.Value);
                         }
                         break;
 
                     case "ListRecords":
                     case "GetItems_V2":
                         type = "Get Records";
-                        if (Property.Value["inputs"]?["parameters"]?["dataset"] != null) sb.AppendLine("Environment: " + Property.Value["inputs"]["parameters"]["dataset"].ToString());
+                        if (Property.Value["inputs"]?["parameters"]?["dataset"] != null) sb.AppendLine("Environment: " + Property.Value["inputs"]["parameters"]["dataset"]);
 
                         sb.AppendLine("Entity: " + (Property.Value["inputs"]?["parameters"]?["entityName"] != null ?
                                              Property.Value["inputs"]["parameters"]["entityName"].ToString() : Property.Value["inputs"]["parameters"]["table"].ToString()));
@@ -880,51 +893,51 @@ namespace LinkeD365.FlowToVisio
                         omitList = new List<string> { "entityName", "dataset", "table" };
                         foreach (var param in Property.Value["inputs"]["parameters"].Children<JProperty>().Where(el => !omitList.Any(o => o == el.Name)))
                         {
-                            if (param.Name != "entityName") sb.AppendLine(param.Name.Substring(1, param.Name.Length - 1) + " : " + param.Value.ToString());
+                            if (param.Name != "entityName") sb.AppendLine(param.Name.Substring(1, param.Name.Length - 1) + " : " + param.Value);
                         }
                         break;
 
                     case "PerformBoundAction":
                         type = "Preform Bound Action";
-                        sb.AppendLine("Entity: " + Property.Value["inputs"]["parameters"]["entityName"].ToString());
-                        sb.AppendLine("Record Id: " + Property.Value["inputs"]["parameters"]["recordId"].ToString());
-                        sb.AppendLine("Action: " + Property.Value["inputs"]["parameters"]["actionName"].ToString());
+                        sb.AppendLine("Entity: " + Property.Value["inputs"]["parameters"]["entityName"]);
+                        sb.AppendLine("Record Id: " + Property.Value["inputs"]["parameters"]["recordId"]);
+                        sb.AppendLine("Action: " + Property.Value["inputs"]["parameters"]["actionName"]);
                         foreach (var param in Property.Value["inputs"]["parameters"].Children<JProperty>())
                         {
-                            if (param.Name != "entityName" && param.Name != "recordId" && param.Name != "actionName") sb.AppendLine(param.Name + " : " + param.Value.ToString());
+                            if (param.Name != "entityName" && param.Name != "recordId" && param.Name != "actionName") sb.AppendLine(param.Name + " : " + param.Value);
                         }
                         break;
 
                     case "PerformUnboundAction":
                         type = "Perform Unbound Action";
-                        sb.AppendLine("Action: " + Property.Value["inputs"]["parameters"]["actionName"].ToString());
+                        sb.AppendLine("Action: " + Property.Value["inputs"]["parameters"]["actionName"]);
                         sb.AppendLine("Parameters:");
                         foreach (var param in Property.Value["inputs"]["parameters"].Children<JProperty>())
                         {
-                            if (param.Name != "actionName") sb.AppendLine(param.Name.Substring(5, param.Name.Length - 5) + " : " + param.Value.ToString());
+                            if (param.Name != "actionName") sb.AppendLine(param.Name.Substring(5, param.Name.Length - 5) + " : " + param.Value);
                         }
                         break;
 
                     case "AssociateEntities":
                         type = "Relate Records";
-                        sb.AppendLine("Entity: " + Property.Value["inputs"]["parameters"]["entityName"].ToString());
-                        sb.AppendLine("Record Id: " + Property.Value["inputs"]["parameters"]["recordId"].ToString());
-                        sb.AppendLine("Relationship: " + Property.Value["inputs"]["parameters"]["associationEntityRelationship"].ToString());
-                        sb.AppendLine("URL: " + Property.Value["inputs"]["parameters"]["item/@odata.id"].ToString());
+                        sb.AppendLine("Entity: " + Property.Value["inputs"]["parameters"]["entityName"]);
+                        sb.AppendLine("Record Id: " + Property.Value["inputs"]["parameters"]["recordId"]);
+                        sb.AppendLine("Relationship: " + Property.Value["inputs"]["parameters"]["associationEntityRelationship"]);
+                        sb.AppendLine("URL: " + Property.Value["inputs"]["parameters"]["item/@odata.id"]);
                         break;
 
                     case "DisassociateEntities":
                         type = "UnRelate Records";
-                        sb.AppendLine("Entity: " + Property.Value["inputs"]["parameters"]["entityName"].ToString());
-                        sb.AppendLine("Record Id: " + Property.Value["inputs"]["parameters"]["recordId"].ToString());
-                        sb.AppendLine("Relationship: " + Property.Value["inputs"]["parameters"]["associationEntityRelationship"].ToString());
-                        sb.AppendLine("URL: " + Property.Value["inputs"]["parameters"]["$id"].ToString());
+                        sb.AppendLine("Entity: " + Property.Value["inputs"]["parameters"]["entityName"]);
+                        sb.AppendLine("Record Id: " + Property.Value["inputs"]["parameters"]["recordId"]);
+                        sb.AppendLine("Relationship: " + Property.Value["inputs"]["parameters"]["associationEntityRelationship"]);
+                        sb.AppendLine("URL: " + Property.Value["inputs"]["parameters"]["$id"]);
                         break;
 
                     case "UpdateRecord":
                     case "PatchItem_V2":
                         type = "Update Record";
-                        if (Property.Value["inputs"]?["parameters"]?["dataset"] != null) sb.AppendLine("Environment: " + Property.Value["inputs"]["parameters"]["dataset"].ToString());
+                        if (Property.Value["inputs"]?["parameters"]?["dataset"] != null) sb.AppendLine("Environment: " + Property.Value["inputs"]["parameters"]["dataset"]);
 
                         sb.AppendLine("Entity: " + (Property.Value["inputs"]?["parameters"]?["entityName"] != null ?
                                              Property.Value["inputs"]["parameters"]["entityName"].ToString() : Property.Value["inputs"]["parameters"]["table"].ToString()));
@@ -935,16 +948,16 @@ namespace LinkeD365.FlowToVisio
                         omitList = new List<string> { "entityName", "recordId", "dataset", "table", "id" };
                         foreach (var param in Property.Value["inputs"]["parameters"].Children<JProperty>().Where(el => !omitList.Any(o => o == el.Name)))
                         {
-                            sb.AppendLine(param.Name.Substring(5, param.Name.Length - 5) + " : " + param.Value.ToString());
+                            sb.AppendLine(param.Name.Substring(5, param.Name.Length - 5) + " : " + param.Value);
                         }
                         break;
 
                     case "UpdateEntityFileImageFieldContent":
                         type = "Update File or Image Content";
-                        sb.AppendLine("Entity: " + Property.Value["inputs"]["parameters"]["entityName"].ToString());
-                        sb.AppendLine("Record Id: " + Property.Value["inputs"]["parameters"]["recordId"].ToString());
-                        sb.AppendLine("Field: " + Property.Value["inputs"]["parameters"]["fileImageFieldName"].ToString());
-                        sb.AppendLine("File Name:" + Property.Value["inputs"]["parameters"]["x-ms-file-name"].ToString());
+                        sb.AppendLine("Entity: " + Property.Value["inputs"]["parameters"]["entityName"]);
+                        sb.AppendLine("Record Id: " + Property.Value["inputs"]["parameters"]["recordId"]);
+                        sb.AppendLine("Field: " + Property.Value["inputs"]["parameters"]["fileImageFieldName"]);
+                        sb.AppendLine("File Name:" + Property.Value["inputs"]["parameters"]["x-ms-file-name"]);
 
                         break;
 
@@ -965,7 +978,7 @@ namespace LinkeD365.FlowToVisio
 
                             foreach (var query in ((JObject)Property.Value["inputs"]["queries"]).Children<JProperty>())
                             {
-                                sb.AppendLine(query.Name.Substring(1, query.Name.Length - 1) + ": " + query.Value.ToString());
+                                sb.AppendLine(query.Name.Substring(1, query.Name.Length - 1) + ": " + query.Value);
                             }
                         }
                         else
@@ -984,7 +997,7 @@ namespace LinkeD365.FlowToVisio
                         sb.AppendLine("Fields: ");
                         foreach (var query in ((JObject)Property.Value["inputs"]["body"]).Children<JProperty>())
                         {
-                            sb.AppendLine(query.Name + ": " + query.Value.ToString());
+                            sb.AppendLine(query.Name + ": " + query.Value);
                         }
 
                         break;
@@ -1022,14 +1035,14 @@ namespace LinkeD365.FlowToVisio
             AddType("CDS Trigger");
             var sb = new StringBuilder("Trigger Condition: ");
             sb.Append(conditions.First(kvp => kvp.Key == Property.Value["inputs"]["parameters"]["subscriptionRequest/message"].ToString()).Value);
-            sb.AppendLine(" Entity: " + Property.Value["inputs"]["parameters"]["subscriptionRequest/entityname"].ToString());
+            sb.AppendLine(" Entity: " + Property.Value["inputs"]["parameters"]["subscriptionRequest/entityname"]);
             sb.AppendLine("Scope: " + conditions.First(kvp => kvp.Key == Property.Value["inputs"]["parameters"]["subscriptionRequest/scope"].ToString()).Value);
 
             if (Property.Value["inputs"]?["parameters"]?["subscriptionRequest/runas"] != null) sb.AppendLine("Run As: " +
                conditions.First(kvp => kvp.Key == Property.Value["inputs"]["parameters"]["subscriptionRequest/runas"].ToString()).Value);
-            if (Property.Value["inputs"]?["parameters"]?["subscriptionRequest/filteringattributes"] != null) sb.AppendLine("Only These attributes: " + Property.Value["inputs"]["parameters"]["subscriptionRequest/filteringattributes"].ToString());
-            if (Property.Value["inputs"]?["parameters"]?["subscriptionRequest/filterexpression"] != null) sb.AppendLine("Filter Expression: " + Property.Value["inputs"]["parameters"]["subscriptionRequest/filterexpression"].ToString());
-            if (Property.Value["inputs"]?["parameters"]?["subscriptionRequest/postponeuntil"] != null) sb.AppendLine("Postpone Until: " + Property.Value["inputs"]["parameters"]["subscriptionRequest/postponeuntil"].ToString());
+            if (Property.Value["inputs"]?["parameters"]?["subscriptionRequest/filteringattributes"] != null) sb.AppendLine("Only These attributes: " + Property.Value["inputs"]["parameters"]["subscriptionRequest/filteringattributes"]);
+            if (Property.Value["inputs"]?["parameters"]?["subscriptionRequest/filterexpression"] != null) sb.AppendLine("Filter Expression: " + Property.Value["inputs"]["parameters"]["subscriptionRequest/filterexpression"]);
+            if (Property.Value["inputs"]?["parameters"]?["subscriptionRequest/postponeuntil"] != null) sb.AppendLine("Postpone Until: " + Property.Value["inputs"]["parameters"]["subscriptionRequest/postponeuntil"]);
 
             AddText(sb);
         }
@@ -1057,7 +1070,7 @@ namespace LinkeD365.FlowToVisio
                     var sb = new StringBuilder("Fields: ").AppendLine();
                     foreach (var props in Property.Value["inputs"]["schema"]["properties"]["rows"]["items"]["properties"].Children<JProperty>())
                     {
-                        sb.AppendLine(props.Value["title"] + " : " + (metaList.Any(m => m.Label == props.Name) ? "(rqd) " : "") + "(" + props.Value["type"].ToString() + ") " + props.Value["description"].ToString());
+                        sb.AppendLine(props.Value["title"] + " : " + (metaList.Any(m => m.Label == props.Name) ? "(rqd) " : "") + "(" + props.Value["type"] + ") " + props.Value["description"]);
                     }
                     AddText(sb);
                 }
@@ -1094,7 +1107,7 @@ namespace LinkeD365.FlowToVisio
                 sb.AppendLine("Parameters:");
                 foreach (var props in ((JObject)Property.Value["inputs"]["body"]).Children<JProperty>())
                 {
-                    sb.AppendLine(props.Name + ": " + props.Value.ToString());
+                    sb.AppendLine(props.Name + ": " + props.Value);
                 }
             }
             AddText(sb.ToString());
@@ -1135,13 +1148,13 @@ namespace LinkeD365.FlowToVisio
                 {
                     foreach (var props in Property.Value["inputs"]["queries"].Children<JProperty>())
                     {
-                        sb.AppendLine(props.Name + " : " + props.Value.ToString());
+                        sb.AppendLine(props.Name + " : " + props.Value);
                     }
                 }
             }
             else
             {
-                AddType("Excel " + Property.Value["inputs"]["host"]["operationId"].ToString());
+                AddType("Excel " + Property.Value["inputs"]["host"]["operationId"]);
                 var metaList = new List<Meta>();
                 if (Property.Value["metadata"] != null && Property.Value["metadata"].HasValues)
                 {
@@ -1185,14 +1198,14 @@ namespace LinkeD365.FlowToVisio
                     }
                 }
                 else AddType("");
-                sb.AppendLine("Method: " + Property.Value["inputs"]["method"].ToString());
-                sb.AppendLine("Path: " + Property.Value["inputs"]["path"].ToString());
+                sb.AppendLine("Method: " + Property.Value["inputs"]["method"]);
+                sb.AppendLine("Path: " + Property.Value["inputs"]["path"]);
 
                 if (Property.Value["inputs"]?["body"] != null && Property.Value["inputs"]["body"].HasValues)
                 {
                     foreach (var props in Property.Value["inputs"]["body"].Children<JProperty>())
                     {
-                        sb.AppendLine(props.Name + " : " + props.Value.ToString());
+                        sb.AppendLine(props.Name + " : " + props.Value);
                     }
                 }
             }
@@ -1221,7 +1234,7 @@ namespace LinkeD365.FlowToVisio
                 {
                     foreach (var props in Property.Value["inputs"]["parameters"].Children<JProperty>())
                     {
-                        sb.AppendLine(props.Name + " : " + props.Value.ToString());
+                        sb.AppendLine(props.Name + " : " + props.Value);
                     }
                 }
             }
@@ -1251,14 +1264,14 @@ namespace LinkeD365.FlowToVisio
                     }
                 }
                 else AddType("");
-                sb.AppendLine("Method: " + Property.Value["inputs"]["method"].ToString());
-                sb.AppendLine("Path: " + Property.Value["inputs"]["path"].ToString());
+                sb.AppendLine("Method: " + Property.Value["inputs"]["method"]);
+                sb.AppendLine("Path: " + Property.Value["inputs"]["path"]);
 
                 if (Property.Value["inputs"]?["body"] != null && Property.Value["inputs"]["body"].HasValues)
                 {
                     foreach (var props in Property.Value["inputs"]["body"].Children<JProperty>())
                     {
-                        sb.AppendLine(props.Name + " : " + props.Value.ToString());
+                        sb.AppendLine(props.Name + " : " + props.Value);
                     }
                 }
             }
@@ -1287,7 +1300,7 @@ namespace LinkeD365.FlowToVisio
                 {
                     foreach (var props in Property.Value["inputs"]["parameters"].Children<JProperty>())
                     {
-                        sb.AppendLine(props.Name + " : " + props.Value.ToString());
+                        sb.AppendLine(props.Name + " : " + props.Value);
                     }
                 }
             }
@@ -1301,7 +1314,7 @@ namespace LinkeD365.FlowToVisio
         {
             AddName("Flow Button Trigger");
             AddType("Trigger");
-            AddText("Schema: " + Property.Value["inputs"]["schema"].ToString());
+            AddText("Schema: " + Property.Value["inputs"]["schema"]);
         }
     }
 
@@ -1314,9 +1327,9 @@ namespace LinkeD365.FlowToVisio
 
             if (Property.Value["recurrence"] != null)
             {
-                var sb = new StringBuilder("Frequency: " + Property.Value["recurrence"]["frequency"].ToString()).AppendLine();
-                sb.AppendLine("Interval: " + Property.Value["recurrence"]["interval"].ToString());
-                sb.AppendLine("Start: " + Property.Value["recurrence"]["startTime"].ToString());
+                var sb = new StringBuilder("Frequency: " + Property.Value["recurrence"]["frequency"]).AppendLine();
+                sb.AppendLine("Interval: " + Property.Value["recurrence"]["interval"]);
+                sb.AppendLine("Start: " + Property.Value["recurrence"]["startTime"]);
                 AddText(sb);
             }
         }
@@ -1344,7 +1357,7 @@ namespace LinkeD365.FlowToVisio
                 {
                     foreach (var props in Property.Value["inputs"]["schema"]["properties"].Children<JProperty>())
                     {
-                        sb.AppendLine(props.Name + " : " + (metaList.Any(m => m.Label == props.Name) ? "(rqd) " : "") + props.Value["description"].ToString());
+                        sb.AppendLine(props.Name + " : " + (metaList.Any(m => m.Label == props.Name) ? "(rqd) " : "") + props.Value["description"]);
                     }
                 }
                 AddText(sb);

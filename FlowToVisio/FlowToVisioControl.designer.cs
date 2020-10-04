@@ -36,15 +36,15 @@
             this.btnCreateVisio = new System.Windows.Forms.ToolStripButton();
             this.gridFlows = new xrmtb.XrmToolBox.Controls.CRMGridView();
             this.splitMain = new System.Windows.Forms.SplitContainer();
-            this.txtFileName = new System.Windows.Forms.TextBox();
-            this.btnFile = new System.Windows.Forms.Button();
-            this.saveDialog = new System.Windows.Forms.SaveFileDialog();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.lblSearch = new System.Windows.Forms.Label();
-            this.textSearch = new System.Windows.Forms.TextBox();
             this.splitTop = new System.Windows.Forms.SplitContainer();
             this.splitSearch = new System.Windows.Forms.SplitContainer();
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.textSearch = new System.Windows.Forms.TextBox();
             this.splitFile = new System.Windows.Forms.SplitContainer();
+            this.btnFile = new System.Windows.Forms.Button();
+            this.txtFileName = new System.Windows.Forms.TextBox();
+            this.saveDialog = new System.Windows.Forms.SaveFileDialog();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridFlows)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
@@ -102,6 +102,7 @@
             // 
             // gridFlows
             // 
+            this.gridFlows.AllowUserToOrderColumns = true;
             this.gridFlows.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.gridFlows.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
@@ -122,7 +123,7 @@
             this.gridFlows.ShowIdColumn = false;
             this.gridFlows.ShowIndexColumn = false;
             this.gridFlows.ShowLocalTimes = true;
-            this.gridFlows.Size = new System.Drawing.Size(908, 699);
+            this.gridFlows.Size = new System.Drawing.Size(908, 694);
             this.gridFlows.TabIndex = 5;
             // 
             // splitMain
@@ -142,48 +143,8 @@
             // 
             this.splitMain.Panel2.Controls.Add(this.gridFlows);
             this.splitMain.Size = new System.Drawing.Size(908, 723);
-            this.splitMain.SplitterDistance = 20;
+            this.splitMain.SplitterDistance = 25;
             this.splitMain.TabIndex = 6;
-            // 
-            // txtFileName
-            // 
-            this.txtFileName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtFileName.Enabled = false;
-            this.txtFileName.Location = new System.Drawing.Point(0, 0);
-            this.txtFileName.Name = "txtFileName";
-            this.txtFileName.ReadOnly = true;
-            this.txtFileName.Size = new System.Drawing.Size(310, 20);
-            this.txtFileName.TabIndex = 2;
-            // 
-            // btnFile
-            // 
-            this.btnFile.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnFile.Location = new System.Drawing.Point(0, 0);
-            this.btnFile.Name = "btnFile";
-            this.btnFile.Size = new System.Drawing.Size(50, 20);
-            this.btnFile.TabIndex = 3;
-            this.btnFile.Text = "File";
-            this.btnFile.UseVisualStyleBackColor = true;
-            this.btnFile.Click += new System.EventHandler(this.btnFile_Click);
-            // 
-            // lblSearch
-            // 
-            this.lblSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSearch.AutoSize = true;
-            this.lblSearch.Location = new System.Drawing.Point(3, 0);
-            this.lblSearch.Name = "lblSearch";
-            this.lblSearch.Size = new System.Drawing.Size(41, 13);
-            this.lblSearch.TabIndex = 5;
-            this.lblSearch.Text = "Search";
-            // 
-            // textSearch
-            // 
-            this.textSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textSearch.Location = new System.Drawing.Point(0, 0);
-            this.textSearch.Name = "textSearch";
-            this.textSearch.Size = new System.Drawing.Size(496, 20);
-            this.textSearch.TabIndex = 4;
-            this.textSearch.TextChanged += new System.EventHandler(this.textSearch_TextChanged);
             // 
             // splitTop
             // 
@@ -198,7 +159,7 @@
             // splitTop.Panel2
             // 
             this.splitTop.Panel2.Controls.Add(this.splitFile);
-            this.splitTop.Size = new System.Drawing.Size(908, 20);
+            this.splitTop.Size = new System.Drawing.Size(908, 25);
             this.splitTop.SplitterDistance = 540;
             this.splitTop.TabIndex = 6;
             // 
@@ -216,9 +177,28 @@
             // splitSearch.Panel2
             // 
             this.splitSearch.Panel2.Controls.Add(this.textSearch);
-            this.splitSearch.Size = new System.Drawing.Size(540, 20);
+            this.splitSearch.Size = new System.Drawing.Size(540, 25);
             this.splitSearch.SplitterDistance = 40;
             this.splitSearch.TabIndex = 6;
+            // 
+            // lblSearch
+            // 
+            this.lblSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Location = new System.Drawing.Point(3, 2);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new System.Drawing.Size(41, 13);
+            this.lblSearch.TabIndex = 5;
+            this.lblSearch.Text = "Search";
+            // 
+            // textSearch
+            // 
+            this.textSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textSearch.Location = new System.Drawing.Point(0, 0);
+            this.textSearch.Name = "textSearch";
+            this.textSearch.Size = new System.Drawing.Size(496, 20);
+            this.textSearch.TabIndex = 4;
+            this.textSearch.TextChanged += new System.EventHandler(this.textSearch_TextChanged);
             // 
             // splitFile
             // 
@@ -234,8 +214,34 @@
             // splitFile.Panel2
             // 
             this.splitFile.Panel2.Controls.Add(this.txtFileName);
-            this.splitFile.Size = new System.Drawing.Size(364, 20);
+            this.splitFile.Size = new System.Drawing.Size(364, 25);
             this.splitFile.TabIndex = 4;
+            // 
+            // btnFile
+            // 
+            this.btnFile.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnFile.Location = new System.Drawing.Point(0, 0);
+            this.btnFile.Name = "btnFile";
+            this.btnFile.Size = new System.Drawing.Size(50, 20);
+            this.btnFile.TabIndex = 3;
+            this.btnFile.Text = "File";
+            this.btnFile.UseVisualStyleBackColor = true;
+            this.btnFile.Click += new System.EventHandler(this.btnFile_Click);
+            // 
+            // txtFileName
+            // 
+            this.txtFileName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtFileName.Enabled = false;
+            this.txtFileName.Location = new System.Drawing.Point(0, 0);
+            this.txtFileName.Name = "txtFileName";
+            this.txtFileName.ReadOnly = true;
+            this.txtFileName.Size = new System.Drawing.Size(310, 20);
+            this.txtFileName.TabIndex = 2;
+            // 
+            // saveDialog
+            // 
+            this.saveDialog.DefaultExt = "vsdx";
+            this.saveDialog.Filter = "Visio Files(*.vsdx)|*.vsdx";
             // 
             // FlowToVisioControl
             // 

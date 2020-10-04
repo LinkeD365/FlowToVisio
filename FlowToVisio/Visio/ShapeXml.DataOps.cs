@@ -13,7 +13,7 @@ namespace LinkeD365.FlowToVisio
         {
             AddName();
             AddType();
-            AddText("Value: " + Property.Value["inputs"].ToString());
+            AddText("Value: " + Property.Value["inputs"]);
         }
     }
 
@@ -24,15 +24,15 @@ namespace LinkeD365.FlowToVisio
             AddName();
             AddType();
 
-            var sb = new StringBuilder("From: " + Property.Value["inputs"]["from"].ToString()).AppendLine();
-            sb.AppendLine("Format: " + Property.Value["inputs"]["format"].ToString());
+            var sb = new StringBuilder("From: " + Property.Value["inputs"]["from"]).AppendLine();
+            sb.AppendLine("Format: " + Property.Value["inputs"]["format"]);
 
             if (Property.Value["inputs"]["columns"] != null && Property.Value["inputs"]["columns"].HasValues)
             {
                 sb.AppendLine("Columns:");
                 foreach (var props in Property.Value["inputs"]["columns"].First().Children<JProperty>())
                 {
-                    sb.AppendLine(props.Name + ": " + props.Value.ToString());
+                    sb.AppendLine(props.Name + ": " + props.Value);
                 }
             }
 
@@ -47,8 +47,8 @@ namespace LinkeD365.FlowToVisio
             AddName();
             AddType("Filter Array");
 
-            var sb = new StringBuilder("From: " + Property.Value["inputs"]["from"].ToString()).AppendLine();
-            sb.AppendLine("Where: " + Property.Value["inputs"]["where"].ToString());
+            var sb = new StringBuilder("From: " + Property.Value["inputs"]["from"]).AppendLine();
+            sb.AppendLine("Where: " + Property.Value["inputs"]["where"]);
 
             AddText(sb.ToString());
         }
@@ -61,8 +61,8 @@ namespace LinkeD365.FlowToVisio
             AddName();
             AddType("Join");
 
-            var sb = new StringBuilder("From: " + Property.Value["inputs"]["from"].ToString()).AppendLine();
-            sb.AppendLine("Join With: " + Property.Value["inputs"]["joinWith"].ToString());
+            var sb = new StringBuilder("From: " + Property.Value["inputs"]["from"]).AppendLine();
+            sb.AppendLine("Join With: " + Property.Value["inputs"]["joinWith"]);
 
             AddText(sb.ToString());
         }
@@ -75,8 +75,8 @@ namespace LinkeD365.FlowToVisio
             AddName();
             AddType("Parse JSON");
 
-            var sb = new StringBuilder("Content: " + Property.Value["inputs"]["content"].ToString()).AppendLine();
-            sb.AppendLine("Schema: " + Property.Value["inputs"]["schema"].ToString());
+            var sb = new StringBuilder("Content: " + Property.Value["inputs"]["content"]).AppendLine();
+            sb.AppendLine("Schema: " + Property.Value["inputs"]["schema"]);
 
             AddText(sb.ToString());
         }
@@ -89,14 +89,14 @@ namespace LinkeD365.FlowToVisio
             AddName();
             AddType("Select");
 
-            var sb = new StringBuilder("From: " + Property.Value["inputs"]["from"].ToString()).AppendLine();
+            var sb = new StringBuilder("From: " + Property.Value["inputs"]["from"]).AppendLine();
 
             if (Property.Value["inputs"]["select"] != null && Property.Value["inputs"]["select"].HasValues)
             {
                 sb.AppendLine("Map:");
                 foreach (var props in Property.Value["inputs"]["select"].Children<JProperty>())
                 {
-                    sb.AppendLine(props.Name + ": " + props.Value.ToString());
+                    sb.AppendLine(props.Name + ": " + props.Value);
                 }
             }
 

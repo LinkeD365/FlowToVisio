@@ -17,7 +17,7 @@ namespace LinkeD365.FlowToVisio
         public const string VisioXmlNamespace2003 = "{http://schemas.microsoft.com/visio/2003/core}";
         public const string VisioXmlNamespace2006 = "{http://schemas.microsoft.com/visio/2006/extension}";
 
-        private List<string> templates = new List<string> { "Default", "case", "HttpAction", "VariableAction", "Line", "condition", "Teams", "CDS", "Scope", "Compose", "Excel", "Flow", "Outlook", "PowerApp" };
+        private List<string> templates = new List<string> { "Default", "case", "HttpAction", "VariableAction", "Line", "condition", "Teams", "CDS", "Scope", "Compose", "Excel", "Flow", "Outlook", "PowerApp", "SharePoint" };
 
         private static double pageWidth = 11;
         private static double pageHeight = 8;
@@ -72,7 +72,7 @@ namespace LinkeD365.FlowToVisio
 
             Utils.Ai.WriteEvent("Flow Actions", Utils.actionCount);
 
-            MessageBox.Show("Visio generated with " + Utils.actionCount.ToString() + " actions");
+            MessageBox.Show("Visio generated with " + Utils.actionCount + " actions");
             Utils.actionCount = 0;
 
             package.Close();

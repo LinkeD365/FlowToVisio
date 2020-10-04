@@ -55,86 +55,25 @@ namespace LinkeD365.FlowToVisio
         {
         }
 
-        protected void AddChildActions(IEnumerable<JProperty> childActions, Action parent, int FinalNo)
+        protected void AddChildActions(IEnumerable<JProperty> childActions, Action parent, int finalNo)
         {
             int childCount = childActions.Count();
             int curCount = 0;
             foreach (var actionProperty in childActions)
             {
                 var childAction = Utils.AddAction(actionProperty, parent, ++curCount, childCount);
-                FinalActions[FinalNo] = childAction;
-                if (actionProperty.Parent.Children<JProperty>().Any(el => el.Value["runAfter"].HasValues && ((JProperty)el.Value["runAfter"].First()).Name == childAction.PropertyName))
+                FinalActions[finalNo] = childAction.EndAction;
+                if (actionProperty.Parent != null && actionProperty.Parent.Children<JProperty>().Any(el => el.Value["runAfter"].HasValues && ((JProperty)el.Value["runAfter"].First()).Name == childAction.PropertyName))
                 {
-                    AddChildActions(actionProperty.Parent.Children<JProperty>().Where(el => el.Value["runAfter"].HasValues && ((JProperty)el.Value["runAfter"].First()).Name == childAction.PropertyName), childAction, FinalNo);
+                    AddChildActions(actionProperty.Parent.Children<JProperty>().Where(el => el.Value["runAfter"].HasValues && ((JProperty)el.Value["runAfter"].First()).Name == childAction.PropertyName), childAction, finalNo);
                 }
             }
         }
 
-        //private Action AddAction(JProperty actionProperty, Action parent, int curCount, int childCount)
-        //{
-        //    if (actionProperty.Value["type"] == null)
-        //    {
-        //        return new Action(actionProperty, xmlPage, parent, curCount, childCount);
-        //    }
-        //    else
-        //    {
-        //        switch (actionProperty.Value["type"].ToString())
-        //        {
-        //            case "InitializeVariable":
-        //                return new InitVariable(actionProperty, parent, curCount, childCount);
-
-        //            case "SetVariable":
-        //                return new SetVariable(actionProperty, parent, curCount, childCount);
-
-        //            case "Http":
-        //                return new HttpAction(actionProperty, parent, curCount, childCount);
-
-        //            case "Response":
-        //                return new HttpResponse(actionProperty, parent, curCount, childCount);
-
-        //            case "If":
-        //                return new IfAction(actionProperty, parent, curCount, childCount);
-
-        //            case "Switch":
-        //                return new SwitchAction(actionProperty, parent, curCount, childCount);
-
-        //            case "Foreach":
-        //                return new ForEachAction(actionProperty, parent, curCount, childCount);
-
-        //            case "Terminate":
-        //                return new Terminate(actionProperty, parent, curCount, childCount);
-
-        //            case "ApiConnection":
-        //                return CreateAPIAction(actionProperty, parent, curCount, childCount);
-
-        //            default:
-        //                return new Action(actionProperty, parent, curCount, childCount);
-        //        }
-        //    }
-        //}
-
-        //private Action CreateAPIAction(JProperty actionProperty, Action parent, int curCount, int childCount)
-        //{
-        //    var connectionName = actionProperty.Value["inputs"]["host"]["connection"]["name"].ToString();
-
-        //    int pFrom = connectionName.IndexOf("['") + 2;
-        //    int pTo = connectionName.IndexOf("']");
-        //    connectionName = connectionName.Substring(pFrom, pTo - pFrom);
-        //    switch (Connection.APIConnections(actionProperty.Root).First(con => con.Name == connectionName).Api)
-        //    {
-        //        case "shared_commondataservice":
-        //            return new CDSAction(actionProperty, parent, curCount, childCount);
-
-        //        default:
-        //            return new Action(actionProperty, parent, curCount, childCount);
-        //    }
-        //}
     }
 
     public class IfAction : ConditionAction
     {
-        public int YesId;
-        //    private CaseAction yes;
 
         public CaseAction Yes { get; private set; }
         public CaseAction No { get; private set; }
@@ -168,15 +107,15 @@ namespace LinkeD365.FlowToVisio
         {
             Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + property.Name + "' U='STR'/></Row>"));
             Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='If' U='STR'/></Row>"));
-            var textElement = Shape.Descendants().Where(el => el.Name.LocalName == "Text").First();
+            var textElement = Shape.Descendants().First(el => el.Name.LocalName == "Text");
             var sb = new StringBuilder("<Text><![CDATA[Expression: ");
             var condition = ((JObject)property.Value["expression"]).Children<JProperty>().First();
-            sb.Append(condition.Value.First().ToString() + " " + condition.Name + " " + condition.Value.Last().ToString());
+            sb.Append(condition.Value.First() + " " + condition.Name + " " + condition.Value.Last());
             // sb.AppendLine(((JObject)property.Value["expression"]).Children<JProperty>().First().Name
 
             //sb.AppendLine("Type: " + (property.Value["inputs"] as JObject)["variables"][0]["type"].ToString() + "]]></Text>");
 
-            textElement.ReplaceWith(XElement.Parse(sb.ToString() + "]]></Text>"));
+            textElement.ReplaceWith(XElement.Parse(sb + "]]></Text>"));
 
             CreateYesNo();
         }
@@ -189,11 +128,11 @@ namespace LinkeD365.FlowToVisio
             AddFillColour("234,237,239");
             Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + property.Name + "' U='STR'/></Row>"));
             Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='Switch' U='STR'/></Row>"));
-            var textElement = Shape.Descendants().Where(el => el.Name.LocalName == "Text").First();
+            var textElement = Shape.Descendants().First(el => el.Name.LocalName == "Text");
             var sb = new StringBuilder("<Text><![CDATA[Expression: ");
             // var condition = ((JObject)property.Value["expression"]).Children<JProperty>().First();
-            sb.Append(property.Value["expression"].ToString());
-            textElement.ReplaceWith(XElement.Parse(sb.ToString() + "]]></Text>"));
+            sb.Append(property.Value["expression"]);
+            textElement.ReplaceWith(XElement.Parse(sb + "]]></Text>"));
 
             CreateCases();
         }
@@ -206,7 +145,7 @@ namespace LinkeD365.FlowToVisio
             foreach (var caseProperty in ((JObject)Property.Value["cases"]).Children<JProperty>())
             {
                 var caseAction = new CaseAction(caseProperty, this, ++curCount, childCount);
-                caseAction.Props.Add(XElement.Parse("<Row N='ActionCase'> <Cell N='Value' V='" + caseProperty.Name + " | Value = " + caseProperty.Value["case"].ToString() + "' U='STR'/></Row>"));
+                caseAction.Props.Add(XElement.Parse("<Row N='ActionCase'> <Cell N='Value' V='" + caseProperty.Name + " | Value = " + caseProperty.Value["case"] + "' U='STR'/></Row>"));
                 FinalActions.Add(caseAction);
                 if (caseProperty.Value["actions"] != null && ((JObject)caseProperty.Value["actions"]).Children<JProperty>().Count() > 0)
                 {
@@ -233,11 +172,11 @@ namespace LinkeD365.FlowToVisio
         {
             Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + property.Name + "' U='STR'/></Row>"));
             Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='For Each' U='STR'/></Row>"));
-            var textElement = Shape.Descendants().Where(el => el.Name.LocalName == "Text").First();
+            var textElement = Shape.Descendants().First(el => el.Name.LocalName == "Text");
             var sb = new StringBuilder("<Text><![CDATA[On: ");
             // var condition = ((JObject)property.Value["expression"]).Children<JProperty>().First();
-            sb.Append(property.Value["foreach"].ToString());
-            textElement.ReplaceWith(XElement.Parse(sb.ToString() + "]]></Text>"));
+            sb.Append(property.Value["foreach"]);
+            textElement.ReplaceWith(XElement.Parse(sb + "]]></Text>"));
             FinalActions.Add(this);
             AddChildActions(((JObject)Property.Value["actions"]).Children<JProperty>().Where(el => !el.Value["runAfter"].HasValues), this, 0);
 
@@ -269,13 +208,13 @@ namespace LinkeD365.FlowToVisio
             AddName();
             AddType("Do Until");
 
-            var sb = new StringBuilder("Expression: " + Property.Value["expression"].ToString()).AppendLine();
+            var sb = new StringBuilder("Expression: " + Property.Value["expression"]).AppendLine();
             if (Property.Value["limit"] != null && Property.Value["limit"].HasValues)
             {
                 sb.AppendLine("Limit:");
                 foreach (var props in Property.Value["limit"].Children<JProperty>())
                 {
-                    sb.AppendLine(props.Name + ": " + props.Value.ToString());
+                    sb.AppendLine(props.Name + ": " + props.Value);
                 }
             }
             AddText(sb.ToString());
