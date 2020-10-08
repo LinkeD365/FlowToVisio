@@ -16,8 +16,6 @@ namespace LinkeD365.FlowToVisio
     {
 
 
-        private List<BaseShape> shapesList = new List<BaseShape>();
-        private List<Connection> connections = new List<Connection>();
         private JObject flowObject;
 
         #region xmlVisio bits

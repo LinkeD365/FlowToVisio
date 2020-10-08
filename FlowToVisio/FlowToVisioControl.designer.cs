@@ -35,6 +35,7 @@
             this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCreateVisio = new System.Windows.Forms.ToolStripButton();
             this.btnConnectFlow = new System.Windows.Forms.ToolStripButton();
+            this.btnConnectCDS = new System.Windows.Forms.ToolStripButton();
             this.splitMain = new System.Windows.Forms.SplitContainer();
             this.splitTop = new System.Windows.Forms.SplitContainer();
             this.splitSearch = new System.Windows.Forms.SplitContainer();
@@ -46,7 +47,6 @@
             this.grdFlows = new System.Windows.Forms.DataGridView();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.btnConnectCDS = new System.Windows.Forms.ToolStripButton();
             this.toolStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
@@ -112,6 +112,15 @@
             this.btnConnectFlow.Size = new System.Drawing.Size(143, 28);
             this.btnConnectFlow.Text = "Connect to Flow API";
             this.btnConnectFlow.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // btnConnectCDS
+            // 
+            this.btnConnectCDS.Image = global::LinkeD365.FlowToVisio.Properties.Resources.CDSbtton;
+            this.btnConnectCDS.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnConnectCDS.Name = "btnConnectCDS";
+            this.btnConnectCDS.Size = new System.Drawing.Size(119, 28);
+            this.btnConnectCDS.Text = "Connect to CDS";
+            this.btnConnectCDS.Click += new System.EventHandler(this.btnConnectCDS_Click);
             // 
             // splitMain
             // 
@@ -241,15 +250,6 @@
             // 
             this.saveDialog.DefaultExt = "vsdx";
             this.saveDialog.Filter = "Visio Files(*.vsdx)|*.vsdx";
-            // 
-            // btnConnectCDS
-            // 
-            this.btnConnectCDS.Image = global::LinkeD365.FlowToVisio.Properties.Resources.CDSbtton;
-            this.btnConnectCDS.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnConnectCDS.Name = "btnConnectCDS";
-            this.btnConnectCDS.Size = new System.Drawing.Size(119, 28);
-            this.btnConnectCDS.Text = "Connect to CDS";
-            this.btnConnectCDS.Click += new System.EventHandler(this.btnConnectCDS_Click);
             // 
             // FlowToVisioControl
             // 

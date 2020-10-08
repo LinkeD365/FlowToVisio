@@ -17,24 +17,23 @@ namespace LinkeD365.FlowToVisio
     {
         private FlowConnection _flowConnection;
 
-        private FlowToVisioControl _flowControl;
-        public ApiConnection(FlowToVisioControl flowControl, FlowConnection flowConnecton)
+        public ApiConnection( FlowConnection flowConnecton)
         {
             InitializeComponent();
             _flowConnection = flowConnecton;
-            cboRegion.Items.Clear();
-            cboRegion.Items.AddRange(Utils.FlowRegions.ToArray());
+            txtTenant.Text = _flowConnection.TenantId;
+            txtEnvironment.Text = _flowConnection.Environment;
+            txtAppId.Text = _flowConnection.AppId;
+            txtReturnURL.Text = _flowConnection.ReturnURL;
 
-            cboRegion.DisplayMember = "Name";
         }
 
         public HttpClient GetClient()
         {
-            if (ShowDialog(_flowControl) == DialogResult.OK)
+            if (ShowDialog() == DialogResult.OK)
             {
                 _flowConnection.TenantId = txtTenant.Text;
                 _flowConnection.AppId = txtAppId.Text;
-                _flowConnection.Region = cboRegion.SelectedItem as FlowRegion;
                 _flowConnection.ReturnURL = txtReturnURL.Text;
                 _flowConnection.Environment = txtEnvironment.Text;
                 return Connect();
@@ -76,7 +75,7 @@ namespace LinkeD365.FlowToVisio
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (txtAppId.Text == string.Empty || txtTenant.Text == string.Empty || txtEnvironment.Text == string.Empty || txtReturnURL.Text == string.Empty || cboRegion.SelectedItem == null)
+            if (txtAppId.Text == string.Empty || txtTenant.Text == string.Empty || txtEnvironment.Text == string.Empty || txtReturnURL.Text == string.Empty )
             {
                 MessageBox.Show("Please ensure all fields have a value", "Required properties missing", MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);

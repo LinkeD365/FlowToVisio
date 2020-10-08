@@ -371,7 +371,6 @@ namespace LinkeD365.FlowToVisio
                         sb.AppendLine("Site: " + Property.Value["inputs"]["parameters"]["dataset"]);
                         sb.AppendLine("List/Library: " + Property.Value["inputs"]["parameters"]["table"]);
                         break;
-                        break;
                     case "GetTables":
                         AddType("Get Lists");
                         sb.AppendLine("Site: " + Property.Value["inputs"]["parameters"]["dataset"]);

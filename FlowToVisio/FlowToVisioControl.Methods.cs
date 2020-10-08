@@ -1,16 +1,11 @@
-﻿using Microsoft.Crm.Sdk.Messages;
-using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Metadata.Query;
-using Microsoft.Xrm.Sdk.Query;
+﻿using Microsoft.Xrm.Sdk.Query;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json.Linq;
 using XrmToolBox.Extensibility;
 
 namespace LinkeD365.FlowToVisio
@@ -18,8 +13,7 @@ namespace LinkeD365.FlowToVisio
     public partial class FlowToVisioControl : PluginControlBase
     {
         private List<FlowDefinition> flows;
-        private EntityCollection flowRecords;
-        private FlowConnection flowConnection = new FlowConnection();
+        private FlowConnection flowConnection;
 
         private void LoadFlows()
         {
@@ -71,7 +65,7 @@ namespace LinkeD365.FlowToVisio
 
         private void LoadUnSolutionedFlows()
         {
-            ApiConnection apiConnection = new ApiConnection(this, flowConnection);
+            ApiConnection apiConnection = new ApiConnection(flowConnection);
             try
             {
                 _client = apiConnection.GetClient();
@@ -83,6 +77,7 @@ namespace LinkeD365.FlowToVisio
             } 
             if (_client == null) return;
             //GetClient();
+            SettingsManager.Instance.Save(typeof(FlowConnection), flowConnection);
 
             WorkAsync(new WorkAsyncInfo
             {
@@ -90,7 +85,7 @@ namespace LinkeD365.FlowToVisio
                 Work = (w, args) =>
                 {
 
-                    args.Result = _client.GetAsync($"https://{flowConnection.Region.flowPrefix}.api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConnection.Environment}/flows?&api-version=2016-11-01").GetAwaiter().GetResult();
+                    args.Result = _client.GetAsync($"https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConnection.Environment}/flows?&api-version=2016-11-01").GetAwaiter().GetResult();
                     //    var response = _client.GetAsync("https://unitedkingdom.api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/32180c50-6a4d-42cd-bcf1-75f1cfc5bc77/flows?&api-version=2016-11-01").GetAwaiter().GetResult();
 
 
@@ -156,7 +151,7 @@ namespace LinkeD365.FlowToVisio
                 Message = "Loading Flow",
                 Work = (w, args) =>
                 {
-                   args.Result = _client.GetAsync($"https://{flowConnection.Region.flowPrefix}.api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConnection.Environment}/flows/{flowDefinition.Id}?&api-version=2016-11-01").GetAwaiter().GetResult();
+                   args.Result = _client.GetAsync($"https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConnection.Environment}/flows/{flowDefinition.Id}?&api-version=2016-11-01").GetAwaiter().GetResult();
 
                     //jsonResponse = response2.Content.ReadAsStringAsync().GetAwaiter().GetResult();
                 },
@@ -227,7 +222,6 @@ namespace LinkeD365.FlowToVisio
     {
         public string AppId;
         public string TenantId;
-        public FlowRegion Region;
         public string ReturnURL;
         public string Environment;
     }

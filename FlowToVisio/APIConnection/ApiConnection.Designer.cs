@@ -32,8 +32,6 @@
             this.txtAppId = new System.Windows.Forms.TextBox();
             this.txtEnvironment = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cboRegion = new System.Windows.Forms.ComboBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.txtTenant = new System.Windows.Forms.TextBox();
@@ -74,27 +72,10 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Environment Id:";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(41, 116);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Flow Region:";
-            // 
-            // cboRegion
-            // 
-            this.cboRegion.FormattingEnabled = true;
-            this.cboRegion.Location = new System.Drawing.Point(116, 112);
-            this.cboRegion.Name = "cboRegion";
-            this.cboRegion.Size = new System.Drawing.Size(273, 21);
-            this.cboRegion.TabIndex = 5;
-            // 
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(114, 140);
+            this.btnOK.Location = new System.Drawing.Point(113, 114);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 6;
@@ -105,7 +86,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(207, 140);
+            this.btnCancel.Location = new System.Drawing.Point(206, 114);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 7;
@@ -149,20 +130,19 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(401, 171);
+            this.ClientSize = new System.Drawing.Size(401, 142);
             this.Controls.Add(this.txtReturnURL);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtTenant);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.cboRegion);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtEnvironment);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtAppId);
             this.Controls.Add(this.label1);
             this.Name = "ApiConnection";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Configure API Connection";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -175,8 +155,6 @@
         private System.Windows.Forms.TextBox txtAppId;
         private System.Windows.Forms.TextBox txtEnvironment;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cboRegion;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.TextBox txtTenant;
