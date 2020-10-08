@@ -34,7 +34,7 @@
             this.tsbClose = new System.Windows.Forms.ToolStripButton();
             this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCreateVisio = new System.Windows.Forms.ToolStripButton();
-            this.gridFlows = new xrmtb.XrmToolBox.Controls.CRMGridView();
+            this.btnConnectFlow = new System.Windows.Forms.ToolStripButton();
             this.splitMain = new System.Windows.Forms.SplitContainer();
             this.splitTop = new System.Windows.Forms.SplitContainer();
             this.splitSearch = new System.Windows.Forms.SplitContainer();
@@ -43,10 +43,11 @@
             this.splitFile = new System.Windows.Forms.SplitContainer();
             this.btnFile = new System.Windows.Forms.Button();
             this.txtFileName = new System.Windows.Forms.TextBox();
+            this.grdFlows = new System.Windows.Forms.DataGridView();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.btnConnectCDS = new System.Windows.Forms.ToolStripButton();
             this.toolStripMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridFlows)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
             this.splitMain.Panel2.SuspendLayout();
@@ -63,6 +64,7 @@
             this.splitFile.Panel1.SuspendLayout();
             this.splitFile.Panel2.SuspendLayout();
             this.splitFile.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdFlows)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -71,7 +73,9 @@
             this.toolStripMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbClose,
             this.tssSeparator1,
-            this.btnCreateVisio});
+            this.btnCreateVisio,
+            this.btnConnectFlow,
+            this.btnConnectCDS});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
             this.toolStripMenu.Size = new System.Drawing.Size(908, 31);
@@ -100,31 +104,14 @@
             this.btnCreateVisio.Text = "Create Visio";
             this.btnCreateVisio.Click += new System.EventHandler(this.btnCreateVisio_Click);
             // 
-            // gridFlows
+            // btnConnectFlow
             // 
-            this.gridFlows.AllowUserToOrderColumns = true;
-            this.gridFlows.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.gridFlows.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.gridFlows.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.gridFlows.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.gridFlows.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridFlows.ColumnOrder = "name, description, ismanaged";
-            this.gridFlows.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridFlows.FilterColumns = "";
-            this.gridFlows.Location = new System.Drawing.Point(0, 0);
-            this.gridFlows.Name = "gridFlows";
-            this.gridFlows.OrganizationService = null;
-            this.gridFlows.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridFlows.ShowAllColumnsInColumnOrder = true;
-            this.gridFlows.ShowColumnsNotInColumnOrder = false;
-            this.gridFlows.ShowEditingIcon = false;
-            this.gridFlows.ShowFriendlyNames = true;
-            this.gridFlows.ShowIdColumn = false;
-            this.gridFlows.ShowIndexColumn = false;
-            this.gridFlows.ShowLocalTimes = true;
-            this.gridFlows.Size = new System.Drawing.Size(908, 694);
-            this.gridFlows.TabIndex = 5;
+            this.btnConnectFlow.Image = global::LinkeD365.FlowToVisio.Properties.Resources.powerautomate;
+            this.btnConnectFlow.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnConnectFlow.Name = "btnConnectFlow";
+            this.btnConnectFlow.Size = new System.Drawing.Size(143, 28);
+            this.btnConnectFlow.Text = "Connect to Flow API";
+            this.btnConnectFlow.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // splitMain
             // 
@@ -141,7 +128,7 @@
             // 
             // splitMain.Panel2
             // 
-            this.splitMain.Panel2.Controls.Add(this.gridFlows);
+            this.splitMain.Panel2.Controls.Add(this.grdFlows);
             this.splitMain.Size = new System.Drawing.Size(908, 723);
             this.splitMain.SplitterDistance = 25;
             this.splitMain.TabIndex = 6;
@@ -238,10 +225,31 @@
             this.txtFileName.Size = new System.Drawing.Size(310, 20);
             this.txtFileName.TabIndex = 2;
             // 
+            // grdFlows
+            // 
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.grdFlows.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.grdFlows.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdFlows.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdFlows.Location = new System.Drawing.Point(0, 0);
+            this.grdFlows.Name = "grdFlows";
+            this.grdFlows.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdFlows.Size = new System.Drawing.Size(908, 694);
+            this.grdFlows.TabIndex = 6;
+            // 
             // saveDialog
             // 
             this.saveDialog.DefaultExt = "vsdx";
             this.saveDialog.Filter = "Visio Files(*.vsdx)|*.vsdx";
+            // 
+            // btnConnectCDS
+            // 
+            this.btnConnectCDS.Image = global::LinkeD365.FlowToVisio.Properties.Resources.CDSbtton;
+            this.btnConnectCDS.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnConnectCDS.Name = "btnConnectCDS";
+            this.btnConnectCDS.Size = new System.Drawing.Size(119, 28);
+            this.btnConnectCDS.Text = "Connect to CDS";
+            this.btnConnectCDS.Click += new System.EventHandler(this.btnConnectCDS_Click);
             // 
             // FlowToVisioControl
             // 
@@ -255,7 +263,6 @@
             this.Load += new System.EventHandler(this.FlowToVisioControl_Load);
             this.toolStripMenu.ResumeLayout(false);
             this.toolStripMenu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridFlows)).EndInit();
             this.splitMain.Panel1.ResumeLayout(false);
             this.splitMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).EndInit();
@@ -275,6 +282,7 @@
             this.splitFile.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitFile)).EndInit();
             this.splitFile.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdFlows)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,7 +292,6 @@
         private System.Windows.Forms.ToolStrip toolStripMenu;
         private System.Windows.Forms.ToolStripButton tsbClose;
         private System.Windows.Forms.ToolStripSeparator tssSeparator1;
-        private xrmtb.XrmToolBox.Controls.CRMGridView gridFlows;
         private System.Windows.Forms.ToolStripButton btnCreateVisio;
         private System.Windows.Forms.SplitContainer splitMain;
         private System.Windows.Forms.Button btnFile;
@@ -296,5 +303,8 @@
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.TextBox textSearch;
         private System.Windows.Forms.SplitContainer splitFile;
+        private System.Windows.Forms.ToolStripButton btnConnectFlow;
+        private System.Windows.Forms.DataGridView grdFlows;
+        private System.Windows.Forms.ToolStripButton btnConnectCDS;
     }
 }

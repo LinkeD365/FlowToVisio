@@ -63,6 +63,36 @@ namespace LinkeD365.FlowToVisio.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] CDS {
+            get {
+                object obj = ResourceManager.GetObject("CDS", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap CDSbtton {
+            get {
+                object obj = ResourceManager.GetObject("CDSbtton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap powerautomate {
+            get {
+                object obj = ResourceManager.GetObject("powerautomate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] VisioTemplate {
             get {
                 object obj = ResourceManager.GetObject("VisioTemplate", resourceCulture);

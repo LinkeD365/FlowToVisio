@@ -107,16 +107,10 @@ namespace LinkeD365.FlowToVisio
         {
             Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + property.Name + "' U='STR'/></Row>"));
             Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='If' U='STR'/></Row>"));
-            var textElement = Shape.Descendants().First(el => el.Name.LocalName == "Text");
-            var sb = new StringBuilder("<Text><![CDATA[Expression: ");
+            var sb = new StringBuilder("Expression: ");
             var condition = ((JObject)property.Value["expression"]).Children<JProperty>().First();
             sb.Append(condition.Value.First() + " " + condition.Name + " " + condition.Value.Last());
-            // sb.AppendLine(((JObject)property.Value["expression"]).Children<JProperty>().First().Name
-
-            //sb.AppendLine("Type: " + (property.Value["inputs"] as JObject)["variables"][0]["type"].ToString() + "]]></Text>");
-
-            textElement.ReplaceWith(XElement.Parse(sb + "]]></Text>"));
-
+            AddText(sb);
             CreateYesNo();
         }
     }
@@ -128,11 +122,10 @@ namespace LinkeD365.FlowToVisio
             AddFillColour("234,237,239");
             Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + property.Name + "' U='STR'/></Row>"));
             Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='Switch' U='STR'/></Row>"));
-            var textElement = Shape.Descendants().First(el => el.Name.LocalName == "Text");
-            var sb = new StringBuilder("<Text><![CDATA[Expression: ");
+            var sb = new StringBuilder("Expression: ");
             // var condition = ((JObject)property.Value["expression"]).Children<JProperty>().First();
             sb.Append(property.Value["expression"]);
-            textElement.ReplaceWith(XElement.Parse(sb + "]]></Text>"));
+            AddText(sb);
 
             CreateCases();
         }
@@ -172,11 +165,10 @@ namespace LinkeD365.FlowToVisio
         {
             Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + property.Name + "' U='STR'/></Row>"));
             Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='For Each' U='STR'/></Row>"));
-            var textElement = Shape.Descendants().First(el => el.Name.LocalName == "Text");
-            var sb = new StringBuilder("<Text><![CDATA[On: ");
+            var sb = new StringBuilder("On: ");
             // var condition = ((JObject)property.Value["expression"]).Children<JProperty>().First();
             sb.Append(property.Value["foreach"]);
-            textElement.ReplaceWith(XElement.Parse(sb + "]]></Text>"));
+            AddText(sb);
             FinalActions.Add(this);
             AddChildActions(((JObject)Property.Value["actions"]).Children<JProperty>().Where(el => !el.Value["runAfter"].HasValues), this, 0);
 

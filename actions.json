@@ -1,0 +1,380 @@
+{
+  "regions": {
+    "US": {
+      "url": "us",
+      "crmpart": "crm"
+    },
+    "United Kingdom": {
+      "url": "unitedkingdom",
+      "crmpart": "crm11"
+    },
+    "Europe": {
+      "url": "emea",
+      "crmpart": "crm4"
+    }
+  },
+  "visioShapes": [
+    "Default",
+    "case",
+    "HttpAction",
+    "VariableAction",
+    "Line",
+    "condition",
+    "Teams",
+    "CDS",
+    "Scope",
+    "Compose",
+    "Excel",
+    "Flow",
+    "Outlook",
+    "PowerApp",
+    "SharePoint",
+    "Time",
+    "Weather",
+    "AI Builder"
+  ],
+  "actions": {
+    "Today&apos;s forecast": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_msnweather",
+      "operationId": "TodaysForecast",
+      "visioShape": "Weather",
+      "display": {
+        "Location": {
+          "value": "inputs|parameters|Location",
+          "required": true
+        },
+        "Units": {
+          "value": "inputs|parameters|units",
+          "required": true
+        }
+
+      }
+    },
+    "Current Weather": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_msnweather",
+      "operationId": "CurrentWeather",
+      "visioShape": "Weather",
+      "display": {
+        "Location": {
+          "value": "inputs|parameters|Location",
+          "required": true
+        },
+        "Units": {
+          "value": "inputs|parameters|units",
+          "required": true
+        }
+
+      }
+    },
+    "Tomorrow&apos;s Weather": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_msnweather",
+      "operationId": "TomorrowsForecast",
+      "visioShape": "Weather",
+      "display": {
+        "Location": {
+          "value": "inputs|parameters|Location",
+          "required": true
+        },
+        "Units": {
+          "value": "inputs|parameters|units",
+          "required": true
+        }
+
+      }
+    },
+    "When an item is created": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_sharepointonline",
+      "operationId": "GetOnNewItems",
+      "visioShape": "SharePoint",
+      "display": {
+        "Recurrence Interval": {
+          "value": "recurrence|interval"
+        },
+        "Recurrence Frequency": {
+          "value": "recurrence|frequency"
+        },
+        "Site": {
+          "value": "inputs|parameters|dataset"
+        },
+        "Library": {
+          "value": "inputs|parameters|table"
+        }
+      }
+
+    },
+    "Add to Time": {
+      "type": "Expression",
+      "kind": "AddToTime",
+      "visioShape": "Time",
+      "repeat": [
+        {
+          "path": "inputs",
+          "filter": "",
+          "left": 0
+        }
+      ]
+
+    },
+
+    "Convert Timezone": {
+      "type": "Expression",
+      "kind": "ConvertTimeZone",
+      "visioShape": "Time",
+
+      "display": {
+        "Base Time": {
+          "value": "inputs|baseTime"
+        },
+        "Source Timezone": {
+          "value": "inputs|sourceTimeZone"
+        },
+        "Destination Timezone": {
+          "value": "inputs|destinationTimeZone"
+        },
+        "Format String": {
+          "value": "inputs|formatString",
+          "options": {
+            "G": "General date/time pattern (long time)",
+            "d": "Short date pattern",
+            "D": "Long date pattern",
+            "f": "Full date/time pattern",
+            "g": "General date/time pattern (short time)",
+            "m": "Month/day",
+            "o": "Round trip",
+            "r": "RFC1123",
+            "s": "Sortable date/time",
+            "t": "Short time",
+            "t": "Long time",
+            "u": "Universal sortable",
+            "U": "Universal full date/time",
+            "y": "Year Month"
+          }
+        }
+      }
+    },
+    "Current Time": {
+      "type": "Expression",
+      "kind": "CurrentTime",
+      "visioShape": "Time"
+
+    },
+    "Get Future Time": {
+      "type": "Expression",
+      "kind": "GetFutureTime",
+      "visioShape": "Time",
+      "display": {
+        "Interval": {
+          "value": "inputs|interval"
+        },
+        "Unit": {
+          "value": "inputs|timeUnit"
+        }
+
+      }
+
+    },
+    "Subtract from Time": {
+      "type": "Expression",
+      "kind": "SubtractFromTime",
+      "visioShape": "Time",
+      "display": {
+        "Time": {
+          "value": "inputs|baseTime"
+        },
+        "Interval": {
+          "value": "inputs|interval"
+        },
+        "Unit": {
+          "value": "inputs|timeUnit"
+        }
+
+      }
+
+    },
+    "Format Number": {
+      "type": "Expression",
+      "kind": "formatNumber",
+      "visioShape": "Default",
+      "display": {
+        "Number": {
+          "value": "inputs|number"
+        },
+        "Format": {
+          "value": "inputs|format"
+        },
+        "Locale": {
+          "value": "inputs|locale"
+        }
+
+      }
+
+    },
+    "Run a Child Flow": {
+      "type": "Workflow",
+      "visioShape": "Flow",
+      "display": {
+        "Flow ID": {
+          "value": "inputs|host|workflowReferenceName"
+        }
+      },
+      "repeat": [
+        {
+          "path": "inputs|body",
+          "filter": "",
+          "left": 0
+        }
+      ]
+
+    },
+    "HTTP Webhook": {
+      "type": "HttpWebhook",
+      "visioShape": "HttpAction",
+      "repeat": [
+        {
+          "title": "Subscribe Info",
+          "path": "inputs|subscribe",
+          "filter": "",
+          "left": 0
+        },
+        {
+          "title": "Unsubscribe Info",
+          "path": "inputs|unsubscribe",
+          "filter": "",
+          "left": 0
+        }
+      ]
+
+    },
+    "Analyse positive or negative sentiment": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_commondataserviceforapps",
+      "operationId": "aibuilderpredict_sentimentanalysis",
+      "visioShape": "AI Builder",
+      "display": {
+        "Language": {
+          "value": "inputs|parameters|item/requestv2/language",
+          "required": true
+        },
+        "Text": {
+          "value": "inputs|parameters|item/requestv2/text",
+          "required": true
+        }
+
+      }
+    },
+    "Classify Text into Categories": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_commondataserviceforapps",
+      "operationId": "aibuilderpredict_sentimentanalysis",
+      "visioShape": "AI Builder",
+      "display": {
+        "Model": {
+          "value": "inputs|parameters|recordId",
+          "required": true
+        },
+        "Text": {
+          "value": "inputs|parameters|item/requestv2/text",
+          "required": true
+        },
+        "Language": {
+          "value": "inputs|parameters|item/requestv2/language",
+          "required": true
+        }
+
+      }
+    },
+    "Classify Text into Categories (Custom Model)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_commondataserviceforapps",
+      "operationId": "aibuilderpredict_textclassification",
+      "visioShape": "AI Builder",
+      "display": {
+        "Model": {
+          "value": "inputs|parameters|recordId",
+          "required": true
+        },
+        "Text": {
+          "value": "inputs|parameters|item/requestv2/text",
+          "required": true
+        },
+        "Language": {
+          "value": "inputs|parameters|item/requestv2/language",
+          "required": true
+        }
+
+      }
+    },
+    "Classify Text into Categories (Standard Model)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_commondataserviceforapps",
+      "operationId": "aibuilderpredict_textclassificationpretrained",
+      "visioShape": "AI Builder",
+      "display": {
+        "Text": {
+          "value": "inputs|parameters|item/requestv2/text",
+          "required": true
+        },
+        "Language": {
+          "value": "inputs|parameters|item/requestv2/language",
+          "required": true
+        }
+
+      },
+
+      "Detect & Count objects in images": {
+        "type": "OpenApiConnection",
+        "connectionName": "shared_commondataserviceforapps",
+        "operationId": "aibuilderpredict_textclassificationpretrained",
+        "visioShape": "AI Builder",
+        "display": {
+          "Model": {
+            "value": "inputs|parameters|recordId",
+            "required": true
+          },
+          "Image": {
+            "value": "inputs|parameters|item/requestv2/base64Encoded",
+            "required": true
+          }
+
+        }
+      },
+      "Detect Language": {
+        "type": "OpenApiConnection",
+        "connectionName": "shared_commondataserviceforapps",
+        "operationId": "aibuilderpredict_languagedetection",
+        "visioShape": "AI Builder",
+        "display": {
+          "Text": {
+            "value": "inputs|parameters|item/requestv2/text",
+            "required": true
+          }
+
+        }
+      },
+      "Extract Entities (custom model)": {
+        "type": "OpenApiConnection",
+        "connectionName": "shared_commondataserviceforapps",
+        "operationId": "aibuilderpredict_entityextractiontrained",
+        "visioShape": "AI Builder",
+        "display": {
+          "Model": {
+            "value": "inputs|parameters|recordId",
+            "required": true
+          },
+          "Text": {
+            "value": "inputs|parameters|item/requestv2/text",
+            "required": true
+          },
+          "Language": {
+            "value": "inputs|parameters|item/requestv2/language",
+            "required": true
+          }
+        }
+      }
+    }
+  }
+}

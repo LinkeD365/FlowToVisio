@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowToVisio", "FlowToVisio\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Soluton Items", "Soluton Items", "{4CB38560-C11D-4759-B817-BC19DA7127CC}"
 	ProjectSection(SolutionItems) = preProject
+		actions.json = actions.json
 		FlowToVisio.nuspec = FlowToVisio.nuspec
 	EndProjectSection
 EndProject

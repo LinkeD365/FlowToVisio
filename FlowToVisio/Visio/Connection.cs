@@ -34,9 +34,11 @@ namespace LinkeD365.FlowToVisio
         internal static void SetAPIs(JObject root)
         {
             aPIConnections = new List<Connection>();
+            if (root["properties"]?["connectionReferences"] != null)
             foreach (var item in root["properties"]["connectionReferences"].Children<JProperty>())
             {
-                aPIConnections.Add(new Connection(item.Name, ((JProperty)item.Value["api"].Children().First()).Value.ToString()));
+                if (item.Value["api"] != null)                aPIConnections.Add(new Connection(item.Name, ((JProperty)item.Value["api"].Children().First()).Value.ToString()));
+                else aPIConnections.Add(new Connection(item.Name, item.Value["connectionName"].ToString()));
             }
         }
     }

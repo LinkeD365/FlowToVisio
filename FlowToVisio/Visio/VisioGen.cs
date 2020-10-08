@@ -14,16 +14,7 @@ namespace LinkeD365.FlowToVisio
 {
     public partial class FlowToVisioControl : PluginControlBase
     {
-        public const string VisioXmlNamespace2003 = "{http://schemas.microsoft.com/visio/2003/core}";
-        public const string VisioXmlNamespace2006 = "{http://schemas.microsoft.com/visio/2006/extension}";
 
-        private List<string> templates = new List<string> { "Default", "case", "HttpAction", "VariableAction", "Line", "condition", "Teams", "CDS", "Scope", "Compose", "Excel", "Flow", "Outlook", "PowerApp", "SharePoint" };
-
-        private static double pageWidth = 11;
-        private static double pageHeight = 8;
-
-        //private Trigger triggerShape;
-        private List<Action> actions = new List<Action>();
 
         private List<BaseShape> shapesList = new List<BaseShape>();
         private List<Connection> connections = new List<Connection>();
@@ -52,8 +43,6 @@ namespace LinkeD365.FlowToVisio
 
             var triggerShape = Utils.AddAction(triggerProperty, null, 0, 1);
 
-            shapesList = new List<BaseShape>();
-            shapesList.Add(triggerShape);
             if (flowObject["properties"]["definition"]["actions"].Children<JProperty>().Where(a => !a.Value["runAfter"].HasValues).Any())
             {
                 Utils.AddActions(flowObject["properties"]["definition"]["actions"].Children<JProperty>().Where(a => !a.Value["runAfter"].HasValues), triggerShape);
@@ -62,7 +51,7 @@ namespace LinkeD365.FlowToVisio
             // triggerShape.Default.Remove();
             //  triggerShape.Line.Remove();
 
-            foreach (var shapeName in templates)
+            foreach (var shapeName in Utils.VisioTemplates)
             {
                 triggerShape.GetTemplateShape(shapeName).Remove();
             }

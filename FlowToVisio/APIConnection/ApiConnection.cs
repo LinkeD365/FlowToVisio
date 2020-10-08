@@ -1,0 +1,92 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+
+namespace LinkeD365.FlowToVisio
+{
+    public partial class ApiConnection : Form
+    {
+        private FlowConnection _flowConnection;
+
+        private FlowToVisioControl _flowControl;
+        public ApiConnection(FlowToVisioControl flowControl, FlowConnection flowConnecton)
+        {
+            InitializeComponent();
+            _flowConnection = flowConnecton;
+            cboRegion.Items.Clear();
+            cboRegion.Items.AddRange(Utils.FlowRegions.ToArray());
+
+            cboRegion.DisplayMember = "Name";
+        }
+
+        public HttpClient GetClient()
+        {
+            if (ShowDialog(_flowControl) == DialogResult.OK)
+            {
+                _flowConnection.TenantId = txtTenant.Text;
+                _flowConnection.AppId = txtAppId.Text;
+                _flowConnection.Region = cboRegion.SelectedItem as FlowRegion;
+                _flowConnection.ReturnURL = txtReturnURL.Text;
+                _flowConnection.Environment = txtEnvironment.Text;
+                return Connect();
+            }
+
+            return null;
+        }
+
+        private HttpClient Connect()
+        {
+            var token = GetInteractiveClientToken();
+
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            client.DefaultRequestHeaders.Add("accept", "application/json");
+           return client;
+        }
+
+        private string GetInteractiveClientToken()
+        {
+            AuthenticationContext ac = new AuthenticationContext($"https://login.microsoftonline.com/{_flowConnection.TenantId}");
+            try
+            {
+                return ac.AcquireTokenSilentAsync("https://service.flow.microsoft.com/", _flowConnection.AppId).GetAwaiter().GetResult().AccessToken;
+            }
+            catch (AdalException adalException)
+            {
+                if (adalException.ErrorCode == AdalError.FailedToAcquireTokenSilently
+                    || adalException.ErrorCode == AdalError.InteractionRequired)
+                {
+
+                    return ac.AcquireTokenAsync("https://service.flow.microsoft.com/", _flowConnection.AppId, new Uri(_flowConnection.ReturnURL),
+                        new PlatformParameters(PromptBehavior.SelectAccount)).GetAwaiter().GetResult().AccessToken;
+                }
+            }
+
+            return null;
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            if (txtAppId.Text == string.Empty || txtTenant.Text == string.Empty || txtEnvironment.Text == string.Empty || txtReturnURL.Text == string.Empty || cboRegion.SelectedItem == null)
+            {
+                MessageBox.Show("Please ensure all fields have a value", "Required properties missing", MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+                DialogResult = DialogResult.None;
+            }
+        }
+
+        private void txtReturnURL_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
