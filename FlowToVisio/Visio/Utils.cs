@@ -79,7 +79,7 @@ namespace LinkeD365.FlowToVisio
                     _actionTemplate = JObject.Parse(File.ReadAllText(@"E:\Live\FlowToVisio\actions.json"));
 #else
                     string jsonString =
-                        new WebClient().DownloadString("https://raw.githubusercontent.com/LinkeD365/F/master/LinkeD65OrgSettings.xml");
+                        new WebClient().DownloadString("https://raw.githubusercontent.com/LinkeD365/FlowToVisio/master/actions.json");
                     _actionTemplate = JObject.Parse(jsonString);
 #endif
 
