@@ -1,31 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
+﻿using McTools.Xrm.Connection;
+using Microsoft.Xrm.Sdk;
+using Newtonsoft.Json.Linq;
+using System;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http;
 using System.Windows.Forms;
 using XrmToolBox.Extensibility;
-using Microsoft.Xrm.Sdk.Query;
-using Microsoft.Xrm.Sdk;
-using McTools.Xrm.Connection;
-using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Newtonsoft.Json.Linq;
-
 using XrmToolBox.Extensibility.Interfaces;
 
 namespace LinkeD365.FlowToVisio
 {
     public partial class FlowToVisioControl : PluginControlBase, IGitHubPlugin
     {
-        private bool overrideSave = false;
+        private bool overrideSave;
 
-        public string RepositoryName => "ERD Visio Builder";
+        public string RepositoryName => "FlowToVisio";
         public string UserName => "LinkeD365";
 
         public FlowToVisioControl()
@@ -102,9 +92,6 @@ namespace LinkeD365.FlowToVisio
                 GenerateVisio();
             }
             else flowObject = LoadFlow(selectFlow);
-           // if (((FlowDefinition) grdFlows.SelectedRows[0].DataBoundItem).Solution) flowObject = JObject.Parse(gridFlows.SelectedRowRecords.First()["clientdata"].ToString());
-            // CreateVisio();
-           // GenerateVisio();
         }
 
         private void btnFile_Click(object sender, EventArgs e)

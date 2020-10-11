@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace LinkeD365.FlowToVisio
 {
