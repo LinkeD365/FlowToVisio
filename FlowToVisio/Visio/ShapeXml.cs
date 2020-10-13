@@ -387,7 +387,7 @@ namespace LinkeD365.FlowToVisio
 
         private void AddRunAfter()
         {
-            if (Property.Value["runAfter"].HasValues)
+            if (Property.Value["runAfter"] != null && Property.Value["runAfter"].HasValues) // #2 Added check for null
             {
                 var runAfterString = string.Empty;
                 foreach (var jToken in Property.Value["runAfter"].Children().First().Value<JProperty>().Value.Where(jt => jt.ToString() != "Succeeded"))
