@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -228,8 +229,8 @@ namespace LinkeD365.FlowToVisio
 
         protected void SetPosition()
         {
-            Shape.Elements().Where(el => el.Attribute("N").Value == "PinY").First().SetAttributeValue("V", PinY);
-            Shape.Elements().Where(el => el.Attribute("N").Value == "PinX").First().SetAttributeValue("V", PinX);
+            Shape.Elements().First(el => el.Attribute("N").Value == "PinY").SetAttributeValue("V", PinY);
+            Shape.Elements().First(el => el.Attribute("N").Value == "PinX").SetAttributeValue("V", PinX);
         }
 
         protected int current = 0;
@@ -372,8 +373,13 @@ namespace LinkeD365.FlowToVisio
             }
             else
             {
-                PinX = double.Parse(Shape.Elements().Where(el => el.Attribute("N").Value == "PinX").First().Attribute("V").Value);
-                PinY = double.Parse(Shape.Elements().Where(el => el.Attribute("N").Value == "PinY").First().Attribute("V").Value);
+                // Variant to allow for international useage
+                PinX = double.TryParse(Shape.Elements().First(el => el.Attribute("N").Value == "PinX").Attribute("V").Value, NumberStyles.Any,
+                    CultureInfo.InvariantCulture, out var tempPinX) ? tempPinX : 0.0;
+                PinY =double.TryParse(Shape.Elements().First(el => el.Attribute("N").Value == "PinY").Attribute("V").Value, NumberStyles.Any,
+                    CultureInfo.InvariantCulture, out var tempPiny) ? tempPiny : 0.0;
+                //  PinX = double.Parse(Shape.Elements().First(el => el.Attribute("N").Value == "PinX").Attribute("V").Value,CultureInfo.InvariantCulture);
+               // PinY = tempPiny;
             }
 
             // if (this is Action) AddBaseText();

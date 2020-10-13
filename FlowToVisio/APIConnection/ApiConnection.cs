@@ -14,6 +14,7 @@ namespace LinkeD365.FlowToVisio
         {
             InitializeComponent();
             _flowConnection = flowConnecton;
+            if (_flowConnection == null) return;
             txtTenant.Text = _flowConnection.TenantId;
             txtEnvironment.Text = _flowConnection.Environment;
             txtAppId.Text = _flowConnection.AppId;

@@ -73,6 +73,7 @@ namespace LinkeD365.FlowToVisio
             catch (Exception e)
             {
                 LogError("Error getting connection", e.Message);
+                ShowError(e, "Error in connecting, please check entered details");
                 return;
             } 
             if (_client == null) return;
@@ -220,9 +221,9 @@ namespace LinkeD365.FlowToVisio
 
     public class FlowConnection
     {
-        public string AppId;
-        public string TenantId;
-        public string ReturnURL;
-        public string Environment;
+        public string AppId;// = string.Empty;
+        public string TenantId = string.Empty;
+        public string ReturnURL = string.Empty;
+        public string Environment = string.Empty;
     }
 }
