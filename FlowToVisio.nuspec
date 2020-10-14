@@ -11,8 +11,10 @@
     <iconUrl>https://linked365.blog/wp-content/uploads/2020/03/smallIcon.png</iconUrl>
     <description>A XrmToolBox tool to create Visio diagram of your Power Automate Flows that are within your CDS</description>
     <releaseNotes>
-      #1 Fixed double parse in getting postiion of first shape (hopefully)
-      #2 Fixed case statement
+#3 Fixed readonly grid
+#5 Hope you are happy Jonas
+#6 hopefully 🤞🏽
+Added Onedrive and Word Templates
     </releaseNotes>
     <copyright>Copyright 2020</copyright>
     <tags>XrmToolBox Plugins Flow Visio</tags>

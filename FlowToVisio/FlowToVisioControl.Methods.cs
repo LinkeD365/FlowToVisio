@@ -53,6 +53,7 @@ namespace LinkeD365.FlowToVisio
                     {
                         flows = returnFlows;
                         grdFlows.DataSource = flows;
+                        InitGrid();
                     }
 
                     btnConnectCDS.Visible = !returnFlows.Any();
@@ -132,6 +133,7 @@ namespace LinkeD365.FlowToVisio
                     {
                         flows = flowList;
                         grdFlows.DataSource = flows;
+                        InitGrid();
                     }
 
                     btnConnectCDS.Visible = flowList.Any();

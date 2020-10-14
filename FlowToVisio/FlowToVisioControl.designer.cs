@@ -242,6 +242,7 @@
             this.grdFlows.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdFlows.Location = new System.Drawing.Point(0, 0);
             this.grdFlows.Name = "grdFlows";
+            this.grdFlows.ReadOnly = true;
             this.grdFlows.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdFlows.Size = new System.Drawing.Size(908, 694);
             this.grdFlows.TabIndex = 6;

@@ -502,8 +502,8 @@ namespace LinkeD365.FlowToVisio
 
             if (property.Value["inputs"]["body"] != null)
             {
-                sb.AppendLine("Body:");
-                foreach (var header in property.Value["inputs"]["body"] as JObject) sb.AppendLine(header.Key + " : " + header.Value);
+                sb.AppendLine("Body:" + property.Value["inputs"]["body"]);
+               //  foreach (var header in property.Value["inputs"]["body"] as JObject) sb.AppendLine(header.Key + " : " + header.Value);
             }
 
             AddText(sb);

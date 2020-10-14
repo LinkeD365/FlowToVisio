@@ -126,5 +126,10 @@ namespace LinkeD365.FlowToVisio
         {
             ExecuteMethod(LoadFlows);
         }
+
+        private void InitGrid()
+        {
+           grdFlows.AutoResizeColumns();
+        }
     }
 }

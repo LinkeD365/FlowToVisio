@@ -55,21 +55,22 @@
             this.txtAppId.Name = "txtAppId";
             this.txtAppId.Size = new System.Drawing.Size(273, 20);
             this.txtAppId.TabIndex = 1;
+            this.txtAppId.Tag = "0";
             // 
             // txtEnvironment
             // 
             this.txtEnvironment.Location = new System.Drawing.Point(116, 64);
             this.txtEnvironment.Name = "txtEnvironment";
             this.txtEnvironment.Size = new System.Drawing.Size(273, 20);
-            this.txtEnvironment.TabIndex = 3;
+            this.txtEnvironment.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 71);
+            this.label2.Location = new System.Drawing.Point(29, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 13);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 4;
             this.label2.Text = "Environment Id:";
             // 
             // btnOK
@@ -78,7 +79,7 @@
             this.btnOK.Location = new System.Drawing.Point(113, 114);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
-            this.btnOK.TabIndex = 6;
+            this.btnOK.TabIndex = 8;
             this.btnOK.Text = "Ok";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -89,7 +90,7 @@
             this.btnCancel.Location = new System.Drawing.Point(206, 114);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 7;
+            this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -98,7 +99,7 @@
             this.txtTenant.Location = new System.Drawing.Point(116, 40);
             this.txtTenant.Name = "txtTenant";
             this.txtTenant.Size = new System.Drawing.Size(273, 20);
-            this.txtTenant.TabIndex = 9;
+            this.txtTenant.TabIndex = 3;
             // 
             // label4
             // 
@@ -106,7 +107,7 @@
             this.label4.Location = new System.Drawing.Point(54, 45);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 13);
-            this.label4.TabIndex = 8;
+            this.label4.TabIndex = 2;
             this.label4.Text = "Tenant Id:";
             // 
             // txtReturnURL
@@ -114,16 +115,16 @@
             this.txtReturnURL.Location = new System.Drawing.Point(116, 88);
             this.txtReturnURL.Name = "txtReturnURL";
             this.txtReturnURL.Size = new System.Drawing.Size(273, 20);
-            this.txtReturnURL.TabIndex = 11;
+            this.txtReturnURL.TabIndex = 7;
             this.txtReturnURL.TextChanged += new System.EventHandler(this.txtReturnURL_TextChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(29, 90);
+            this.label5.Location = new System.Drawing.Point(43, 91);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 13);
-            this.label5.TabIndex = 10;
+            this.label5.TabIndex = 6;
             this.label5.Text = "Return URL:";
             // 
             // ApiConnection

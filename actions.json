@@ -31,7 +31,9 @@
     "SharePoint",
     "Time",
     "Weather",
-    "AI Builder"
+    "AI Builder",
+    "Word",
+    "OneDrive"
   ],
   "actions": {
     "Today&apos;s forecast": {
@@ -323,58 +325,326 @@
           "required": true
         }
 
-      },
+      }
+    },
 
-      "Detect & Count objects in images": {
-        "type": "OpenApiConnection",
-        "connectionName": "shared_commondataserviceforapps",
-        "operationId": "aibuilderpredict_textclassificationpretrained",
-        "visioShape": "AI Builder",
-        "display": {
-          "Model": {
-            "value": "inputs|parameters|recordId",
-            "required": true
-          },
-          "Image": {
-            "value": "inputs|parameters|item/requestv2/base64Encoded",
-            "required": true
-          }
+    "Detect & Count objects in images": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_commondataserviceforapps",
+      "operationId": "aibuilderpredict_textclassificationpretrained",
+      "visioShape": "AI Builder",
+      "display": {
+        "Model": {
+          "value": "inputs|parameters|recordId",
+          "required": true
+        },
+        "Image": {
+          "value": "inputs|parameters|item/requestv2/base64Encoded",
+          "required": true
+        }
 
+      }
+    },
+    "Detect Language": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_commondataserviceforapps",
+      "operationId": "aibuilderpredict_languagedetection",
+      "visioShape": "AI Builder",
+      "display": {
+        "Text": {
+          "value": "inputs|parameters|item/requestv2/text",
+          "required": true
         }
-      },
-      "Detect Language": {
-        "type": "OpenApiConnection",
-        "connectionName": "shared_commondataserviceforapps",
-        "operationId": "aibuilderpredict_languagedetection",
-        "visioShape": "AI Builder",
-        "display": {
-          "Text": {
-            "value": "inputs|parameters|item/requestv2/text",
-            "required": true
-          }
 
+      }
+    },
+    "Extract Entities (custom model)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_commondataserviceforapps",
+      "operationId": "aibuilderpredict_entityextractiontrained",
+      "visioShape": "AI Builder",
+      "display": {
+        "Model": {
+          "value": "inputs|parameters|recordId",
+          "required": true
+        },
+        "Text": {
+          "value": "inputs|parameters|item/requestv2/text",
+          "required": true
+        },
+        "Language": {
+          "value": "inputs|parameters|item/requestv2/language",
+          "required": true
         }
-      },
-      "Extract Entities (custom model)": {
-        "type": "OpenApiConnection",
-        "connectionName": "shared_commondataserviceforapps",
-        "operationId": "aibuilderpredict_entityextractiontrained",
-        "visioShape": "AI Builder",
-        "display": {
-          "Model": {
-            "value": "inputs|parameters|recordId",
-            "required": true
-          },
-          "Text": {
-            "value": "inputs|parameters|item/requestv2/text",
-            "required": true
-          },
-          "Language": {
-            "value": "inputs|parameters|item/requestv2/language",
-            "required": true
-          }
-        }
+      }
+    },
+    "Populate a Word template": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_wordonlinebusiness",
+      "operationId": "CreateFileItem",
+      "visioShape": "Word",
+      "display": {
+        "Source": { "value": "inputs|parameters|source" },
+        "Drive": { "value": "inputs|parameters|drive" },
+        "File": { "value": "inputs|parameters|File" }
+      }
+    },
+    "Convert a Word Doc": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_wordonlinebusiness",
+      "operationId": "GetFilePDF",
+      "visioShape": "Word",
+      "display": {
+        "Source": { "value": "inputs|parameters|source" },
+        "Drive": { "value": "inputs|parameters|drive" },
+        "File": { "value": "inputs|parameters|file" }
+      }
+    },
+    "Create File": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "CreateFile",
+      "visioShape": "OneDrive",
+      "display": {
+        "Folder": { "value": "inputs|parameters|folderPath" },
+        "Name": { "value": "inputs|parameters|name" },
+        "Body": { "value": "inputs|parameters|body" }
+
+      }
+    },
+    "List Files in Folder": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "ListFolderV2",
+      "visioShape": "OneDrive",
+      "display": {
+        "Folder": { "value": "inputs|parameters|id" }
+      }
+    },
+    "Convert File": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "ConvertFile",
+      "visioShape": "OneDrive",
+      "display": {
+        "File": { "value": "inputs|parameters|id" },
+        "Convert To": { "value": "inputs|parameters|type" }
+      }
+    },
+    "Convert File By Path": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "ConvertFileByPath",
+      "visioShape": "OneDrive",
+      "display": {
+        "Path": { "value": "inputs|parameters|path" },
+        "Convert To": { "value": "inputs|parameters|type" }
+      }
+    },
+    "Copy File": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "CopyDriveFile",
+      "visioShape": "OneDrive",
+      "display": {
+        "Source": { "value": "inputs|parameters|id" },
+        "Destination": { "value": "inputs|parameters|destination" },
+        "Overwrite": { "value": "inputs|parameters|overwrite" }
+      }
+    },
+    "Copy File By Path": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "CopyDriveFileByPath",
+      "visioShape": "OneDrive",
+      "display": {
+        "Source": { "value": "inputs|parameters|source" },
+        "Destination": { "value": "inputs|parameters|destination" },
+        "Overwrite": { "value": "inputs|parameters|overwrite" }
+      }
+    },
+    "Create Share Link": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "CreateShareLink",
+      "visioShape": "OneDrive",
+      "display": {
+        "Source": { "value": "inputs|parameters|id" },
+        "Type": { "value": "inputs|parameters|type" },
+        "scope": { "value": "inputs|parameters|scope" }
+      }
+    },
+    "Create Share Link By Path": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "CreateShareLinkByPath",
+      "visioShape": "OneDrive",
+      "display": {
+        "Source": { "value": "inputs|parameters|path" },
+        "Type": { "value": "inputs|parameters|type" },
+        "scope": { "value": "inputs|parameters|scope" }
+      }
+    },
+    "Delete File": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "DeleteFile",
+      "visioShape": "OneDrive",
+      "display": {
+        "Source": { "value": "inputs|parameters|id" }
+      }
+    },
+    "Extract Archive": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "ExtractFolderV2",
+      "visioShape": "OneDrive",
+      "display": {
+        "Source": { "value": "inputs|parameters|source" },
+        "Destination": { "value": "inputs|parameters|destination" },
+        "Overwrite": { "value": "inputs|parameters|overwrite" }
+      }
+    },
+    "Find Files in Folder": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "FindFiles",
+      "visioShape": "OneDrive",
+      "display": {
+        "Source": { "value": "inputs|parameters|id" },
+        "Query": { "value": "inputs|parameters|query" },
+        "Find Mode": { "value": "inputs|parameters|findMode" },
+        "Max Files": { "value": "inputs|parameters|maxFileCount" }
+      }
+    },
+    "Get File Content": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "GetFileContent",
+      "visioShape": "OneDrive",
+      "display": {
+        "Source": { "value": "inputs|parameters|id" },
+        "Infer Type": { "value": "inputs|parameters|inferContentType" }
+      }
+    },
+    "Get File Meta": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "GetFileMetadata",
+      "visioShape": "OneDrive",
+      "display": {
+        "Source": { "value": "inputs|parameters|id" }
+      }
+    },
+    "Get File Meta By Path": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "GetFileMetadataByPath",
+      "visioShape": "OneDrive",
+      "display": {
+        "Source": { "value": "inputs|parameters|path" }
+      }
+    },
+    "Get File Thumbnail": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "GetFileThumbnail",
+      "visioShape": "OneDrive",
+      "display": {
+        "Source": { "value": "inputs|parameters|id" },
+        "Size": { "value": "inputs|parameters|size" }
+      }
+    },
+    "List files in Root folder": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "ListRootFolder",
+      "visioShape": "OneDrive"
+    },
+    "Move or rename file": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "MoveFile",
+      "visioShape": "OneDrive",
+      "display": {
+        "Source": { "value": "inputs|parameters|id" },
+        "Destination": { "value": "inputs|parameters|destination" },
+        "Overwrite": { "value": "inputs|parameters|overwrite" }
+      }
+    },
+    "Move or rename file with path": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "MoveFileByPath",
+      "visioShape": "OneDrive",
+      "display": {
+        "Source": { "value": "inputs|parameters|source" },
+        "Destination": { "value": "inputs|parameters|destination" },
+        "Overwrite": { "value": "inputs|parameters|overwrite" }
+      }
+    },
+    "Update File": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "UpdateFile",
+      "visioShape": "OneDrive",
+      "display": {
+        "File": { "value": "inputs|parameters|id" },
+        "Body": { "value": "inputs|parameters|body" }
+      }
+    },
+    "Upload file from URL": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "CopyFile",
+      "visioShape": "OneDrive",
+      "display": {
+        "Source": { "value": "inputs|parameters|source" },
+        "Destination": { "value": "inputs|parameters|destination" },
+        "Overwrite": { "value": "inputs|parameters|overwrite" }
+      }
+    },
+    "When a file is created": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "OnNewFileV2",
+      "visioShape": "OneDrive",
+      "display": {
+        "Folder": { "value": "inputs|parameters|folderId" },
+        "Include Sub Folders": { "value": "inputs|parameters|includeSubfolders" },
+        "Infer Type": { "value": "inputs|parameters|inferContentType" }
+      }
+    },
+    "When a file is modified": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "OnNewFileV2",
+      "visioShape": "OneDrive",
+      "display": {
+        "Folder": { "value": "inputs|parameters|folderId" },
+        "Include Sub Folders": { "value": "inputs|parameters|includeSubfolders" },
+        "Infer Type": { "value": "inputs|parameters|inferContentType" }
+      }
+    },
+    "When a file is created (properties only)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "OnNewFilesV2",
+      "visioShape": "OneDrive",
+      "display": {
+        "Folder": { "value": "inputs|parameters|folderId" },
+        "Include Sub Folders": { "value": "inputs|parameters|includeSubfolders" }
+      }
+    },
+    "When a file is modified (properties only)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_onedriveforbusiness",
+      "operationId": "OnUpdatedFilesV2",
+      "visioShape": "OneDrive",
+      "display": {
+        "Folder": { "value": "inputs|parameters|folderId" },
+        "Include Sub Folders": { "value": "inputs|parameters|includeSubfolders" }
       }
     }
   }
-}
+} 
