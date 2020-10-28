@@ -150,7 +150,7 @@
             "r": "RFC1123",
             "s": "Sortable date/time",
             "t": "Short time",
-            "t": "Long time",
+            "T": "Long time",
             "u": "Universal sortable",
             "U": "Universal full date/time",
             "y": "Year Month"
@@ -645,6 +645,400 @@
         "Folder": { "value": "inputs|parameters|folderId" },
         "Include Sub Folders": { "value": "inputs|parameters|includeSubfolders" }
       }
+    },
+    "Edit Role Assignment)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Edit-AppRoleAssignment",
+      "visioShape": "PowerApp",
+      "display": {
+        "App": { "value": "inputs|parameters|app" },
+        "API Version": { "value": "inputs|parameters|api-version" },
+        "Filter": { "value": "inputs|parameters|$filter" },
+        "Content Type": { "value": "inputs|parameters|Content-Type" }
+      },
+      "repeat": [
+        {
+          "path": "inputs|parameters|body/put",
+          "filter": "",
+          "left": 21
+        },
+        {
+
+          "path": "inputs|parameters|body/delete",
+          "filter": "",
+          "left": 0
+        }
+      ]
+    },
+    "Edit Connection Role Assignment)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Edit-ConnectionRoleAssignment",
+      "visioShape": "PowerApp",
+      "display": {
+        "Connector": { "value": "inputs|parameters|connectorName" },
+        "Connection": { "value": "inputs|parameters|connectionName" },
+        "API Version": { "value": "inputs|parameters|api-version" },
+        "Filter": { "value": "inputs|parameters|$filter" },
+        "Content Type": { "value": "inputs|parameters|Content-Type" }
+      },
+      "repeat": [
+        {
+          "path": "inputs|parameters|body/put",
+          "filter": "",
+          "left": 21
+        },
+        {
+
+          "path": "inputs|parameters|body/delete",
+          "filter": "",
+          "left": 0
+        }
+      ]
+    },
+    "Edit Connector Role Assignment)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Edit-ConnectorRoleAssignment",
+      "visioShape": "PowerApp",
+      "display": {
+        "Connector": { "value": "inputs|parameters|connectorName" },
+        "API Version": { "value": "inputs|parameters|api-version" },
+        "Filter": { "value": "inputs|parameters|$filter" },
+        "Content Type": { "value": "inputs|parameters|Content-Type" }
+      },
+      "repeat": [
+        {
+          "path": "inputs|parameters|body/put",
+          "filter": "",
+          "left": 21
+        },
+        {
+
+          "path": "inputs|parameters|body/delete",
+          "filter": "",
+          "left": 0
+        }
+      ]
+    },
+    "Get App": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Get-App",
+      "visioShape": "PowerApp",
+      "display": {
+        "App": { "value": "inputs|parameters|app" },
+        "API Version": { "value": "inputs|parameters|api-version" }
+      }
+    },
+    "Get App Role Assignments": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Get-AppRoleAssignment",
+      "visioShape": "PowerApp",
+      "display": {
+        "App": { "value": "inputs|parameters|app" },
+        "API Version": { "value": "inputs|parameters|api-version" },
+        "Top": { "value": "inputs|parameters|$top" }
+      }
+    },
+    "Get App Versions": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Get-AppVersions",
+      "visioShape": "PowerApp",
+      "display": {
+        "App": { "value": "inputs|parameters|app" },
+        "API Version": { "value": "inputs|parameters|api-version" },
+        "Top": { "value": "inputs|parameters|$top" }
+      }
+    },
+    "Get Apps": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Get-Apps",
+      "visioShape": "PowerApp",
+      "display": {
+        "API Version": { "value": "inputs|parameters|api-version" },
+        "Filter": { "value": "inputs|parameters|$filter" },
+        "Page Size": { "value": "inputs|parameters|$top" }
+      }
+    },
+    "Get Connection Role Assignment)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Get-ConnectionRoleAssignment",
+      "visioShape": "PowerApp",
+      "display": {
+        "Connector": { "value": "inputs|parameters|connectorName" },
+        "Connection": { "value": "inputs|parameters|connectionName" },
+        "API Version": { "value": "inputs|parameters|api-version" },
+        "Filter": { "value": "inputs|parameters|$filter" },
+        "Page Size": { "value": "inputs|parameters|$top" }
+      }
+
+    },
+    "Get Connections": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Get-Connections",
+      "visioShape": "PowerApp",
+      "display": {
+        "API Version": { "value": "inputs|parameters|api-version" },
+        "Filter": { "value": "inputs|parameters|$filter" },
+        "Page Size": { "value": "inputs|parameters|$top" }
+      }
+    },
+    "Get Connector": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Get-Connector",
+      "visioShape": "PowerApp",
+      "display": {
+        "Connector": { "value": "inputs|parameters|connectorName" },
+        "Filter": { "value": "inputs|parameters|$filter" },
+        "Page Size": { "value": "inputs|parameters|$top" }
+      }
+    },
+    "Get Connector Role Assignment)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Get-ConnectorRoleAssignment",
+      "visioShape": "PowerApp",
+      "display": {
+        "Connector": { "value": "inputs|parameters|connectorName" },
+        "API Version": { "value": "inputs|parameters|api-version" },
+        "Filter": { "value": "inputs|parameters|$filter" },
+        "Page Size": { "value": "inputs|parameters|$top" }
+      }
+
+    },
+    "Get Connectors": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Get-Connectors",
+      "visioShape": "PowerApp",
+      "display": {
+        "Show All APIs": { "value": "inputs|parameters|showApisWithToS" },
+        "API Version": { "value": "inputs|parameters|api-version" },
+        "Filter": { "value": "inputs|parameters|$filter" },
+        "Page Size": { "value": "inputs|parameters|$top" }
+      }
+    },
+    "Get Environments": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Get-Environments",
+      "visioShape": "PowerApp",
+      "display": {
+        "API Version": { "value": "inputs|parameters|api-version" },
+        "Page Size": { "value": "inputs|parameters|$top" }
+      }
+    },
+    "Publish App": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Publish-App",
+      "visioShape": "PowerApp",
+      "display": {
+        "App": { "value": "inputs|parameters|app" },
+        "API Version": { "value": "inputs|parameters|api-version" }
+      }
+    },
+    "Remove App": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Remove-App",
+      "visioShape": "PowerApp",
+      "display": {
+        "App": { "value": "inputs|parameters|app" },
+        "API Version": { "value": "inputs|parameters|api-version" }
+      }
+    },
+    "Remove Connection": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Remove-Connection",
+      "visioShape": "PowerApp",
+      "display": {
+        "Connector": { "value": "inputs|parameters|connectorName" },
+        "Connection": { "value": "inputs|parameters|connectionName" },
+        "Filter": { "value": "inputs|parameters|$filter" },
+        "API Version": { "value": "inputs|parameters|api-version" }
+      }
+    },
+    "Remove Connector": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Remove-Connector",
+      "visioShape": "PowerApp",
+      "display": {
+        "Connector": { "value": "inputs|parameters|connectorName" },
+        "Filter": { "value": "inputs|parameters|$filter" },
+        "API Version": { "value": "inputs|parameters|api-version" }
+      }
+    },
+    "Restore App": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Restore-AppVersion",
+      "visioShape": "PowerApp",
+      "display": {
+        "App": { "value": "inputs|parameters|app" },
+        "App Version": { "value": "inputs|parameters|appVersionName" },
+        "API Version": { "value": "inputs|parameters|api-version" }
+      }
+    },
+    "Set App Display Name": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_powerappsforappmakers",
+      "operationId": "Set-AppDisplayName",
+      "visioShape": "PowerApp",
+      "display": {
+        "App": { "value": "inputs|parameters|app" },
+        "API Version": { "value": "inputs|parameters|api-version" },
+        "Content Type": { "value": "inputs|parameters|Content-Type" },
+        "Name": { "value": "inputs|parameters|body/displayName" }
+
+      }
+    },
+    "When A Record Is Created": {
+      "type": "OpenApiConnectionWebhook",
+      "connectionName": "shared_commondataservice",
+      "operationId": "SubscribeOnNewItems",
+      "visioShape": "CDS",
+      "display": {
+        "Environment": { "value": "inputs|parameters|dataset" },
+        "Entity": { "value": "inputs|parameters|table" },
+        "Scope": { "value": "inputs|parameters|scope" }
+      }
+    },
+    "When A Record Is Deleted": {
+      "type": "OpenApiConnectionWebhook",
+      "connectionName": "shared_commondataservice",
+      "operationId": "SubscribeOnDeletedItems",
+      "visioShape": "CDS",
+      "display": {
+        "Environment": { "value": "inputs|parameters|dataset" },
+        "Entity": { "value": "inputs|parameters|table" },
+        "Scope": { "value": "inputs|parameters|scope" }
+      }
+    },
+    "When A Record Is Updated": {
+      "type": "OpenApiConnectionWebhook",
+      "connectionName": "shared_commondataservice",
+      "operationId": "SubscribeOnUpdatedItems",
+      "visioShape": "CDS",
+      "display": {
+        "Environment": { "value": "inputs|parameters|dataset" },
+        "Entity": { "value": "inputs|parameters|table" },
+        "Scope": { "value": "inputs|parameters|scope" }
+      },
+      "repeat": [
+        {
+          "path": "inputs|parameters|subscriptionRequest/AttributeFilters",
+          "title": "Attribute Filter"
+        }
+      ]
+    },
+    "When A Record Is Selected": {
+      "kind": "ApiConnection",
+      "type": "Request",
+      "connectionName": "shared_commondataservice",
+      "operationId": "GetOnNewItems_V2",
+      "visioShape": "CDS",
+      "display": {
+        "Environment": { "value": "inputs|parameters|dataset" },
+        "Entity": { "value": "inputs|parameters|table" }
+      },
+      "repeat": [
+        {
+          "path": "inputs|schema|properties|rows|items|properties",
+          "class": true,
+          "filter": "x-ms-content-hint|x-ms-dynamically-added",
+          "left": 0
+        }
+      ]
+    },
+    "Send an Email Notification": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_sendmail",
+      "operationId": "SendEmailV3",
+      "visioShape": "Email",
+      "repeat": [
+        {
+          "path": "inputs|parameters",
+          "left": 8
+        }
+      ]
+    },
+    "When a new Response is submitted": {
+      "type": "OpenApiConnectionWebhook",
+      "connectionName": "shared_microsoftforms",
+      "operationId": "CreateFormWebhook",
+      "visioShape": "Forms",
+      "display": {
+        "Form": { "value": "inputs|parameters|form_id" }
+      }
+    },
+    "Get Response Detail": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_microsoftforms",
+      "operationId": "GetFormResponseById",
+      "visioShape": "Forms",
+      "display": {
+        "Form": { "value": "inputs|parameters|form_id" },
+        "Response": { "value": "inputs|parameters|response_id" }
+      }
+    },
+    "Create an Invitation": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_microsoftformspro",
+      "operationId": "createSurveyInvite",
+      "visioShape": "CustVoice",
+      "display": {
+        "Project": { "value": "inputs|parameters|ProjectId" },
+        "Form": { "value": "inputs|parameters|FormId" },
+        "Email": { "value": "inputs|parameters|Email" },
+        "Subject": { "value": "inputs|parameters|subject" },
+        "First Name": { "value": "inputs|parameters|firstName" },
+        "Last Name": { "value": "inputs|parameters|lastName" },
+        "Regarding": { "value": "inputs|parameters|Regarding" },
+        "Recipient": { "value": "inputs|parameters|RecipientInfo" },
+        "Locale": { "value": "inputs|parameters|item/locale" }
+      },
+      "repeat": [
+        {
+          "path": "inputs|parameters",
+          "filter": "ProjectId|FormId|Email|subject|firstName|lastName|Regarding|RecipientInfo|item/locale",
+          "left": 0
+        }
+      ]
+    },
+    "Send a Survey": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_microsoftformspro",
+      "operationId": "sendSurvey",
+      "visioShape": "CustVoice",
+      "display": {
+        "Project": { "value": "inputs|parameters|ProjectId" },
+        "Form": { "value": "inputs|parameters|FormId" },
+        "To": { "value": "inputs|parameters|to" },
+        "Template": { "value": "inputs|parameters|EmailTemplateId" },
+        "First Name": { "value": "inputs|parameters|firstName" },
+        "Last Name": { "value": "inputs|parameters|lastName" },
+        "Regarding": { "value": "inputs|parameters|Regarding" },
+        "Recipient": { "value": "inputs|parameters|RecipientInfo" },
+        "Locale": { "value": "inputs|parameters|item/locale" }
+      },
+      "repeat": [
+        {
+          "path": "inputs|parameters",
+          "filter": "ProjectId|FormId|to|EmailTemplateId|firstName|lastName|Regarding|RecipientInfo|item/locale",
+          "left": 0
+        }
+      ]
     }
   }
-} 
+}

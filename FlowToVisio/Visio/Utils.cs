@@ -128,7 +128,7 @@ namespace LinkeD365.FlowToVisio
             get
             {
                 return ActionTemplate["actions"].Children<JProperty>()
-                    .Where(prop => prop.Value["type"] != null && prop.Value["type"].ToString() == "OpenApiConnection").ToList();
+                    .Where(prop => prop.Value["type"] != null && (prop.Value["type"].ToString() == "OpenApiConnection" || prop.Value["type"].ToString() == "OpenApiConnectionWebhook") ).ToList();
             }
         }
 
@@ -364,7 +364,7 @@ namespace LinkeD365.FlowToVisio
         private static Action CreateTemplateAction(JProperty actionProperty, Action parent, int curCount, int childCount)
         {
             //   var templates = ActionTemplate.
-            if (actionProperty.Value["type"].ToString() == "OpenApiConnection")
+            if (actionProperty.Value["type"].ToString() == "OpenApiConnection" || actionProperty.Value["type"].ToString() == "OpenApiConnectionWebhook")
             {
                 var template = OpenApiTemplates.FirstOrDefault(prop =>
                     prop.Value["connectionName"].ToString() == actionProperty.Value["inputs"]["host"]["connectionName"].ToString() &&
