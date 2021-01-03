@@ -33,7 +33,12 @@
     "Weather",
     "AI Builder",
     "Word",
-    "OneDrive"
+    "OneDrive",
+    "Push",
+    "CustVoice",
+    "Forms",
+    "Email",
+    "Office"
   ],
   "actions": {
     "Today&apos;s forecast": {
@@ -1039,6 +1044,201 @@
           "left": 0
         }
       ]
+    },
+    "Send a Mobile Notificaton": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_flowpush",
+      "operationId": "SendNotification",
+      "visioShape": "Push",
+      "display": {
+        "Text": { "value": "inputs|parameters|NotificationDefinition/notificationText" },
+        "Link": { "value": "inputs|parameters|NotificationDefinition/notificationLink/uri" },
+        "Label": { "value": "inputs|parameters|NotificationDefinition/notificationLink/label" }
+
+      }
+    },
+    "Send an Email Notificaton": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_flowpush",
+      "operationId": "SendEmailNotification",
+      "visioShape": "Push",
+      "display": {
+        "Subject": { "value": "inputs|parameters|NotificationEmailDefinition/notificationSubject" },
+        "Link": { "value": "inputs|parameters|NotificationEmailDefinition/notificationBody" }
+
+      }
+    },
+    "Append to Array": {
+      "type": "AppendToArrayVariable",
+      "visioShape": "VariableAction",
+      "display": {
+        "Array": { "value": "inputs|name" },
+        "Value": { "value": "inputs|value" }
+      }
+    },
+    "Increment Variable": {
+      "type": "IncrementVariable",
+      "visioShape": "VariableAction",
+      "display": {
+        "Variable": { "value": "inputs|name" },
+        "Value": { "value": "inputs|value" }
+      }
+    },
+    "Get Direct Reports": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_office365users",
+      "operationId": "DirectReports_V2",
+      "visioShape": "Office",
+      "display": {
+        "User": { "value": "inputs|parameters|id" }
+      }
+
+    },
+    "Get Manager": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_office365users",
+      "operationId": "Manager_V2",
+      "visioShape": "Office",
+      "display": {
+        "User": { "value": "inputs|parameters|id" },
+        "Fields": { "value": "inputs|parameters|$select" }
+
+      }
+
+    },
+    "Get My Profile": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_office365users",
+      "operationId": "MyProfile_V2",
+      "visioShape": "Office",
+      "display": {
+        "Fields": { "value": "inputs|parameters|$select" }
+
+      }
+
+    },
+    "Get My Trending Docs": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_office365users",
+      "operationId": "MyTrendingDocuments",
+      "visioShape": "Office",
+      "display": {
+        "Filter": { "value": "inputs|parameters|$filter" }
+
+      }
+
+    },
+    "Get Relevant People": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_office365users",
+      "operationId": "RelevantPeople",
+      "visioShape": "Office",
+      "display": {
+        "User": { "value": "inputs|parameters|userId" }
+
+      }
+
+    },
+    "Get Trending Docs": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_office365users",
+      "operationId": "TrendingDocuments",
+      "visioShape": "Office",
+      "display": {
+        "User": { "value": "inputs|parameters|id" },
+        "Filter": { "value": "inputs|parameters|$filter" }
+      }
+
+    },
+    "Get User Photo": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_office365users",
+      "operationId": "UserPhoto_V2",
+      "visioShape": "Office",
+      "display": {
+        "User": { "value": "inputs|parameters|id" }
+
+      }
+
+    },
+    "Get User Photo Meta": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_office365users",
+      "operationId": "UserPhotoMetadata",
+      "visioShape": "Office",
+      "display": {
+        "User": { "value": "inputs|parameters|userId" }
+
+      }
+
+    },
+    "Get User Profile": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_office365users",
+      "operationId": "UserProfile_V2",
+      "visioShape": "Office",
+      "display": {
+        "User": { "value": "inputs|parameters|id" },
+        "Fields": { "value": "inputs|parameters|$select" }
+
+      }
+
+    },
+    "Search Users": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_office365users",
+      "operationId": "SearchUserV2",
+      "visioShape": "Office",
+      "display": {
+        "Search Term": { "value": "inputs|parameters|searchTerm" },
+        "Top": { "value": "inputs|parameters|top" }
+      }
+
+    },
+    "Update My Profile": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_office365users",
+      "operationId": "UpdateMyProfile",
+      "visioShape": "Office",
+      "display": {
+        "About Me": { "value": "inputs|parameters|body/aboutMe" },
+        "Birthday": { "value": "inputs|parameters|body/birthday" },
+        "My Site": { "value": "inputs|parameters|body/mySite" }
+
+      },
+      "repeat": [
+        {
+          "title": "Projects",
+          "path": "inputs|parameters|body/pastProjects",
+          "left": 0
+        },
+        {
+          "title": "Interests",
+          "path": "inputs|parameters|body/interests",
+          "left": 0
+        },
+        {
+          "title": "Schools",
+          "path": "inputs|parameters|body/schools",
+          "left": 0
+        },
+        {
+          "title": "Skills",
+          "path": "inputs|parameters|body/skills",
+          "left": 0
+        }
+      ]
+    },
+    "Update My Profile Photo": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_office365users",
+      "operationId": "UpdateMyPhoto",
+      "visioShape": "Office",
+      "display": {
+        "Image": { "value": "inputs|parameters|body" },
+        "Type": { "value": "inputs|parameters|Content-Type" }
+      }
     }
+
   }
 }

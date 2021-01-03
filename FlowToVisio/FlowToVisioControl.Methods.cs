@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk.Query;
+﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Xrm.Sdk.Query;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,6 @@ namespace LinkeD365.FlowToVisio
 
                     var flowRecords = Service.RetrieveMultiple(qe);
                     foreach (var flowRecord in flowRecords.Entities)
-                    {
                         flowList.Add(new FlowDefinition
                         {
                             Id = flowRecord["workflowid"].ToString(),
@@ -40,7 +40,6 @@ namespace LinkeD365.FlowToVisio
                             Solution = true,
                             Managed = (bool)flowRecord["ismanaged"]
                         });
-                    }
                     e.Result = flowList;
                 },
                 ProgressChanged = e =>
@@ -71,12 +70,20 @@ namespace LinkeD365.FlowToVisio
             {
                 _client = apiConnection.GetClient();
             }
+            catch (AdalServiceException adalExec)
+            {
+                LogError("Adal Error", adalExec.GetBaseException());
+
+                if (adalExec.ErrorCode == "authentication_canceled") return;
+
+                ShowError(adalExec, "Error in connecting, please check details");
+            }
             catch (Exception e)
             {
                 LogError("Error getting connection", e.Message);
                 ShowError(e, "Error in connecting, please check entered details");
                 return;
-            } 
+            }
             if (_client == null) return;
             //GetClient();
             SettingsManager.Instance.Save(typeof(FlowConnection), flowConnection);
@@ -85,15 +92,7 @@ namespace LinkeD365.FlowToVisio
             {
                 Message = "Loading Flows",
                 Work = (w, args) =>
-                {
-
-                    args.Result = _client.GetAsync($"https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConnection.Environment}/flows?&api-version=2016-11-01").GetAwaiter().GetResult();
-                    //    var response = _client.GetAsync("https://unitedkingdom.api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/32180c50-6a4d-42cd-bcf1-75f1cfc5bc77/flows?&api-version=2016-11-01").GetAwaiter().GetResult();
-
-
-
-                    //   e.Result = flowList;
-                },
+                    args.Result = _client.GetAsync($"https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConnection.Environment}/flows?&api-version=2016-11-01").GetAwaiter().GetResult(),
                 PostWorkCallBack = args =>
                 {
                     if (args.Error != null)
@@ -110,7 +109,6 @@ namespace LinkeD365.FlowToVisio
 
                             var flowDefs = JObject.Parse(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                             if (flowDefs["value"].HasValues)
-                            {
                                 foreach (JToken flowDef in flowDefs["value"].Children())
                                     flowList.Add(new FlowDefinition
                                     {
@@ -119,7 +117,6 @@ namespace LinkeD365.FlowToVisio
                                         Name = flowDef["properties"]["displayName"].ToString(),
                                         OwnerType = flowDef["properties"]["userType"].ToString()
                                     });
-                            }
                         }
                         else
                         {
@@ -152,12 +149,7 @@ namespace LinkeD365.FlowToVisio
             WorkAsync(new WorkAsyncInfo
             {
                 Message = "Loading Flow",
-                Work = (w, args) =>
-                {
-                   args.Result = _client.GetAsync($"https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConnection.Environment}/flows/{flowDefinition.Id}?&api-version=2016-11-01").GetAwaiter().GetResult();
-
-                    //jsonResponse = response2.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                },
+                Work = (w, args) => args.Result = _client.GetAsync($"https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConnection.Environment}/flows/{flowDefinition.Id}?&api-version=2016-11-01").GetAwaiter().GetResult(),
                 ProgressChanged = e =>
                 {
                 },
@@ -199,13 +191,9 @@ namespace LinkeD365.FlowToVisio
         {
             LogError(error.ToString());
             if (error.InnerException != null)
-            {
                 ShowError(error.InnerException);
-            }
             else
-            {
                 MessageBox.Show(error.Message, caption ?? "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
     }
 
@@ -227,5 +215,6 @@ namespace LinkeD365.FlowToVisio
         public string TenantId = string.Empty;
         public string ReturnURL = string.Empty;
         public string Environment = string.Empty;
+        public bool UseDev;
     }
 }

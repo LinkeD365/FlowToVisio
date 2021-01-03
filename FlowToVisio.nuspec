@@ -11,13 +11,18 @@
     <iconUrl>https://linked365.blog/wp-content/uploads/2020/03/smallIcon.png</iconUrl>
     <description>A XrmToolBox tool to create Visio diagram of your Power Automate Flows that are within your CDS</description>
     <releaseNotes>
-#7 Resolved issue with repeat was a class
-Added PowerApp, more CDS, Forms, Customer Voice
-10.7
-#3 Fixed readonly grid
-#5 Hope you are happy Jonas
-#6 hopefully 🤞🏽
-Added Onedrive and Word Templates
+      #9 Added Dev Azure APP info
+      Added additional logging around Flow API access
+      Added Append Array Increment Variables 🎁
+      Added Office Users✨
+
+      #7 Resolved issue with repeat was a class
+      Added PowerApp, more CDS, Forms, Customer Voice
+      10.7
+      #3 Fixed readonly grid
+      #5 Hope you are happy Jonas
+      #6 hopefully 🤞🏽
+      Added Onedrive and Word Templates
     </releaseNotes>
     <copyright>Copyright 2020</copyright>
     <tags>XrmToolBox Plugins Flow Visio</tags>

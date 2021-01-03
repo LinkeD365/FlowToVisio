@@ -34,9 +34,7 @@ namespace LinkeD365.FlowToVisio
                 LogWarning("Settings not found => a new settings file has been created!");
             }
             else
-            {
                 LogInfo("Settings found and loaded");
-            }
             ExecuteMethod(LoadFlows);
         }
 
@@ -64,10 +62,8 @@ namespace LinkeD365.FlowToVisio
             base.UpdateConnection(newService, detail, actionName, parameter);
 
             if (flowConnection != null && detail != null)
-            {
-              //  mySettings.LastUsedOrganizationWebappUrl = detail.WebApplicationUrl;
+                //  mySettings.LastUsedOrganizationWebappUrl = detail.WebApplicationUrl;
                 LogInfo("Connection has changed to: {0}", detail.WebApplicationUrl);
-            }
 
             LoadFlows();
         }
@@ -81,11 +77,9 @@ namespace LinkeD365.FlowToVisio
             }
 
             if (File.Exists(txtFileName.Text) && !overrideSave)
-            {
                 if (MessageBox.Show("Do you want to override the file?", "File already exists", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
-            }
             overrideSave = false;
-            var selectFlow = ((FlowDefinition) grdFlows.SelectedRows[0].DataBoundItem);
+            var selectFlow = ((FlowDefinition)grdFlows.SelectedRows[0].DataBoundItem);
             if (selectFlow.Solution)
             {
                 flowObject = JObject.Parse(selectFlow.Definition);
@@ -104,13 +98,9 @@ namespace LinkeD365.FlowToVisio
         {
             //gridFlows.DataSource = null;
             if (string.IsNullOrEmpty(textSearch.Text))
-            {
                 grdFlows.DataSource = flows.Where(flw => flw.Name.ToLower().Contains(textSearch.Text.ToLower()));//.Entities.Where(ent => ent.Attributes["name"].ToString().ToLower().Contains(textSearch.Text));
-            }
             else
-            {
                 grdFlows.DataSource = flows;
-            }
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -129,7 +119,7 @@ namespace LinkeD365.FlowToVisio
 
         private void InitGrid()
         {
-           grdFlows.AutoResizeColumns();
+            grdFlows.AutoResizeColumns();
         }
     }
 }

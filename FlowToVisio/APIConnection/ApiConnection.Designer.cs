@@ -38,6 +38,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtReturnURL = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.chkUseDevApp = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -76,7 +77,7 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(113, 114);
+            this.btnOK.Location = new System.Drawing.Point(87, 114);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 8;
@@ -87,7 +88,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(206, 114);
+            this.btnCancel.Location = new System.Drawing.Point(168, 114);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 9;
@@ -116,7 +117,6 @@
             this.txtReturnURL.Name = "txtReturnURL";
             this.txtReturnURL.Size = new System.Drawing.Size(273, 20);
             this.txtReturnURL.TabIndex = 7;
-            this.txtReturnURL.TextChanged += new System.EventHandler(this.txtReturnURL_TextChanged);
             // 
             // label5
             // 
@@ -127,11 +127,23 @@
             this.label5.TabIndex = 6;
             this.label5.Text = "Return URL:";
             // 
+            // chkUseDevApp
+            // 
+            this.chkUseDevApp.AutoSize = true;
+            this.chkUseDevApp.Location = new System.Drawing.Point(266, 118);
+            this.chkUseDevApp.Name = "chkUseDevApp";
+            this.chkUseDevApp.Size = new System.Drawing.Size(123, 17);
+            this.chkUseDevApp.TabIndex = 10;
+            this.chkUseDevApp.Text = "Use Dev App Config";
+            this.chkUseDevApp.UseVisualStyleBackColor = true;
+            this.chkUseDevApp.CheckedChanged += new System.EventHandler(this.ChkUseDevApp_CheckedChanged);
+            // 
             // ApiConnection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(401, 142);
+            this.Controls.Add(this.chkUseDevApp);
             this.Controls.Add(this.txtReturnURL);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtTenant);
@@ -162,5 +174,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtReturnURL;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox chkUseDevApp;
     }
 }

@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.Xml.Linq;
-using Newtonsoft.Json.Linq;
 
 namespace LinkeD365.FlowToVisio
 {
@@ -77,7 +76,7 @@ namespace LinkeD365.FlowToVisio
                 if (_actionTemplate == null)
                 {
 #if DEBUG
-                    _actionTemplate = JObject.Parse(File.ReadAllText(@"E:\Live\FlowToVisio\actions.json"));
+                    _actionTemplate = JObject.Parse(File.ReadAllText(@"D:\Live\FlowToVisio\actions.json"));
 #else
                     string jsonString =
                         new WebClient().DownloadString("https://raw.githubusercontent.com/LinkeD365/FlowToVisio/master/actions.json");
@@ -90,13 +89,7 @@ namespace LinkeD365.FlowToVisio
             }
         }
 
-        public static List<string> VisioTemplates
-        {
-            get
-            {
-                return (ActionTemplate["visioShapes"] as JArray).Select(jt => jt.ToString()).ToList();
-            }
-        }
+        public static List<string> VisioTemplates => (ActionTemplate["visioShapes"] as JArray).Select(jt => jt.ToString()).ToList();
 
         private static List<FlowRegion> _flowRegions;
         public static List<FlowRegion> FlowRegions
@@ -107,7 +100,6 @@ namespace LinkeD365.FlowToVisio
                 {
                     _flowRegions = new List<FlowRegion>();
                     foreach (JProperty regionToken in ActionTemplate["regions"])
-                    {
                         _flowRegions.Add(new FlowRegion
                         {
                             Name = regionToken.Name,
@@ -116,30 +108,17 @@ namespace LinkeD365.FlowToVisio
 
                             // Name = regionToken.
                         });
-                    }
                 }
 
                 return _flowRegions;
             }
         }
 
-        private static List<JProperty> OpenApiTemplates
-        {
-            get
-            {
-                return ActionTemplate["actions"].Children<JProperty>()
-                    .Where(prop => prop.Value["type"] != null && (prop.Value["type"].ToString() == "OpenApiConnection" || prop.Value["type"].ToString() == "OpenApiConnectionWebhook") ).ToList();
-            }
-        }
+        private static List<JProperty> OpenApiTemplates => ActionTemplate["actions"].Children<JProperty>()
+                    .Where(prop => prop.Value["type"] != null && (prop.Value["type"].ToString() == "OpenApiConnection" || prop.Value["type"].ToString() == "OpenApiConnectionWebhook")).ToList();
 
-        private static List<JProperty> OtherTemplates
-        {
-            get
-            {
-                return ActionTemplate["actions"].Children<JProperty>()
+        private static List<JProperty> OtherTemplates => ActionTemplate["actions"].Children<JProperty>()
                     .Where(prop => prop.Value["type"] != null && prop.Value["type"].ToString() != "OpenApiConnection").ToList();
-            }
-        }
 
         private const string aiEndpoint = "https://dc.services.visualstudio.com/v2/track";
 
@@ -164,9 +143,7 @@ namespace LinkeD365.FlowToVisio
 
 
                 if (actionProperty.Value["type"] == null)
-                {
                     return new Action(actionProperty, parent, curCount, childCount);
-                }
                 else
                 {
                     var templateAction = CreateTemplateAction(actionProperty, parent, curCount, childCount);
@@ -246,8 +223,8 @@ namespace LinkeD365.FlowToVisio
             }
             catch (Exception exc)
             {
-               Ai.WriteEvent("Error in Action " + actionProperty.Value["type"]);
-               return new Action(actionProperty, parent, curCount, childCount);
+                Ai.WriteEvent("Error in Action " + actionProperty.Value["type"]);
+                return new Action(actionProperty, parent, curCount, childCount);
                 //throw;
             }
 
@@ -333,7 +310,8 @@ namespace LinkeD365.FlowToVisio
                     case "shared_sharepointonline":
                         return new SharePointAction(actionProperty, parent, curCount, childCount);
                 }
-                Ai.WriteEvent("No API Action: " + Connection.APIConnections.First(con => con.Name == connectionName).Api);
+                Ai.WriteEvent(
+                    "No API Action: " + Connection.APIConnections.First(con => con.Name == connectionName).Api);
             }
             else if (actionProperty.Value["type"].ToString() == "OpenApiConnection")
             {
@@ -355,7 +333,9 @@ namespace LinkeD365.FlowToVisio
                     case "shared_sharepointonline":
                         return new SharePointAction(actionProperty, parent, curCount, childCount);
                 }
-                Ai.WriteEvent("No Open API Action: " + Connection.APIConnections.First(con => con.Name == connectName).Api);
+                Ai.WriteEvent("No Open API Action: " + Connection.APIConnections.First(con => con.Name == connectName).Api
+                    + " Operation:" + (actionProperty.Value["inputs"]?["host"]?["operationId"].ToString() ?? string.Empty));
+
             }
 
             return new Action(actionProperty, parent, curCount, childCount);

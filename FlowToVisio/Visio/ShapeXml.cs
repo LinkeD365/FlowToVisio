@@ -3,127 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace LinkeD365.FlowToVisio
 {
-    public abstract class BaseShape
-    {
-        public JProperty Property { get; private set; }
-        //protected XDocument xmlPage;
-
-        protected XElement shapes;
-
-        private XElement line;
-        public double PinX { get; protected set; }
-        public double PinY { get; protected set; }
-        public int Id { get; protected set; }
-
-        public XElement GetTemplateShape(string name)
-        {
-            var selectedElements =
-                from el in Shapes.Elements()
-                where el.Attribute("NameU")?.Value == name
-                select el;
-            return selectedElements.DefaultIfEmpty(null).FirstOrDefault();
-        }
-
-        public XElement Line
-        {
-            get
-            {
-                if (line == null)
-                {
-                    var selectedElements =
-                        from el in Shapes.Elements()
-                        where el.Attribute("ID").Value == "1000"
-                        select el;
-                    line = selectedElements.DefaultIfEmpty(null).FirstOrDefault();
-                }
-
-                return line;
-            }
-        }
-
-        public XElement Shapes
-        {
-            get
-            {
-                if (shapes == null)
-                {
-                    var elements =
-                        from element in Utils.XMLPage.Descendants()
-                        where element.Name.LocalName == "Shapes"
-                        select element;
-                    // Return the selected elements to the calling code.
-                    shapes = elements.FirstOrDefault();
-                }
-
-                return shapes;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                if (Property == null) return "Line." + Id;
-                else return Property.Name;
-            }
-        }
-
-        public BaseShape(JProperty property)
-        {
-            Property = property;
-        }
-
-        public BaseShape()
-        {
-        }
-
-        private XElement shape;
-
-        public XElement Shape
-        {
-            get => shape;
-            set
-            {
-                shape = value;
-                Shapes.Add(shape);
-                SetId();
-            }
-        }
-
-        public string PropertyName
-        {
-            get
-            {
-                if (Property == null) return string.Empty;
-                var regext = new Regex("/(_{2,})|_/g, '$1'");
-                return regext.Replace(Property.Name, " ");
-            }
-        }
-
-        private void SetId()
-        {
-            if (Shape.Attribute("ID") == null) return;
-            Id = Shapes.Descendants().Where(el => el.Attribute("ID") != null).Max(x => int.Parse(x.Attribute("ID").Value)) + 1;
-
-            Shape.SetAttributeValue("ID", Id);
-
-            foreach (var stencil in Shape.Descendants().Where(el => el.Attribute("ID") != null))
-                stencil.SetAttributeValue("ID",
-                    Shapes.Descendants().Where(el => el.Attribute("ID") != null).Max(x => int.Parse(x.Attribute("ID").Value)) + 1);
-            //if (Shape.Elements().Any(el => el.Name.LocalName == "Shapes"))
-            //{
-            //    foreach(var stencilShape in Shape.Elements().Where(el => el.Name.LocalName == Shapes).)
-            //}
-        }
-    }
-
     public class Line : BaseShape
     {
         public Line() : base()
@@ -197,246 +82,6 @@ namespace LinkeD365.FlowToVisio
             Utils.Connects.Add(ConnectEnd);
         }
     }
-
-    public class Action : BaseShape
-    {
-        private Action endAction;
-        public List<Action> FinalActions = new List<Action>();
-        private XElement sections;
-        protected double offsetX = 3; // inches
-        protected double offsetY = 1.1;
-
-        protected double CalcX
-        {
-            get
-            {
-                if (children == 1) return 0;
-                //    if (children == 2)
-                double width = children + 1;
-                return (-(width / 2) + (double)current / (children + 1) * width) * offsetX;
-                //    return (Math.Ceiling((double)children / 2) - current + (children % 2 == 0 ? 1 : 0)) * offsetX;
-            }
-        }
-
-        protected void CalcPosition()
-        {
-            PinY = Parent.EndAction.PinY -
-                   offsetY; // Double.Parse(Shape.Elements().Where(el => el.Attribute("N").Value == "PinY").First().Attribute("V").Value) - offsetY);
-            PinX = Parent.EndAction.PinX +
-                   CalcX; // Double.Parse(parent.Shape.Elements().Where(el => el.Attribute("N").Value == "PinX").First().Attribute("V").Value) - CalcX;
-            SetPosition();
-        }
-
-        protected void SetPosition()
-        {
-            Shape.Elements().First(el => el.Attribute("N").Value == "PinY").SetAttributeValue("V", PinY);
-            Shape.Elements().First(el => el.Attribute("N").Value == "PinX").SetAttributeValue("V", PinX);
-        }
-
-        protected int current = 0;
-        protected int children = 0;
-
-        public XElement Connections
-        {
-            get
-            {
-                if (sections == null)
-                {
-                    var elements =
-                        from element in Shape.Descendants()
-                        where element.Name.LocalName == "Section" && element.Attribute("N").Value == "Connection"
-                        select element;
-                    if (!elements.Any())
-                    {
-                        sections = new XElement("Section");
-                        sections.SetAttributeValue("N", "Connection");
-                        Shape.Add(sections);
-                    }
-                    else
-                    {
-                        sections = elements.FirstOrDefault();
-                    }
-                }
-
-                return sections;
-            }
-        }
-
-        private XElement props;
-
-        public XElement Props
-        {
-            get
-            {
-                if (props == null)
-                {
-                    var elements =
-                        from element in Shape.Descendants()
-                        where element.Name.LocalName == "Section" && element.Attribute("N").Value == "Property"
-                        select element;
-                    if (!elements.Any())
-                    {
-                        props = new XElement("Section");
-                        props.SetAttributeValue("N", "Property");
-                        Shape.Add(props);
-                    }
-                    else
-                    {
-                        props = elements.FirstOrDefault();
-                    }
-                }
-
-                return props;
-            }
-        }
-
-        protected void AddProp(string name, string value)
-        {
-            Props.Add(XElement.Parse("<Row N='" + name + "'> <Cell N='Value' V='" + value + "' U='STR'/></Row>"));
-        }
-
-        protected void AddType(string value)
-        {
-            AddProp("ActionType", value);
-        }
-
-        protected void AddType()
-        {
-            AddType(Property.Value["type"].ToString());
-        }
-
-        protected void AddName(string value)
-        {
-            AddProp("ActionName", value);
-        }
-
-        protected void AddName()
-        {
-            AddProp("ActionName", Property.Name);
-        }
-
-        protected void AddText(string text)
-        {
-            var textElement = Shape.Descendants().Where(el => el.Name.LocalName == "Text").First();
-            if (Property.Value["description"] != null) text = new StringBuilder("Comment: " + Property.Value["description"]).AppendLine().Append(text).ToString();
-            textElement.ReplaceWith(XElement.Parse("<Text><![CDATA[" + text + "]]></Text>"));
-        }
-
-        protected void AddText(StringBuilder sb)
-        {
-            AddText(sb.ToString());
-        }
-
-        public Action EndAction
-        {
-            get
-            {
-                if (endAction == null) return this;
-                return endAction;
-            }
-            protected set => endAction = value;
-        }
-
-        public Action Parent;
-
-        public Action(Action parent) : base()
-        {
-            Utils.actionCount++;
-            Parent = parent;
-        }
-
-        public Action(JProperty property) : this(property, null, 0, 0, "Default")
-        {
-            AddBaseText();
-        }
-
-        public Action(JProperty property, Action parent, int current, int children) : this(property, parent, current, children, "Default")
-        {
-            AddBaseText();
-        }
-
-        public Action(JProperty property, Action parent, int current, int children, string templateName) : base(property)
-        {
-            Parent = parent;
-            Shape = new XElement(GetTemplateShape(templateName));
-            Utils.actionCount++;
-
-            this.current = current;
-            this.children = children;
-            Shape.SetAttributeValue("NameU", property.Name);
-            if (parent != null)
-            {
-                // CalcPosition();
-                //Shapes.Add(shape);
-                AddRunAfter();
-
-            }
-            else
-            {
-                // Variant to allow for international useage
-                PinX = double.TryParse(Shape.Elements().First(el => el.Attribute("N").Value == "PinX").Attribute("V").Value, NumberStyles.Any,
-                    CultureInfo.InvariantCulture, out var tempPinX) ? tempPinX : 0.0;
-                PinY =double.TryParse(Shape.Elements().First(el => el.Attribute("N").Value == "PinY").Attribute("V").Value, NumberStyles.Any,
-                    CultureInfo.InvariantCulture, out var tempPiny) ? tempPiny : 0.0;
-                //  PinX = double.Parse(Shape.Elements().First(el => el.Attribute("N").Value == "PinX").Attribute("V").Value,CultureInfo.InvariantCulture);
-               // PinY = tempPiny;
-            }
-
-            // if (this is Action) AddBaseText();
-        }
-
-        private void AddRunAfter()
-        {
-            if (Property.Value["runAfter"] != null && Property.Value["runAfter"].HasValues) // #2 Added check for null
-            {
-                var runAfterString = string.Empty;
-                foreach (var jToken in Property.Value["runAfter"].Children().First().Value<JProperty>().Value.Where(jt => jt.ToString() != "Succeeded"))
-                {
-                    runAfterString += jToken + " | ";
-                }
-
-                if (runAfterString != string.Empty)
-                {
-                    runAfterString = runAfterString.Substring(0, runAfterString.Length - 3);
-                    var header = new CaseAction(Parent, current, children, PropertyName + runAfterString + current);
-                    header.AddName(runAfterString);
-                    header.Props.Add(XElement.Parse("<Row N='ActionCase'> <Cell N='Value' V='" + runAfterString + "' U='STR'/></Row>"));
-                    header.AddFillColour("255,242,204");
-                    Parent = header;
-                    current = 1;
-                    children = 1;
-                }
-            }
-            CalcPosition();
-            var line = new Line();
-            line.Connect(Parent.EndAction, this, current, children);
-        }
-
-        public Action() : base()
-        {
-            Utils.actionCount++;
-        }
-
-        private void AddBaseText()
-        {
-            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + PropertyName + "' U='STR'/></Row>"));
-            Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='" + Property.Value["type"] + "' U='STR'/></Row>"));
-            // var sb = "<Text><cp IX = '0' /><pp IX = '0' />" + PropertyName + "\n";
-            //   var textElement = Shape.Descendants().Where(el => el.Name.LocalName == "Text").First();
-            var sb = new StringBuilder("Properties: ");
-            sb.AppendLine();
-            if (((JObject)Property.Value).Properties().Count() > 0)
-                foreach (var item in ((JObject)Property.Value).Properties().Where(p => p.Name != "runAfter"))
-                    sb.AppendLine(item.Name + " : " + @item.Value);
-            AddText(sb);
-        }
-
-        public void AddFillColour(string colour)
-        {
-            Shape.Add(XElement.Parse("<Cell N = 'FillForegnd' V = '' F = 'THEMEGUARD(RGB(" + colour + "))' />"));
-        }
-    }
-
     public class Trigger : Action
     {
         public Trigger(JProperty triggerProperty) : base(triggerProperty)
@@ -501,10 +146,8 @@ namespace LinkeD365.FlowToVisio
             }
 
             if (property.Value["inputs"]["body"] != null)
-            {
                 sb.AppendLine("Body:" + property.Value["inputs"]["body"]);
-               //  foreach (var header in property.Value["inputs"]["body"] as JObject) sb.AppendLine(header.Key + " : " + header.Value);
-            }
+            //  foreach (var header in property.Value["inputs"]["body"] as JObject) sb.AppendLine(header.Key + " : " + header.Value);
 
             AddText(sb);
         }
@@ -550,7 +193,7 @@ namespace LinkeD365.FlowToVisio
     public class CDSAction : Action
     {
         private const string encode = "encodeURIComponent(";
-        private string text = "";
+        private string text = string.Empty;
         private string type;
         private string path => Property.Value["inputs"]["path"].ToString();
         private string method => Property.Value["inputs"]["method"].ToString();
@@ -839,13 +482,13 @@ namespace LinkeD365.FlowToVisio
                 if (Property.Value["inputs"]?["schema"]?["properties"]?["rows"]?["items"]?["required"] != null &&
                     Property.Value["inputs"]["schema"]["properties"]["rows"]["items"]["required"].HasValues)
                     foreach (var props in Property.Value["inputs"]["schema"]["properties"]["rows"]["items"]["required"].Children<JToken>())
-                        metaList.Add(new Meta() { Label = props.ToString() });
+                        metaList.Add(new Meta { Label = props.ToString() });
                 if (Property.Value["inputs"]?["schema"]?["properties"]?["rows"]?["items"]?["properties"] != null &&
                     Property.Value["inputs"]["schema"]["properties"]["rows"]["items"]["properties"].HasValues)
                 {
                     var sb = new StringBuilder("Fields: ").AppendLine();
                     foreach (var props in Property.Value["inputs"]["schema"]["properties"]["rows"]["items"]["properties"].Children<JProperty>())
-                        sb.AppendLine(props.Value["title"] + " : " + (metaList.Any(m => m.Label == props.Name) ? "(rqd) " : "") + "(" +
+                        sb.AppendLine(props.Value["title"] + " : " + (metaList.Any(m => m.Label == props.Name) ? "(rqd) " : string.Empty) + "(" +
                                       props.Value["type"] + ") " + props.Value["description"]);
                     AddText(sb);
                 }
@@ -929,7 +572,7 @@ namespace LinkeD365.FlowToVisio
                 var metaList = new List<Meta>();
                 if (Property.Value["metadata"] != null && Property.Value["metadata"].HasValues)
                     foreach (var props in Property.Value["metadata"].Children<JProperty>())
-                        metaList.Add(new Meta() { Id = props.Name, Label = props.Value.ToString() });
+                        metaList.Add(new Meta { Id = props.Name, Label = props.Value.ToString() });
 
                 if (Property.Value["inputs"]["parameters"] != null && Property.Value["inputs"]["parameters"].HasValues)
                     foreach (var props in Property.Value["inputs"]["parameters"].Children<JProperty>())
@@ -961,7 +604,7 @@ namespace LinkeD365.FlowToVisio
                             AddType(Property.Value["metadata"]["flowSystemMetadata"]["swaggerOperationId"].ToString());
                             break;
                     }
-                else AddType("");
+                else AddType(string.Empty);
 
                 sb.AppendLine("Method: " + Property.Value["inputs"]["method"]);
                 sb.AppendLine("Path: " + Property.Value["inputs"]["path"]);
@@ -987,7 +630,7 @@ namespace LinkeD365.FlowToVisio
                             AddType(Property.Value["inputs"]?["host"]?["operationId"].ToString());
                             break;
                     }
-                else AddType("");
+                else AddType(string.Empty);
 
                 if (Property.Value["inputs"]["parameters"] != null && Property.Value["inputs"]["parameters"].HasValues)
                     foreach (var props in Property.Value["inputs"]["parameters"].Children<JProperty>())
@@ -1017,7 +660,7 @@ namespace LinkeD365.FlowToVisio
                             AddType(Property.Value["metadata"]["flowSystemMetadata"]["swaggerOperationId"].ToString());
                             break;
                     }
-                else AddType("");
+                else AddType(string.Empty);
 
                 sb.AppendLine("Method: " + Property.Value["inputs"]["method"]);
                 sb.AppendLine("Path: " + Property.Value["inputs"]["path"]);
@@ -1043,7 +686,7 @@ namespace LinkeD365.FlowToVisio
                             AddType(Property.Value["inputs"]?["host"]?["operationId"].ToString());
                             break;
                     }
-                else AddType("");
+                else AddType(string.Empty);
 
                 if (Property.Value["inputs"]["parameters"] != null && Property.Value["inputs"]["parameters"].HasValues)
                     foreach (var props in Property.Value["inputs"]["parameters"].Children<JProperty>())
@@ -1094,10 +737,10 @@ namespace LinkeD365.FlowToVisio
                 var metaList = new List<Meta>();
                 if (Property.Value["inputs"]?["schema"]?["required"] != null && Property.Value["inputs"]["schema"]["required"].HasValues)
                     foreach (var props in Property.Value["inputs"]["schema"]["required"].Children<JToken>())
-                        metaList.Add(new Meta() { Label = props.ToString() });
+                        metaList.Add(new Meta { Label = props.ToString() });
                 if (Property.Value["inputs"]?["schema"]?["properties"] != null && Property.Value["inputs"]["schema"]["properties"].HasValues)
                     foreach (var props in Property.Value["inputs"]["schema"]["properties"].Children<JProperty>())
-                        sb.AppendLine(props.Name + " : " + (metaList.Any(m => m.Label == props.Name) ? "(rqd) " : "") + props.Value["description"]);
+                        sb.AppendLine(props.Name + " : " + (metaList.Any(m => m.Label == props.Name) ? "(rqd) " : string.Empty) + props.Value["description"]);
                 AddText(sb);
             }
         }

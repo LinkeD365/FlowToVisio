@@ -191,6 +191,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="Visio\Action.cs" />
+    <Compile Include="Visio\BaseShape.cs" />
+    <Compile Include="Visio\CaseAction.cs" />
+    <Compile Include="Visio\ConditionAction.cs" />
     <Compile Include="Visio\Connection.cs" />
     <Compile Include="Visio\ShapeXML.Conditions.cs" />
     <Compile Include="Visio\ShapeXml.cs" />
