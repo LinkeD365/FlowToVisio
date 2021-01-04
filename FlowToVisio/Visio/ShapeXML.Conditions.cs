@@ -25,15 +25,11 @@ namespace LinkeD365.FlowToVisio
             No.AddFillColour("251, 137, 129");
             FinalActions.Add(Yes);
             if (Property.Value["actions"] != null && Property.Value["actions"].Count() > 0)
-            {
                 AddChildActions(Property.Value["actions"].Children<JProperty>().Where(a => !a.Value["runAfter"].HasValues), Yes, 0);
-            }
 
             FinalActions.Add(No);
             if (Property.Value["else"] != null && ((JObject)Property.Value["else"])["actions"] != null)
-            {
                 AddChildActions((Property.Value["else"] as JObject)["actions"].Children<JProperty>().Where(el => !el.Value["runAfter"].HasValues), No, 1);
-            }
 
             EndAction = new CaseAction(this, "If");
             EndAction.AddFillColour("221, 223, 224");
@@ -41,7 +37,7 @@ namespace LinkeD365.FlowToVisio
 
         public IfAction(JProperty property, Action parent, int current, int children) : base(property, parent, current, children, "condition")
         {
-            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + property.Name + "' U='STR'/></Row>"));
+            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + PropertyName + "' U='STR'/></Row>"));
             Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='If' U='STR'/></Row>"));
             var sb = new StringBuilder("Expression: ");
             var condition = ((JObject)property.Value["expression"]).Children<JProperty>().First();
@@ -56,7 +52,7 @@ namespace LinkeD365.FlowToVisio
         public SwitchAction(JProperty property, Action parent, int current, int children) : base(property, parent, current, children, "condition")
         {
             AddFillColour("234,237,239");
-            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + property.Name + "' U='STR'/></Row>"));
+            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + PropertyName + "' U='STR'/></Row>"));
             Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='Switch' U='STR'/></Row>"));
             var sb = new StringBuilder("Expression: ");
             // var condition = ((JObject)property.Value["expression"]).Children<JProperty>().First();
@@ -74,12 +70,10 @@ namespace LinkeD365.FlowToVisio
             foreach (var caseProperty in ((JObject)Property.Value["cases"]).Children<JProperty>())
             {
                 var caseAction = new CaseAction(caseProperty, this, ++curCount, childCount);
-                caseAction.Props.Add(XElement.Parse("<Row N='ActionCase'> <Cell N='Value' V='" + caseProperty.Name + " | Value = " + caseProperty.Value["case"] + "' U='STR'/></Row>"));
+                caseAction.Props.Add(XElement.Parse("<Row N='ActionCase'> <Cell N='Value' V='" + caseAction.PropertyName + " | Value = " + caseProperty.Value["case"] + "' U='STR'/></Row>"));
                 FinalActions.Add(caseAction);
                 if (caseProperty.Value["actions"] != null && ((JObject)caseProperty.Value["actions"]).Children<JProperty>().Count() > 0)
-                {
                     AddChildActions(((JObject)caseProperty.Value["actions"]).Children<JProperty>().Where(el => !el.Value["runAfter"].HasValues), caseAction, FinalActions.Count() - 1);
-                }
             }
 
             if (Property.Value["default"]["actions"].HasValues)
@@ -99,7 +93,7 @@ namespace LinkeD365.FlowToVisio
     {
         public ForEachAction(JProperty property, Action parent, int current, int children) : base(property, parent, current, children, "condition")
         {
-            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + property.Name + "' U='STR'/></Row>"));
+            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + PropertyName + "' U='STR'/></Row>"));
             Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='For Each' U='STR'/></Row>"));
             var sb = new StringBuilder("On: ");
             // var condition = ((JObject)property.Value["expression"]).Children<JProperty>().First();
@@ -141,9 +135,7 @@ namespace LinkeD365.FlowToVisio
             {
                 sb.AppendLine("Limit:");
                 foreach (var props in Property.Value["limit"].Children<JProperty>())
-                {
                     sb.AppendLine(props.Name + ": " + props.Value);
-                }
             }
             AddText(sb.ToString());
 
@@ -165,9 +157,7 @@ namespace LinkeD365.FlowToVisio
             FinalActions.Add(this);
 
             foreach (var childProperty in ((JObject)Property.Value["actions"]).Children<JProperty>())
-            {
                 FinalActions[0] = Utils.AddAction(childProperty, FinalActions[0], 1, 1);
-            }
 
             // AddChildActions(((JObject)Property.Value["actions"]).Children<JProperty>(), this, 0);
 

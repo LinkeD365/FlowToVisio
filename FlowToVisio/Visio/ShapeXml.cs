@@ -104,7 +104,7 @@ namespace LinkeD365.FlowToVisio
         public InitVariable(JProperty property, Action parent, int current, int children) : base(property, parent, current, children,
             "VariableAction")
         {
-            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + property.Name + "' U='STR'/></Row>"));
+            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + PropertyName + "' U='STR'/></Row>"));
             Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='Initialize Variable' U='STR'/></Row>"));
 
             // var textElement = Shape.Descendants().Where(el => el.Name.LocalName == "Text").First();
@@ -120,7 +120,7 @@ namespace LinkeD365.FlowToVisio
     {
         public SetVariable(JProperty property, Action parent, int current, int children) : base(property, parent, current, children, "VariableAction")
         {
-            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + property.Name + "' U='STR'/></Row>"));
+            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + PropertyName + "' U='STR'/></Row>"));
             Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='Set Variable' U='STR'/></Row>"));
             var sb = new StringBuilder("Variable Name: ");
             sb.AppendLine(property.Value["inputs"]["name"].ToString());
@@ -133,7 +133,7 @@ namespace LinkeD365.FlowToVisio
     {
         public HttpAction(JProperty property, Action parent, int current, int children) : base(property, parent, current, children, "HttpAction")
         {
-            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + property.Name + "' U='STR'/></Row>"));
+            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + PropertyName + "' U='STR'/></Row>"));
             Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='HTTP Action' U='STR'/></Row>"));
             var sb = new StringBuilder("Method: ");
             sb.AppendLine((property.Value["inputs"] as JObject)["method"].ToString());
@@ -157,7 +157,7 @@ namespace LinkeD365.FlowToVisio
     {
         public HttpResponse(JProperty property, Action parent, int current, int children) : base(property, parent, current, children, "HttpAction")
         {
-            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + property.Name + "' U='STR'/></Row>"));
+            Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + PropertyName + "' U='STR'/></Row>"));
             Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='HTTP Response' U='STR'/></Row>"));
             var sb = new StringBuilder("Status Code: ");
             sb.AppendLine((property.Value["inputs"] as JObject)["statusCode"].ToString());

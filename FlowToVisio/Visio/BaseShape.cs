@@ -94,8 +94,10 @@ namespace LinkeD365.FlowToVisio
             get
             {
                 if (Property == null) return string.Empty;
-                var regext = new Regex("/(_{2,})|_/g, '$1'");
-                return regext.Replace(Property.Name, " ");
+                string returnstring = Property.Name.Replace("__", "LiNkEd365").Replace("_", " ").Replace("LiNkEd365", "_").Replace("'", "&apos;");
+                //var regext = new Regex("/(_{2,})|_/g, '$1'");
+                //    string returnstring = regext.Replace(Property.Name, " ").Replace("'", "&apos;");
+                return returnstring;
             }
         }
 

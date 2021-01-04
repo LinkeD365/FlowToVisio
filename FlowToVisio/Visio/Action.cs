@@ -118,7 +118,7 @@ namespace LinkeD365.FlowToVisio
 
         protected void AddName()
         {
-            AddProp("ActionName", Property.Name);
+            AddProp("ActionName", PropertyName);
         }
 
         protected void AddText(string text)
