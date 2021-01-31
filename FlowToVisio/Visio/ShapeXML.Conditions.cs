@@ -20,14 +20,16 @@ namespace LinkeD365.FlowToVisio
             Yes.Props.Add(XElement.Parse("<Row N='ActionCase'> <Cell N='Value' V='If yes' U='STR'/></Row>"));
             Yes.AddFillColour("136, 218, 141");
 
-            No = new CaseAction(this, 2, 2, Property.Name + ".No");
-            No.Props.Add(XElement.Parse("<Row N='ActionCase'> <Cell N='Value' V='If no' U='STR'/></Row>"));
-            No.AddFillColour("251, 137, 129");
+
             FinalActions.Add(Yes);
             if (Property.Value["actions"] != null && Property.Value["actions"].Count() > 0)
                 AddChildActions(Property.Value["actions"].Children<JProperty>().Where(a => !a.Value["runAfter"].HasValues), Yes, 0);
 
+            No = new CaseAction(this, 2, 2, Property.Name + ".No");
+            No.Props.Add(XElement.Parse("<Row N='ActionCase'> <Cell N='Value' V='If no' U='STR'/></Row>"));
+            No.AddFillColour("251, 137, 129");
             FinalActions.Add(No);
+
             if (Property.Value["else"] != null && ((JObject)Property.Value["else"])["actions"] != null)
                 AddChildActions((Property.Value["else"] as JObject)["actions"].Children<JProperty>().Where(el => !el.Value["runAfter"].HasValues), No, 1);
 
@@ -72,8 +74,14 @@ namespace LinkeD365.FlowToVisio
                 var caseAction = new CaseAction(caseProperty, this, ++curCount, childCount);
                 caseAction.Props.Add(XElement.Parse("<Row N='ActionCase'> <Cell N='Value' V='" + caseAction.PropertyName + " | Value = " + caseProperty.Value["case"] + "' U='STR'/></Row>"));
                 FinalActions.Add(caseAction);
-                if (caseProperty.Value["actions"] != null && ((JObject)caseProperty.Value["actions"]).Children<JProperty>().Count() > 0)
-                    AddChildActions(((JObject)caseProperty.Value["actions"]).Children<JProperty>().Where(el => !el.Value["runAfter"].HasValues), caseAction, FinalActions.Count() - 1);
+                if (caseProperty.Value["actions"] != null &&
+                    ((JObject)caseProperty.Value["actions"]).Children<JProperty>().Count() > 0)
+                    AddChildActions(
+                        ((JObject)caseProperty.Value["actions"]).Children<JProperty>()
+                            .Where(el => !el.Value["runAfter"].HasValues),
+                        caseAction,
+                        FinalActions.Count() - 1);
+                //FinalActions[0] = caseAction.EndAction;
             }
 
             if (Property.Value["default"]["actions"].HasValues)
@@ -81,7 +89,9 @@ namespace LinkeD365.FlowToVisio
                 var defaultAction = new CaseAction(this, ++curCount, childCount, "Default");
                 defaultAction.Props.Add(XElement.Parse("<Row N='ActionCase'> <Cell N='Value' V='Default:' U='STR'/></Row>"));
                 FinalActions.Add(defaultAction);
+
                 AddChildActions(((JObject)Property.Value["default"]["actions"]).Children<JProperty>().Where(el => !el.Value["runAfter"].HasValues), defaultAction, FinalActions.Count() - 1);
+                //FinalActions[1] = defaultAction.EndAction;
             }
 
             EndAction = new CaseAction(this, "Switch");

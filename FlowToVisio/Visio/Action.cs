@@ -171,8 +171,7 @@ namespace LinkeD365.FlowToVisio
             this.children = children;
             Shape.SetAttributeValue("NameU", property.Name);
             if (parent != null)
-                // CalcPosition();
-                //Shapes.Add(shape);
+
                 AddRunAfter();
             else
             {
@@ -181,8 +180,6 @@ namespace LinkeD365.FlowToVisio
                     CultureInfo.InvariantCulture, out var tempPinX) ? tempPinX : 0.0;
                 PinY = double.TryParse(Shape.Elements().First(el => el.Attribute("N").Value == "PinY").Attribute("V").Value, NumberStyles.Any,
                     CultureInfo.InvariantCulture, out var tempPiny) ? tempPiny : 0.0;
-                //  PinX = double.Parse(Shape.Elements().First(el => el.Attribute("N").Value == "PinX").Attribute("V").Value,CultureInfo.InvariantCulture);
-                // PinY = tempPiny;
             }
 
             // if (this is Action) AddBaseText();
@@ -192,9 +189,7 @@ namespace LinkeD365.FlowToVisio
         {
             if (Property.Value["runAfter"] != null && Property.Value["runAfter"].HasValues) // #2 Added check for null
             {
-                var runAfterString = string.Empty;
-                foreach (var jToken in Property.Value["runAfter"].Children().First().Value<JProperty>().Value.Where(jt => jt.ToString() != "Succeeded"))
-                    runAfterString += jToken + " | ";
+                var runAfterString = Property.Value["runAfter"].Children().First().Value<JProperty>().Value.Where(jt => jt.ToString() != "Succeeded").Aggregate(string.Empty, (accumulator, jToken) => accumulator += jToken + " | ");
 
                 if (runAfterString != string.Empty)
                 {

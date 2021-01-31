@@ -11,7 +11,7 @@ using XrmToolBox.Extensibility.Interfaces;
 
 namespace LinkeD365.FlowToVisio
 {
-    public partial class FlowToVisioControl : PluginControlBase, IGitHubPlugin
+    public partial class FlowToVisioControl : PluginControlBase, IGitHubPlugin, INoConnectionRequired
     {
         private bool overrideSave;
 
@@ -35,7 +35,7 @@ namespace LinkeD365.FlowToVisio
             }
             else
                 LogInfo("Settings found and loaded");
-            ExecuteMethod(LoadFlows);
+            // ExecuteMethod(LoadFlows);
         }
 
         private void tsbClose_Click(object sender, EventArgs e)
@@ -70,29 +70,31 @@ namespace LinkeD365.FlowToVisio
 
         private void btnCreateVisio_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtFileName.Text))
-            {
-                MessageBox.Show("Please select a file name prior to generating a Visio", "Select File", MessageBoxButtons.OK);
-                return;
-            }
-
-            if (File.Exists(txtFileName.Text) && !overrideSave)
-                if (MessageBox.Show("Do you want to override the file?", "File already exists", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
-            overrideSave = false;
             var selectFlow = ((FlowDefinition)grdFlows.SelectedRows[0].DataBoundItem);
+
+
+            saveDialog.FileName = selectFlow.Name + ".vsdx";
+            if (saveDialog.ShowDialog() != DialogResult.OK)
+                return;
+            //    txtFileName.Text = saveDialog.FileName;
+            //    overrideSave = true;
+            //}
+            //else return;
+            //MessageBox.Show("Please select a file name prior to generating a Visio", "Select File", MessageBoxButtons.OK);
+            //return;
+
+
+            //if (File.Exists(txtFileName.Text) && !overrideSave)
+            //    if (MessageBox.Show("Do you want to override the file?", "File already exists", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+            //overrideSave = false;
             if (selectFlow.Solution)
             {
                 flowObject = JObject.Parse(selectFlow.Definition);
-                GenerateVisio();
+                GenerateVisio(saveDialog.FileName);
             }
-            else flowObject = LoadFlow(selectFlow);
+            else flowObject = LoadFlow(selectFlow, saveDialog.FileName);
         }
 
-        private void btnFile_Click(object sender, EventArgs e)
-        {
-            if (saveDialog.ShowDialog() == DialogResult.OK) txtFileName.Text = saveDialog.FileName;
-            overrideSave = true;
-        }
 
         private void textSearch_TextChanged(object sender, EventArgs e)
         {

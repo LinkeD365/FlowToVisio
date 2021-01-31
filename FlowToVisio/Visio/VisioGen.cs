@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using LinkeD365.FlowToVisio.Properties;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,9 +31,9 @@ namespace LinkeD365.FlowToVisio
 
         #endregion xmlVisio bits
 
-        public void GenerateVisio()
+        public void GenerateVisio(string fileName)
         {
-            CreateVisio();
+            CreateVisio(fileName);
 
             //CreateConnections();
             Utils.Root = flowObject;
@@ -42,17 +43,10 @@ namespace LinkeD365.FlowToVisio
             var triggerShape = Utils.AddAction(triggerProperty, null, 0, 1);
 
             if (flowObject["properties"]["definition"]["actions"].Children<JProperty>().Where(a => !a.Value["runAfter"].HasValues).Any())
-            {
                 Utils.AddActions(flowObject["properties"]["definition"]["actions"].Children<JProperty>().Where(a => !a.Value["runAfter"].HasValues), triggerShape);
-            }
-
-            // triggerShape.Default.Remove();
-            //  triggerShape.Line.Remove();
 
             foreach (var shapeName in Utils.VisioTemplates)
-            {
                 triggerShape.GetTemplateShape(shapeName).Remove();
-            }
 
             RecalcDocument(package);
             SaveXDocumentToPart(page, Utils.XMLPage);
@@ -66,18 +60,18 @@ namespace LinkeD365.FlowToVisio
             return;
         }
 
-        public void CreateVisio()
+        public void CreateVisio(string fileName)
         {
             // create a copy of the resource template
             package = null;
 
-            File.WriteAllBytes(txtFileName.Text, Properties.Resources.VisioTemplate);
+            File.WriteAllBytes(fileName, Resources.VisioTemplate);
             // var template = Package.Open(new MemoryStream(Properties.Resources.VisioTemplate), FileMode.Open);
             //  template.
 
             #region get to the xml of the page
 
-            package = Package.Open(txtFileName.Text, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            package = Package.Open(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
 
             document = GetPackagePart(package, "http://schemas.microsoft.com/visio/2010/relationships/document");
 
@@ -107,9 +101,7 @@ namespace LinkeD365.FlowToVisio
             // Custom File Properties part, then we don't need to add another one.
             // Otherwise, we need to create a unique pid value.
             if (recalcProp != null)
-            {
                 return pidValue;
-            }
             else
             {
                 // Get all of the pid values of the property elements and then
@@ -123,16 +115,10 @@ namespace LinkeD365.FlowToVisio
                 // This starts at 2, because 0 and 1 are not valid pid values.
                 int id = 2;
                 while (pidValue == -1)
-                {
                     if (propIDArray.Contains(id.ToString()))
-                    {
                         id++;
-                    }
                     else
-                    {
                         pidValue = id;
-                    }
-                }
             }
             return pidValue;
         }

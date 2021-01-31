@@ -141,7 +141,7 @@ namespace LinkeD365.FlowToVisio
             });
         }
 
-        private JObject LoadFlow(FlowDefinition flowDefinition)
+        private JObject LoadFlow(FlowDefinition flowDefinition, string fileName)
         {
             // GetClient();
 
@@ -167,7 +167,7 @@ namespace LinkeD365.FlowToVisio
                         if (response.StatusCode == HttpStatusCode.OK)
                         {
                             flowObject = JObject.Parse(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-                            GenerateVisio();
+                            GenerateVisio(fileName);
                         }
                         else
                         {

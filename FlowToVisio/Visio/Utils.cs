@@ -344,7 +344,6 @@ namespace LinkeD365.FlowToVisio
 
         private static Action CreateTemplateAction(JProperty actionProperty, Action parent, int curCount, int childCount)
         {
-            //   var templates = ActionTemplate.
             if (actionProperty.Value["type"].ToString() == "OpenApiConnection" || actionProperty.Value["type"].ToString() == "OpenApiConnectionWebhook")
             {
                 var template = OpenApiTemplates.FirstOrDefault(prop =>

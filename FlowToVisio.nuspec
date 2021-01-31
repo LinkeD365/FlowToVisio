@@ -11,9 +11,13 @@
     <iconUrl>https://linked365.blog/wp-content/uploads/2020/03/smallIcon.png</iconUrl>
     <description>A XrmToolBox tool to create Visio diagram of your Power Automate Flows that are within your CDS</description>
     <releaseNotes>
+      #14 Removed File button
+      #13 Fixed bug in conditions missing steps
+      #8 Implemented INoConnectionRequired to tidy up and removed initial call to get flows from Dataverse 😜
+
       #11 Fixed display of _ in titles
       #10 Modified Title rendering to allow for quotes and double quotes (Thanks Amey)
-      
+
       #9 Added Dev Azure APP info
       Added additional logging around Flow API access
       Added Append Array Increment Variables 🎁
