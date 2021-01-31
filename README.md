@@ -4,6 +4,8 @@ A tool to create Visio representations of your Cloud Flows.
 
 Tool available via [XrmToolBox](https://www.xrmtoolbox.com/plugins/LinkeD365.FlowToVisio/)
 
+[Limitations](limitations.md)
+
 ## Solution Flows
 
 Open Tool
