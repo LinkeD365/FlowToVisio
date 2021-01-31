@@ -25,3 +25,8 @@ Find the Visio and open it up.
 ## Connecting to Non-Solutioned Flows
 
 Flows will only appear in the main list if they are part of a solution. Solutions are only available with a Dataverse configuration. If you want to document flows that appear under My Flows, use the Connect to Flow API button
+![](https://user-images.githubusercontent.com/43988771/106387955-2894f780-63d4-11eb-988c-3c49cfb677e2.png)
+Firstly, you will need to register an Azure application, more details are available [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app). 
+
+In Azure, register an application, copy the App Id and Tenant Id into the corresponding boxes in the window available when you select Connect to Flow API
+
