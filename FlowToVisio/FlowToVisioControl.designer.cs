@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlowToVisioControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStripMenu = new System.Windows.Forms.ToolStrip();
             this.tsbClose = new System.Windows.Forms.ToolStripButton();
             this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCreateVisio = new System.Windows.Forms.ToolStripButton();
             this.btnConnectFlow = new System.Windows.Forms.ToolStripButton();
             this.btnConnectCDS = new System.Windows.Forms.ToolStripButton();
+            this.btnConnectLogicApps = new System.Windows.Forms.ToolStripButton();
             this.splitMain = new System.Windows.Forms.SplitContainer();
             this.splitSearch = new System.Windows.Forms.SplitContainer();
             this.lblSearch = new System.Windows.Forms.Label();
@@ -63,7 +64,8 @@
             this.tssSeparator1,
             this.btnCreateVisio,
             this.btnConnectFlow,
-            this.btnConnectCDS});
+            this.btnConnectCDS,
+            this.btnConnectLogicApps});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
             this.toolStripMenu.Size = new System.Drawing.Size(908, 31);
@@ -109,6 +111,15 @@
             this.btnConnectCDS.Size = new System.Drawing.Size(148, 28);
             this.btnConnectCDS.Text = "Connect to Dataverse";
             this.btnConnectCDS.Click += new System.EventHandler(this.btnConnectCDS_Click);
+            // 
+            // btnConnectLogicApps
+            // 
+            this.btnConnectLogicApps.Image = ((System.Drawing.Image)(resources.GetObject("btnConnectLogicApps.Image")));
+            this.btnConnectLogicApps.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnConnectLogicApps.Name = "btnConnectLogicApps";
+            this.btnConnectLogicApps.Size = new System.Drawing.Size(156, 28);
+            this.btnConnectLogicApps.Text = "Connect to Logic Apps";
+            this.btnConnectLogicApps.Click += new System.EventHandler(this.btnConnectLogicApps_Click);
             // 
             // splitMain
             // 
@@ -169,8 +180,8 @@
             // 
             // grdFlows
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.grdFlows.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.grdFlows.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.grdFlows.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdFlows.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdFlows.Location = new System.Drawing.Point(0, 0);
@@ -229,5 +240,6 @@
         private System.Windows.Forms.ToolStripButton btnConnectFlow;
         private System.Windows.Forms.DataGridView grdFlows;
         private System.Windows.Forms.ToolStripButton btnConnectCDS;
+        private System.Windows.Forms.ToolStripButton btnConnectLogicApps;
     }
 }

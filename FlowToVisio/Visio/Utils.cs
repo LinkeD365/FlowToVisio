@@ -295,6 +295,7 @@ namespace LinkeD365.FlowToVisio
                 switch (Connection.APIConnections.First(con => con.Name == connectionName).Api)
                 {
                     case "shared_commondataservice":
+                    case "commondataservice":
                         return new CDSAction(actionProperty, parent, curCount, childCount);
 
                     case "shared_teams":
@@ -370,6 +371,9 @@ namespace LinkeD365.FlowToVisio
                 if (template == null) return null;
 
                 return new TemplateAction(template, actionProperty, parent, curCount, childCount, template.Value["visioShape"].ToString());
+            }
+            if (actionProperty.Value["type"].ToString() == "ApiConnection")
+            {
             }
 
 

@@ -1238,7 +1238,12 @@
         "Image": { "value": "inputs|parameters|body" },
         "Type": { "value": "inputs|parameters|Content-Type" }
       }
+    },
+    "Delete Record": {
+      "type": "Apiconnection",
+      "connectionName": "commondataservice",
+      "operationId": "delete",
+      "visioShape": "Office"
     }
-
   }
 }

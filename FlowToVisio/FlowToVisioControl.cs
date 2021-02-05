@@ -11,12 +11,16 @@ using XrmToolBox.Extensibility.Interfaces;
 
 namespace LinkeD365.FlowToVisio
 {
-    public partial class FlowToVisioControl : PluginControlBase, IGitHubPlugin, INoConnectionRequired
+    public partial class FlowToVisioControl : PluginControlBase, IGitHubPlugin, INoConnectionRequired, IPayPalPlugin
     {
         private bool overrideSave;
 
         public string RepositoryName => "FlowToVisio";
         public string UserName => "LinkeD365";
+
+        public string DonationDescription => "Flow to Visio Fans";
+
+        public string EmailAccount => "carl.cookson@gmail.com";
 
         public FlowToVisioControl()
         {
@@ -123,5 +127,12 @@ namespace LinkeD365.FlowToVisio
         {
             grdFlows.AutoResizeColumns();
         }
+
+        private void btnConnectLogicApps_Click(object sender, EventArgs e)
+        {
+            LoadLogicApps();
+        }
+
+
     }
 }

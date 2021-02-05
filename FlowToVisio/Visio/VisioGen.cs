@@ -31,7 +31,7 @@ namespace LinkeD365.FlowToVisio
 
         #endregion xmlVisio bits
 
-        public void GenerateVisio(string fileName)
+        public void GenerateVisio(string fileName, bool logicApp = false)
         {
             CreateVisio(fileName);
 
@@ -51,7 +51,7 @@ namespace LinkeD365.FlowToVisio
             RecalcDocument(package);
             SaveXDocumentToPart(page, Utils.XMLPage);
 
-            Utils.Ai.WriteEvent("Flow Actions", Utils.actionCount);
+            Utils.Ai.WriteEvent(logicApp ? "Logic App Actions" : "Flow Actions", Utils.actionCount);
 
             MessageBox.Show("Visio generated with " + Utils.actionCount + " actions");
             Utils.actionCount = 0;

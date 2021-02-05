@@ -56,6 +56,7 @@ namespace LinkeD365.FlowToVisio
                     }
 
                     btnConnectCDS.Visible = !returnFlows.Any();
+                    btnConnectLogicApps.Visible = returnFlows.Any();
                     btnConnectFlow.Visible = returnFlows.Any();
                     //flowRecords = (EntityCollection)e.Result;
                     //gridFlows.DataSource = flowRecords;
@@ -65,26 +66,10 @@ namespace LinkeD365.FlowToVisio
 
         private void LoadUnSolutionedFlows()
         {
-            ApiConnection apiConnection = new ApiConnection(flowConnection);
-            try
-            {
-                _client = apiConnection.GetClient();
-            }
-            catch (AdalServiceException adalExec)
-            {
-                LogError("Adal Error", adalExec.GetBaseException());
-
-                if (adalExec.ErrorCode == "authentication_canceled") return;
-
-                ShowError(adalExec, "Error in connecting, please check details");
-            }
-            catch (Exception e)
-            {
-                LogError("Error getting connection", e.Message);
-                ShowError(e, "Error in connecting, please check entered details");
-                return;
-            }
+            Connect(false);
             if (_client == null) return;
+
+
             //GetClient();
             SettingsManager.Instance.Save(typeof(FlowConnection), flowConnection);
 
@@ -143,13 +128,16 @@ namespace LinkeD365.FlowToVisio
 
         private JObject LoadFlow(FlowDefinition flowDefinition, string fileName)
         {
-            // GetClient();
 
+            // GetClient();
+            string api = flowDefinition.LogicApp
+                ? $"https://management.azure.com{flowDefinition.Id}?api-version=2016-06-01"
+                : $"https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConnection.Environment}/flows/{flowDefinition.Id}?&api-version=2016-11-01";
 
             WorkAsync(new WorkAsyncInfo
             {
                 Message = "Loading Flow",
-                Work = (w, args) => args.Result = _client.GetAsync($"https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConnection.Environment}/flows/{flowDefinition.Id}?&api-version=2016-11-01").GetAwaiter().GetResult(),
+                Work = (w, args) => args.Result = _client.GetAsync(api).GetAwaiter().GetResult(),
                 ProgressChanged = e =>
                 {
                 },
@@ -167,7 +155,7 @@ namespace LinkeD365.FlowToVisio
                         if (response.StatusCode == HttpStatusCode.OK)
                         {
                             flowObject = JObject.Parse(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-                            GenerateVisio(fileName);
+                            GenerateVisio(fileName, flowDefinition.LogicApp);
                         }
                         else
                         {
@@ -195,6 +183,92 @@ namespace LinkeD365.FlowToVisio
             else
                 MessageBox.Show(error.Message, caption ?? "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        private void LoadLogicApps()
+        {
+            Connect(true);
+            if (_client == null) return;
+            SettingsManager.Instance.Save(typeof(FlowConnection), flowConnection);
+
+            WorkAsync(new WorkAsyncInfo
+            {
+                Message = "Loading Flows",
+                Work = (w, args) =>
+                    args.Result = _client.GetAsync($"https://management.azure.com/subscriptions/{flowConnection.SubscriptionId}/providers/Microsoft.Logic/workflows?api-version=2016-06-01").GetAwaiter().GetResult(),
+                //_client.GetAsync($"https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConnection.Environment}/flows?&api-version=2016-11-01").GetAwaiter().GetResult(),
+                PostWorkCallBack = args =>
+                {
+                    if (args.Error != null)
+                    {
+                        ShowError(args.Error, "Error retrieving Flows via API");
+                        return;
+                    }
+                    List<FlowDefinition> flowList = new List<FlowDefinition>();
+                    if (args.Result is HttpResponseMessage)
+                    {
+                        var response = args.Result as HttpResponseMessage;
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+
+                            var flowDefs = JObject.Parse(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                            if (flowDefs["value"].HasValues)
+                                foreach (JToken flowDef in flowDefs["value"].Children())
+                                    flowList.Add(
+                                        new FlowDefinition
+                                        {
+                                            Id = flowDef["id"].ToString(),
+                                            Name = flowDef["name"].ToString(),
+                                            LogicApp = true
+                                        });
+                        }
+                        else
+                        {
+                            LogError("Get Flows via API", response);
+                            ShowError($"Status: {response.StatusCode}\r\n{response.ReasonPhrase}\r\nSee XrmToolBox log for details.", "Get Flows via API error");
+                        }
+                    }
+
+                    //   var returnFlows = e.Result as List<FlowDefinition>;
+                    if (flowList.Any())
+                    {
+                        flows = flowList;
+                        grdFlows.DataSource = flows;
+                        InitGrid();
+                    }
+
+                    btnConnectCDS.Visible = flowList.Any();
+                    btnConnectFlow.Visible = flowList.Any();
+                    btnConnectLogicApps.Visible = !flowList.Any();
+
+
+                }
+            }); ;
+
+            //  var returnlist = _client.GetAsync($"https://management.azure.com/subscriptions/{flowConnection.SubscriptionId} /providers/Microsoft.Logic/workflows?api-version=2016-06-01");
+        }
+
+        private void Connect(bool logicApps)
+        {
+            ApiConnection apiConnection = new ApiConnection(flowConnection, logicApps);
+            try
+            {
+                _client = apiConnection.GetClient();
+            }
+            catch (AdalServiceException adalExec)
+            {
+                LogError("Adal Error", adalExec.GetBaseException());
+
+                if (adalExec.ErrorCode == "authentication_canceled") return;
+
+                ShowError(adalExec, "Error in connecting, please check details");
+            }
+            catch (Exception e)
+            {
+                LogError("Error getting connection", e.Message);
+                ShowError(e, "Error in connecting, please check entered details");
+                return;
+            }
+        }
     }
 
     public class FlowDefinition
@@ -206,7 +280,7 @@ namespace LinkeD365.FlowToVisio
         public string Description { get; set; }
         public bool Managed { get; set; }
         public string OwnerType { get; set; }
-
+        public bool LogicApp { get; internal set; }
     }
 
     public class FlowConnection
@@ -216,5 +290,11 @@ namespace LinkeD365.FlowToVisio
         public string ReturnURL = string.Empty;
         public string Environment = string.Empty;
         public bool UseDev;
+        public string SubscriptionId = string.Empty;
+
+        public string LATenantId = string.Empty;
+        public string LAAppId = string.Empty;
+        public string LAReturnURL = string.Empty;
+        public bool LAUseDev;
     }
 }
