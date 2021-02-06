@@ -43,3 +43,27 @@ Environment Id will be displayed when you navigate to the Flow in My Flows
 > ## **The Return URL needs to be specified as a Mobile and Desktop application**
 
 ![](https://user-images.githubusercontent.com/43988771/106388141-0bacf400-63d5-11eb-99e9-22efb5c4bdea.png)
+
+### Document Logic Apps (BETA)
+
+To connect to the Azure Logic Apps, there is a new button available in the toolbar. But first, you need to amend or add an app registration to allow access to Logic Apps.
+
+Register or amend an App registration. API Permissions required are Azure Service Management/user impersonation
+
+![](https://user-images.githubusercontent.com/43988771/107113837-75a41e00-6859-11eb-954c-aecbdc253857.png)
+
+In the application, select the Connect to Logic Apps button
+
+![](https://user-images.githubusercontent.com/43988771/107113888-c9af0280-6859-11eb-9bae-327743f74da2.png)
+
+Populate the API connection pop up with the appropriate settings. 
+
+Firstly, the Subscription Id can be found on your Logic App Overview, the purple box here
+
+![](https://user-images.githubusercontent.com/43988771/107113966-4d68ef00-685a-11eb-850e-fbbfe0e9740d.png)
+
+Next, the Application Id and Tenant Id both are available on the App Registration page, the red and yellow items here
+
+![](https://user-images.githubusercontent.com/43988771/107114017-a5075a80-685a-11eb-9723-b4686c7e11c7.png)
+
+> ## **The Return URL needs to be specified as a Mobile and Desktop application**
