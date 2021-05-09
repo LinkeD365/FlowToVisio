@@ -47,7 +47,10 @@ namespace LinkeD365.FlowToVisio
                         connects = new XElement("Connects");
                         pageContents.FirstOrDefault().Add(connects);
                     }
-                    else connects = elements.FirstOrDefault();
+                    else
+                    {
+                        connects = elements.FirstOrDefault();
+                    }
                 }
                 return connects;
             }
@@ -101,6 +104,7 @@ namespace LinkeD365.FlowToVisio
                 {
                     _flowRegions = new List<FlowRegion>();
                     foreach (JProperty regionToken in ActionTemplate["regions"])
+                    {
                         _flowRegions.Add(new FlowRegion
                         {
                             Name = regionToken.Name,
@@ -109,6 +113,7 @@ namespace LinkeD365.FlowToVisio
 
                             // Name = regionToken.
                         });
+                    }
                 }
 
                 return _flowRegions;
@@ -144,11 +149,17 @@ namespace LinkeD365.FlowToVisio
 
 
                 if (actionProperty.Value["type"] == null)
+                {
                     return new Action(actionProperty, parent, curCount, childCount);
+                }
                 else
                 {
                     var templateAction = CreateTemplateAction(actionProperty, parent, curCount, childCount);
-                    if (templateAction != null) return templateAction;
+                    if (templateAction != null)
+                    {
+                        return templateAction;
+                    }
+
                     switch (actionProperty.Value["type"].ToString())
                     {
                         case "InitializeVariable":
@@ -318,7 +329,7 @@ namespace LinkeD365.FlowToVisio
             else if (actionProperty.Value["type"].ToString() == "OpenApiConnection")
             {
                 var connectName = actionProperty.Value["inputs"]["host"]["connectionName"].ToString();
-                switch (Connection.APIConnections.First(con => con.Name == connectName).Api)
+                switch (Connection.APIConnections.First(con => con.Name == connectName).Name)
                 {
                     case "shared_excelonlinebusiness":
                         return new ExcelAction(actionProperty, parent, curCount, childCount);
@@ -350,7 +361,10 @@ namespace LinkeD365.FlowToVisio
                 var template = OpenApiTemplates.FirstOrDefault(prop =>
                     prop.Value["connectionName"].ToString() == actionProperty.Value["inputs"]["host"]["connectionName"].ToString() &&
                     prop.Value["operationId"].ToString() == actionProperty.Value["inputs"]["host"]["operationId"].ToString());
-                if (template == null) return null;
+                if (template == null)
+                {
+                    return null;
+                }
 
                 return new TemplateAction(template, actionProperty, parent, curCount, childCount, template.Value["visioShape"].ToString());
             }
@@ -359,7 +373,10 @@ namespace LinkeD365.FlowToVisio
             {
                 var template = OtherTemplates.FirstOrDefault(prop =>
                     prop.Value["type"].ToString() == actionProperty.Value["type"].ToString() && prop.Value["kind"].ToString() == actionProperty.Value["kind"].ToString());
-                if (template == null) return null;
+                if (template == null)
+                {
+                    return null;
+                }
 
                 return new TemplateAction(template, actionProperty, parent, curCount, childCount, template.Value["visioShape"].ToString());
             }
@@ -368,7 +385,10 @@ namespace LinkeD365.FlowToVisio
             {
                 var template = OtherTemplates.FirstOrDefault(prop =>
                     prop.Value["type"].ToString() == actionProperty.Value["type"].ToString() && prop.Value["kind"] == null);
-                if (template == null) return null;
+                if (template == null)
+                {
+                    return null;
+                }
 
                 return new TemplateAction(template, actionProperty, parent, curCount, childCount, template.Value["visioShape"].ToString());
             }
