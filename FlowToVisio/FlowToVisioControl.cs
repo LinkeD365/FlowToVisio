@@ -38,7 +38,9 @@ namespace LinkeD365.FlowToVisio
                 LogWarning("Settings not found => a new settings file has been created!");
             }
             else
+            {
                 LogInfo("Settings found and loaded");
+            }
             // ExecuteMethod(LoadFlows);
         }
 
@@ -66,8 +68,10 @@ namespace LinkeD365.FlowToVisio
             base.UpdateConnection(newService, detail, actionName, parameter);
 
             if (flowConnection != null && detail != null)
+            {
                 //  mySettings.LastUsedOrganizationWebappUrl = detail.WebApplicationUrl;
                 LogInfo("Connection has changed to: {0}", detail.WebApplicationUrl);
+            }
 
             LoadFlows();
         }
@@ -79,7 +83,9 @@ namespace LinkeD365.FlowToVisio
 
             saveDialog.FileName = selectFlow.Name + ".vsdx";
             if (saveDialog.ShowDialog() != DialogResult.OK)
+            {
                 return;
+            }
             //    txtFileName.Text = saveDialog.FileName;
             //    overrideSave = true;
             //}
@@ -96,7 +102,10 @@ namespace LinkeD365.FlowToVisio
                 flowObject = JObject.Parse(selectFlow.Definition);
                 GenerateVisio(saveDialog.FileName);
             }
-            else flowObject = LoadFlow(selectFlow, saveDialog.FileName);
+            else
+            {
+                flowObject = LoadFlow(selectFlow, saveDialog.FileName);
+            }
         }
 
 
@@ -104,9 +113,13 @@ namespace LinkeD365.FlowToVisio
         {
             //gridFlows.DataSource = null;
             if (string.IsNullOrEmpty(textSearch.Text))
+            {
                 grdFlows.DataSource = flows.Where(flw => flw.Name.ToLower().Contains(textSearch.Text.ToLower()));//.Entities.Where(ent => ent.Attributes["name"].ToString().ToLower().Contains(textSearch.Text));
+            }
             else
+            {
                 grdFlows.DataSource = flows;
+            }
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)

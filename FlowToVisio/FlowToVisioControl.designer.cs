@@ -105,7 +105,7 @@
             // 
             // btnConnectCDS
             // 
-            this.btnConnectCDS.Image = global::LinkeD365.FlowToVisio.Properties.Resources.CDSbtton;
+            this.btnConnectCDS.Image = global::LinkeD365.FlowToVisio.Properties.Resources.Dataverse_32x32;
             this.btnConnectCDS.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnConnectCDS.Name = "btnConnectCDS";
             this.btnConnectCDS.Size = new System.Drawing.Size(148, 28);
