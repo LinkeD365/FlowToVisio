@@ -190,6 +190,7 @@
             this.grdFlows.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdFlows.Size = new System.Drawing.Size(908, 694);
             this.grdFlows.TabIndex = 6;
+            this.grdFlows.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdFlows_ColumnHeaderMouseClick);
             // 
             // saveDialog
             // 

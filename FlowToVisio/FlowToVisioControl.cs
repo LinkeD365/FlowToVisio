@@ -2,6 +2,7 @@
 using Microsoft.Xrm.Sdk;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -29,18 +30,77 @@ namespace LinkeD365.FlowToVisio
 
         private void FlowToVisioControl_Load(object sender, EventArgs e)
         {
-
-            // Loads or creates the settings for the plugin
-            if (!SettingsManager.Instance.TryLoad(GetType(), out flowConnection))
+            try
             {
-                flowConnection = new FlowConnection();
+                if (SettingsManager.Instance.TryLoad(GetType(), out FlowConnection flowConnection))
+                {
+                    LogWarning("Old settings file found, converting");
+                    aPIConnections = new APIConns();
+                    if (!string.IsNullOrEmpty(flowConnection.TenantId))
+                    {
+                        aPIConnections.FlowConns
+                            .Add(
+                                new FlowConn
+                                {
+                                    AppId = flowConnection.AppId,
+                                    TenantId = flowConnection.TenantId,
+                                    Environment = flowConnection.Environment,
+                                    ReturnURL = flowConnection.ReturnURL,
+                                    UseDev = flowConnection.UseDev,
+                                    Name = "Flow Connection"
+                                });
+                    }
+                    if (!string.IsNullOrEmpty(flowConnection.SubscriptionId))
+                    {
+                        aPIConnections.LogicAppConns
+                           .Add(
+                               new LogicAppConn
+                               {
+                                   AppId = flowConnection.LAAppId,
+                                   TenantId = flowConnection.LATenantId,
+                                   ReturnURL = flowConnection.LAReturnURL,
+                                   SubscriptionId = flowConnection.SubscriptionId,
+                                   UseDev = flowConnection.UseDev,
+                                   Name = "LA Connection"
+                               });
+                    }
+
+                    return;
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+            if (!SettingsManager.Instance.TryLoad(GetType(), out aPIConnections))
+            {
+                aPIConnections = new APIConns();
 
                 LogWarning("Settings not found => a new settings file has been created!");
             }
-            else
-            {
-                LogInfo("Settings found and loaded");
-            }
+
+            // Loads or creates the settings for the plugin
+            //if (!SettingsManager.Instance.TryLoad(GetType(), out aPIConnections))
+            //{
+            //    FlowConnection flowConnection;
+            //    if (!SettingsManager.Instance.TryLoad(GetType(), out flowConnection))
+            //    {
+            //        aPIConnections = new APIConns();
+
+            //        LogWarning("Settings not found => a new settings file has been created!");
+            //    }
+            //    else
+            //    {
+
+
+            //    }
+            //}
+            //else
+            //{
+            //    LogInfo("Settings found and loaded");
+            //}
             // ExecuteMethod(LoadFlows);
         }
 
@@ -57,7 +117,7 @@ namespace LinkeD365.FlowToVisio
         private void FlowToVisioControl_OnClose(object sender, EventArgs e)
         {
             // Before leaving, save the settings
-            SettingsManager.Instance.Save(GetType(), flowConnection);
+            SettingsManager.Instance.Save(GetType(), aPIConnections);
         }
 
         /// <summary>
@@ -67,7 +127,7 @@ namespace LinkeD365.FlowToVisio
         {
             base.UpdateConnection(newService, detail, actionName, parameter);
 
-            if (flowConnection != null && detail != null)
+            if (flowConn != null && detail != null)
             {
                 //  mySettings.LastUsedOrganizationWebappUrl = detail.WebApplicationUrl;
                 LogInfo("Connection has changed to: {0}", detail.WebApplicationUrl);
@@ -86,17 +146,7 @@ namespace LinkeD365.FlowToVisio
             {
                 return;
             }
-            //    txtFileName.Text = saveDialog.FileName;
-            //    overrideSave = true;
-            //}
-            //else return;
-            //MessageBox.Show("Please select a file name prior to generating a Visio", "Select File", MessageBoxButtons.OK);
-            //return;
 
-
-            //if (File.Exists(txtFileName.Text) && !overrideSave)
-            //    if (MessageBox.Show("Do you want to override the file?", "File already exists", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
-            //overrideSave = false;
             if (selectFlow.Solution)
             {
                 flowObject = JObject.Parse(selectFlow.Definition);
@@ -108,13 +158,53 @@ namespace LinkeD365.FlowToVisio
             }
         }
 
+        public List<dynamic> Sort<T>(List<dynamic> input, string property)
+        {
+            var type = typeof(T);
+            var sortProperty = type.GetProperty(property);
+            return input.OrderBy(p => sortProperty.GetValue(p, null)).ToList();
+        }
+        private SortOrder getSortOrder(int columnIndex)
+        {
+            if (grdFlows.Columns[columnIndex].HeaderCell.SortGlyphDirection == SortOrder.None ||
+                grdFlows.Columns[columnIndex].HeaderCell.SortGlyphDirection == SortOrder.Descending)
+            {
+                grdFlows.Columns[columnIndex].HeaderCell.SortGlyphDirection = SortOrder.Ascending;
+                return SortOrder.Ascending;
+            }
+            else
+            {
+                grdFlows.Columns[columnIndex].HeaderCell.SortGlyphDirection = SortOrder.Descending;
+                return SortOrder.Descending;
+            }
+        }
+        private void grdFlows_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            SortOrder sortOrder = getSortOrder(e.ColumnIndex);
+
+            SortGrid(grdFlows.Columns[e.ColumnIndex].Name, sortOrder);
+            // string strColumnName = grdFlows.Columns[e.ColumnIndex].Name;
+
+
+
+        }
+
+        private void SortGrid(string name, SortOrder sortOrder)
+        {
+            List<FlowDefinition> sortingFlows = (List<FlowDefinition>)grdFlows.DataSource;
+            sortingFlows.Sort(new FlowDefComparer(name, sortOrder));
+            grdFlows.DataSource = null;
+            grdFlows.DataSource = sortingFlows;
+            InitGrid();
+            grdFlows.Columns[name].HeaderCell.SortGlyphDirection = sortOrder;
+        }
 
         private void textSearch_TextChanged(object sender, EventArgs e)
         {
             //gridFlows.DataSource = null;
-            if (string.IsNullOrEmpty(textSearch.Text))
+            if (!string.IsNullOrEmpty(textSearch.Text))
             {
-                grdFlows.DataSource = flows.Where(flw => flw.Name.ToLower().Contains(textSearch.Text.ToLower()));//.Entities.Where(ent => ent.Attributes["name"].ToString().ToLower().Contains(textSearch.Text));
+                grdFlows.DataSource = flows.Where(flw => flw.Name.ToLower().Contains(textSearch.Text.ToLower())).ToList();//.Entities.Where(ent => ent.Attributes["name"].ToString().ToLower().Contains(textSearch.Text));
             }
             else
             {
@@ -139,6 +229,9 @@ namespace LinkeD365.FlowToVisio
         private void InitGrid()
         {
             grdFlows.AutoResizeColumns();
+            grdFlows.Columns["Name"].SortMode = DataGridViewColumnSortMode.Automatic;
+
+            grdFlows.Columns["Managed"].SortMode = DataGridViewColumnSortMode.Automatic;
         }
 
         private void btnConnectLogicApps_Click(object sender, EventArgs e)
