@@ -1,5 +1,7 @@
 ﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -19,15 +21,19 @@ namespace LinkeD365.FlowToVisio
         // Azure Active Directory registered app Redirect URI for Microsoft samples
         private Uri redirectUri = new Uri("app://58145B91-0C36-4500-8554-080854F2AC97");
 
+        private const string subscriptionText = "Azure Subscription Id";
+        private const string appText = "Client Id for Configured App Registration";
+        private const string tenantText = "Azure Tenant Id";
+        private const string returnText = "Return URL for Configured App Regisration";
+        private const string labelText = "Label for Connection";
+        private const string environmentText = "Power Automate Environment Id";
+
+
         public ApiConnection(APIConns apiConnections, bool logicApp)
         {
             InitializeComponent();
             apiConns = apiConnections;
 
-            //if (_flowConnection == null)
-            //{
-            //    return;
-            //}
             LogicApp = logicApp;
 
             if (!LogicApp)
@@ -40,6 +46,7 @@ namespace LinkeD365.FlowToVisio
                 else
                 {
                     EnableControls();
+                    cboFlowConns.Enabled = false;
 
                     chkUseDevApp.CheckedChanged += ChkUseDevApp_CheckedChanged;
 
@@ -53,6 +60,7 @@ namespace LinkeD365.FlowToVisio
             else
             {
                 EnableControls();
+                cboLAConns.Enabled = false;
                 chkLADev.CheckedChanged += ChkLADev_CheckedChanged;
 
             }
@@ -65,22 +73,30 @@ namespace LinkeD365.FlowToVisio
 
         private void EnableControls()
         {
-            if (LogicApp)
+            if (!LogicApp)
             {
-                txtTenant.Enabled = false;
-                txtAppId.Enabled = false;
-                txtEnvironment.Enabled = false;
-                txtName.Enabled = false;
-                txtReturnURL.Enabled = false;
+                panelFlow.Controls.OfType<TextBox>().ToList().ForEach(ctl => ctl.Enabled = false);
+                chkUseDevApp.Enabled = false;
+                cboFlowConns.Enabled = false;
+
+                //txtTenant.Enabled = false;
+                //txtAppId.Enabled = false;
+                //txtEnvironment.Enabled = false;
+                //txtName.Enabled = false;
+                //txtReturnURL.Enabled = false;
             }
 
             else
             {
-                txtLATenant.Enabled = false;
-                txtLAApp.Enabled = false;
-                txtSubscriptionId.Enabled = false;
-                txtLAReturnURL.Enabled = false;
-                txtLAName.Enabled = false;
+                panelLogicApp.Controls.OfType<TextBox>().ToList().ForEach(ctl => ctl.Enabled = false);
+                chkLADev.Enabled = false;
+                cboLAConns.Enabled = false;
+
+                //txtLATenant.Enabled = false;
+                //txtLAApp.Enabled = false;
+                //txtSubscriptionId.Enabled = false;
+                //txtLAReturnURL.Enabled = false;
+                //txtLAName.Enabled = false;
             }
         }
 
@@ -179,18 +195,22 @@ namespace LinkeD365.FlowToVisio
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (!LogicApp && (txtAppId.Text == string.Empty
-                || txtTenant.Text == string.Empty || txtEnvironment.Text == string.Empty
-                || txtReturnURL.Text == string.Empty || txtName.Text == string.Empty))
+            if (!LogicApp && (txtAppId.Text == string.Empty || txtAppId.Text == appText
+                || txtTenant.Text == string.Empty || txtTenant.Text == tenantText
+                || txtEnvironment.Text == string.Empty || txtEnvironment.Text == environmentText
+                || txtReturnURL.Text == string.Empty || txtReturnURL.Text == returnText
+                || txtName.Text == string.Empty || txtName.Text == labelText))
             {
                 MessageBox.Show("Please ensure all fields have a value", "Required properties missing", MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);
                 DialogResult = DialogResult.None;
                 return;
             }
-            if (LogicApp && (txtSubscriptionId.Text == string.Empty
-                || txtLAApp.Text == string.Empty || txtLAName.Text == string.Empty
-                || txtLAReturnURL.Text == string.Empty || txtLATenant.Text == string.Empty))
+            if (LogicApp && (txtSubscriptionId.Text == string.Empty || txtSubscriptionId.Text == subscriptionText
+                || txtLAApp.Text == string.Empty || txtLAApp.Text == appText
+                || txtLAName.Text == string.Empty || txtLAName.Text == labelText
+                || txtLAReturnURL.Text == string.Empty || txtLAReturnURL.Text == returnText
+                || txtLATenant.Text == string.Empty || txtLATenant.Text == tenantText))
             {
                 MessageBox.Show("Please ensure all fields have a value", "Required properties missing", MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);
@@ -209,6 +229,14 @@ namespace LinkeD365.FlowToVisio
                 txtAppId.Text = clientId;
                 txtReturnURL.Text = redirectUri.ToString();
             }
+            else
+            {
+                txtAppId.Text = "Client Id for Configured App Registration";
+                txtReturnURL.Text = "Return URL for Configured App Regisration";
+
+                txtAppId.ForeColor = Color.Silver;
+                txtReturnURL.ForeColor = Color.Silver;
+            }
 
             txtAppId.Enabled = !chkUseDevApp.Checked;
             txtReturnURL.Enabled = !chkUseDevApp.Checked;
@@ -225,7 +253,13 @@ namespace LinkeD365.FlowToVisio
                 txtLAApp.Text = clientId;
                 txtLAReturnURL.Text = redirectUri.ToString();
             }
-
+            else
+            {
+                txtLAApp.Text = "Client Id for Configured App Registration";
+                txtLAReturnURL.Text = "Return URL for Configured App Regisration";
+                txtLAApp.ForeColor = Color.Silver;
+                txtLAReturnURL.ForeColor = Color.Silver;
+            }
             txtLAApp.Enabled = !chkLADev.Checked;
             txtLAReturnURL.Enabled = !chkLADev.Checked;
         }
@@ -241,15 +275,11 @@ namespace LinkeD365.FlowToVisio
             chkLADev.Checked = selectedLAConn.UseDev;
             txtSubscriptionId.Text = selectedLAConn.SubscriptionId;
             txtLAName.Text = selectedLAConn.Name;
+            panelLogicApp.Controls.OfType<TextBox>().ToList().ForEach(txt => txt.ForeColor = Color.Black);
 
             txtLAApp.Enabled = !chkLADev.Checked;
             txtLAReturnURL.Enabled = !chkLADev.Checked;
             chkLADev.CheckedChanged += ChkLADev_CheckedChanged;
-
-            //panelFlow.Visible = !LogicApp;
-            //panelLogicApp.Visible = LogicApp;
-            //chkLADev.Visible = LogicApp;
-            //chkUseDevApp.Visible = !LogicApp;
         }
 
         private void cboFlowConns_SelectedIndexChanged(object sender, EventArgs e)
@@ -265,19 +295,24 @@ namespace LinkeD365.FlowToVisio
             txtEnvironment.Text = selectedConn.Environment;
             txtName.Text = selectedConn.Name;
             chkUseDevApp.CheckedChanged += ChkUseDevApp_CheckedChanged;
+            panelFlow.Controls.OfType<TextBox>().ToList().ForEach(txt => txt.ForeColor = Color.Black);
+
+
             txtAppId.Enabled = !chkUseDevApp.Checked;
             txtReturnURL.Enabled = !chkUseDevApp.Checked;
+
+
         }
 
         private void btnAddLA_Click(object sender, EventArgs e)
         {
             lblLAName.Tag = apiConns.LogicAppConns.Any() ? apiConns.LogicAppConns.Max(la => la.Id) + 1 : 0;
-            txtSubscriptionId.Text = string.Empty;
-            txtLATenant.Text = string.Empty;
-            txtLAApp.Text = string.Empty;
-            txtLAReturnURL.Text = string.Empty;
+            txtSubscriptionId.Text = subscriptionText;
+            txtLATenant.Text = tenantText;
+            txtLAApp.Text = appText;
+            txtLAReturnURL.Text = returnText;
             chkLADev.Checked = false;
-            txtLAName.Text = string.Empty;
+            txtLAName.Text = labelText;
             txtLAApp.Enabled = true;
             txtLAReturnURL.Enabled = true;
             txtLAName.Enabled = true;
@@ -291,12 +326,12 @@ namespace LinkeD365.FlowToVisio
         private void btnFlowAdd_Click(object sender, EventArgs e)
         {
             lblName.Tag = apiConns.FlowConns.Any() ? apiConns.FlowConns.Max(flw => flw.Id) + 1 : 0;
-            txtEnvironment.Text = string.Empty;
-            txtTenant.Text = string.Empty;
-            txtAppId.Text = string.Empty;
-            txtReturnURL.Text = string.Empty;
+            txtEnvironment.Text = environmentText;
+            txtTenant.Text = tenantText;
+            txtAppId.Text = appText;
+            txtReturnURL.Text = returnText;
             chkUseDevApp.Checked = false;
-            txtName.Text = string.Empty;
+            txtName.Text = labelText;
             txtAppId.Enabled = true;
             txtReturnURL.Enabled = true;
             txtName.Enabled = true;
@@ -333,18 +368,14 @@ namespace LinkeD365.FlowToVisio
             else
             {
                 cboFlowConns.ResetText();
-                txtEnvironment.Text = string.Empty;
-                txtTenant.Text = string.Empty;
-                txtAppId.Text = string.Empty;
-                txtReturnURL.Text = string.Empty;
+                txtEnvironment.Text = environmentText;
+                txtTenant.Text = tenantText;
+                txtAppId.Text = appText;
+                txtReturnURL.Text = returnText;
                 chkUseDevApp.Checked = false;
-                txtName.Text = string.Empty;
-                txtAppId.Enabled = false;
-                txtReturnURL.Enabled = false;
-                txtName.Enabled = false;
-                txtTenant.Enabled = false;
-                txtName.Enabled = false;
-                txtEnvironment.Enabled = false;
+                txtName.Text = labelText;
+                cboFlowConns.Enabled = false;
+                panelFlow.Controls.OfType<TextBox>().ToList().ForEach(txt => txt.Enabled = false);
                 chkUseDevApp.Enabled = false;
             }
         }
@@ -375,20 +406,70 @@ namespace LinkeD365.FlowToVisio
             else
             {
                 cboLAConns.ResetText();
-                txtSubscriptionId.Text = string.Empty;
-                txtLATenant.Text = string.Empty;
-                txtLAApp.Text = string.Empty;
-                txtLAReturnURL.Text = string.Empty;
+                txtSubscriptionId.Text = subscriptionText;
+                txtLATenant.Text = tenantText;
+                txtLAApp.Text = appText;
+                txtLAReturnURL.Text = returnText;
                 chkLADev.Checked = false;
-                txtLAName.Text = string.Empty;
-                txtLAApp.Enabled = false;
-                txtLAReturnURL.Enabled = false;
-                txtLAName.Enabled = false;
-                txtLATenant.Enabled = false;
-                txtLAName.Enabled = false;
-                txtSubscriptionId.Enabled = false;
+                txtLAName.Text = labelText;
+                cboLAConns.Enabled = false;
+                panelLogicApp.Controls.OfType<TextBox>().ToList().ForEach(txt => txt.Enabled = false);
+
                 chkLADev.Enabled = false;
             }
+        }
+
+        private void configValueEnter(object sender, EventArgs e)
+        {
+            TextBox inputTextBox = sender as TextBox;
+            if (inputTextBox.Text == GetDefaultText(inputTextBox))
+            {
+                inputTextBox.Text = string.Empty;
+                inputTextBox.ForeColor = Color.Black;
+            }
+        }
+
+        private string GetDefaultText(TextBox inputBox)
+        {
+            switch (inputBox.Name)
+            {
+                case "txtLAName":
+                case "txtName":
+                    return labelText;
+                case "txtSubscriptionId":
+                    return subscriptionText;
+                case "txtLAApp":
+                case "txtAppId":
+                    return appText;
+                case "txtLAReturnURL":
+                case "txtReturnURL":
+                    return returnText;
+                case "txtLATenant":
+                case "txtTenant":
+                    return tenantText;
+                case "txtEnvironment":
+                    return environmentText;
+                default:
+                    return string.Empty;
+
+            }
+        }
+
+        private void configValueLeave(object sender, EventArgs e)
+        {
+            TextBox inputTextBox = sender as TextBox;
+
+            if (inputTextBox.Text == string.Empty)
+            {
+                inputTextBox.Text = GetDefaultText(inputTextBox);
+                inputTextBox.ForeColor = Color.Silver;
+            }
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            string url = "https://linked365.blog/2020/10/14/flow-to-visio-xrmtoolbox-addon/#" + (LogicApp ? "LogicApps" : "PowerAutomateAPI");
+            Process.Start(url);
         }
     }
 }

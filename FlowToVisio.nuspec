@@ -11,6 +11,8 @@
     <iconUrl>https://linked365.blog/wp-content/uploads/2020/03/smallIcon.png</iconUrl>
     <description>A XrmToolBox tool to create Visio diagram of your Power Automate Flows that are within your CDS</description>
     <releaseNotes>
+      #25 Added Help and improved user interface for connecting to Power Automate and Logic Apps
+      
       #23 Fixed Filter/Search
       #22 Fixed Sort
       #20 Also returns flows that have been shared with me (Thanks Gilles) 👍

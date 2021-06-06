@@ -42,6 +42,7 @@
             this.chkUseDevApp = new System.Windows.Forms.CheckBox();
             this.flowMain = new System.Windows.Forms.FlowLayoutPanel();
             this.panelLogicApp = new System.Windows.Forms.Panel();
+            this.btnRemoveLA = new System.Windows.Forms.Button();
             this.lblLAName = new System.Windows.Forms.Label();
             this.txtLAName = new System.Windows.Forms.TextBox();
             this.btnAddLA = new System.Windows.Forms.Button();
@@ -57,13 +58,13 @@
             this.lblSubscription = new System.Windows.Forms.Label();
             this.txtSubscriptionId = new System.Windows.Forms.TextBox();
             this.panelFlow = new System.Windows.Forms.Panel();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.lblName = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.btnFlowAdd = new System.Windows.Forms.Button();
             this.cboFlowConns = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnRemoveLA = new System.Windows.Forms.Button();
-            this.btnRemove = new System.Windows.Forms.Button();
+            this.btnHelp = new System.Windows.Forms.Button();
             this.flowMain.SuspendLayout();
             this.panelLogicApp.SuspendLayout();
             this.panelFlow.SuspendLayout();
@@ -80,18 +81,26 @@
             // 
             // txtAppId
             // 
+            this.txtAppId.ForeColor = System.Drawing.Color.Silver;
             this.txtAppId.Location = new System.Drawing.Point(101, 56);
             this.txtAppId.Name = "txtAppId";
             this.txtAppId.Size = new System.Drawing.Size(273, 20);
-            this.txtAppId.TabIndex = 1;
+            this.txtAppId.TabIndex = 25;
             this.txtAppId.Tag = "0";
+            this.txtAppId.Text = "Client Id for Configured App Registration";
+            this.txtAppId.Enter += new System.EventHandler(this.configValueEnter);
+            this.txtAppId.Leave += new System.EventHandler(this.configValueLeave);
             // 
             // txtEnvironment
             // 
+            this.txtEnvironment.ForeColor = System.Drawing.Color.Silver;
             this.txtEnvironment.Location = new System.Drawing.Point(101, 107);
             this.txtEnvironment.Name = "txtEnvironment";
             this.txtEnvironment.Size = new System.Drawing.Size(273, 20);
-            this.txtEnvironment.TabIndex = 5;
+            this.txtEnvironment.TabIndex = 35;
+            this.txtEnvironment.Text = "Power Automate Environment Id";
+            this.txtEnvironment.Enter += new System.EventHandler(this.configValueEnter);
+            this.txtEnvironment.Leave += new System.EventHandler(this.configValueLeave);
             // 
             // lblEnvironment
             // 
@@ -106,10 +115,10 @@
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(244, 217);
+            this.btnOK.Location = new System.Drawing.Point(244, 211);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
-            this.btnOK.TabIndex = 8;
+            this.btnOK.TabIndex = 100;
             this.btnOK.Text = "Ok";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -118,19 +127,23 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(325, 217);
+            this.btnCancel.Location = new System.Drawing.Point(325, 211);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 9;
+            this.btnCancel.TabIndex = 105;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // txtTenant
             // 
+            this.txtTenant.ForeColor = System.Drawing.Color.Silver;
             this.txtTenant.Location = new System.Drawing.Point(101, 82);
             this.txtTenant.Name = "txtTenant";
             this.txtTenant.Size = new System.Drawing.Size(273, 20);
-            this.txtTenant.TabIndex = 3;
+            this.txtTenant.TabIndex = 30;
+            this.txtTenant.Text = "Azure Tenant Id";
+            this.txtTenant.Enter += new System.EventHandler(this.configValueEnter);
+            this.txtTenant.Leave += new System.EventHandler(this.configValueLeave);
             // 
             // lblTenant
             // 
@@ -143,10 +156,14 @@
             // 
             // txtReturnURL
             // 
+            this.txtReturnURL.ForeColor = System.Drawing.Color.Silver;
             this.txtReturnURL.Location = new System.Drawing.Point(101, 133);
             this.txtReturnURL.Name = "txtReturnURL";
             this.txtReturnURL.Size = new System.Drawing.Size(273, 20);
-            this.txtReturnURL.TabIndex = 7;
+            this.txtReturnURL.TabIndex = 40;
+            this.txtReturnURL.Text = "Return URL for Configured App Regisration";
+            this.txtReturnURL.Enter += new System.EventHandler(this.configValueEnter);
+            this.txtReturnURL.Leave += new System.EventHandler(this.configValueLeave);
             // 
             // lblReturn
             // 
@@ -164,7 +181,7 @@
             this.chkUseDevApp.Location = new System.Drawing.Point(243, 160);
             this.chkUseDevApp.Name = "chkUseDevApp";
             this.chkUseDevApp.Size = new System.Drawing.Size(123, 17);
-            this.chkUseDevApp.TabIndex = 10;
+            this.chkUseDevApp.TabIndex = 45;
             this.chkUseDevApp.Text = "Use Dev App Config";
             this.chkUseDevApp.UseVisualStyleBackColor = true;
             // 
@@ -199,6 +216,16 @@
             this.panelLogicApp.Size = new System.Drawing.Size(387, 188);
             this.panelLogicApp.TabIndex = 12;
             // 
+            // btnRemoveLA
+            // 
+            this.btnRemoveLA.Location = new System.Drawing.Point(364, 2);
+            this.btnRemoveLA.Name = "btnRemoveLA";
+            this.btnRemoveLA.Size = new System.Drawing.Size(17, 23);
+            this.btnRemoveLA.TabIndex = 10;
+            this.btnRemoveLA.Text = "-";
+            this.btnRemoveLA.UseVisualStyleBackColor = true;
+            this.btnRemoveLA.Click += new System.EventHandler(this.btnRemoveLA_Click);
+            // 
             // lblLAName
             // 
             this.lblLAName.AutoSize = true;
@@ -210,18 +237,22 @@
             // 
             // txtLAName
             // 
+            this.txtLAName.ForeColor = System.Drawing.Color.Silver;
             this.txtLAName.Location = new System.Drawing.Point(101, 30);
             this.txtLAName.Name = "txtLAName";
             this.txtLAName.Size = new System.Drawing.Size(273, 20);
-            this.txtLAName.TabIndex = 16;
+            this.txtLAName.TabIndex = 15;
             this.txtLAName.Tag = "0";
+            this.txtLAName.Text = "Label for Connection";
+            this.txtLAName.Enter += new System.EventHandler(this.configValueEnter);
+            this.txtLAName.Leave += new System.EventHandler(this.configValueLeave);
             // 
             // btnAddLA
             // 
             this.btnAddLA.Location = new System.Drawing.Point(344, 2);
             this.btnAddLA.Name = "btnAddLA";
             this.btnAddLA.Size = new System.Drawing.Size(17, 23);
-            this.btnAddLA.TabIndex = 14;
+            this.btnAddLA.TabIndex = 5;
             this.btnAddLA.Text = "+";
             this.btnAddLA.UseVisualStyleBackColor = true;
             this.btnAddLA.Click += new System.EventHandler(this.btnAddLA_Click);
@@ -233,7 +264,7 @@
             this.cboLAConns.Location = new System.Drawing.Point(101, 3);
             this.cboLAConns.Name = "cboLAConns";
             this.cboLAConns.Size = new System.Drawing.Size(241, 21);
-            this.cboLAConns.TabIndex = 13;
+            this.cboLAConns.TabIndex = 1;
             this.cboLAConns.SelectedIndexChanged += new System.EventHandler(this.cboLAConns_SelectedIndexChanged);
             // 
             // lblLASelect
@@ -252,16 +283,20 @@
             this.chkLADev.Location = new System.Drawing.Point(251, 160);
             this.chkLADev.Name = "chkLADev";
             this.chkLADev.Size = new System.Drawing.Size(123, 17);
-            this.chkLADev.TabIndex = 12;
+            this.chkLADev.TabIndex = 40;
             this.chkLADev.Text = "Use Dev App Config";
             this.chkLADev.UseVisualStyleBackColor = true;
             // 
             // txtLAReturnURL
             // 
+            this.txtLAReturnURL.ForeColor = System.Drawing.Color.Silver;
             this.txtLAReturnURL.Location = new System.Drawing.Point(101, 134);
             this.txtLAReturnURL.Name = "txtLAReturnURL";
             this.txtLAReturnURL.Size = new System.Drawing.Size(273, 20);
-            this.txtLAReturnURL.TabIndex = 11;
+            this.txtLAReturnURL.TabIndex = 35;
+            this.txtLAReturnURL.Text = "Return URL for Configured App Regisration";
+            this.txtLAReturnURL.Enter += new System.EventHandler(this.configValueEnter);
+            this.txtLAReturnURL.Leave += new System.EventHandler(this.configValueLeave);
             // 
             // lblLAApp
             // 
@@ -274,11 +309,15 @@
             // 
             // txtLAApp
             // 
+            this.txtLAApp.ForeColor = System.Drawing.Color.Silver;
             this.txtLAApp.Location = new System.Drawing.Point(101, 82);
             this.txtLAApp.Name = "txtLAApp";
             this.txtLAApp.Size = new System.Drawing.Size(273, 20);
-            this.txtLAApp.TabIndex = 9;
+            this.txtLAApp.TabIndex = 25;
             this.txtLAApp.Tag = "0";
+            this.txtLAApp.Text = "Client Id for Configured App Registration";
+            this.txtLAApp.Enter += new System.EventHandler(this.configValueEnter);
+            this.txtLAApp.Leave += new System.EventHandler(this.configValueLeave);
             // 
             // lblLAReturn
             // 
@@ -291,10 +330,14 @@
             // 
             // txtLATenant
             // 
+            this.txtLATenant.ForeColor = System.Drawing.Color.Silver;
             this.txtLATenant.Location = new System.Drawing.Point(101, 108);
             this.txtLATenant.Name = "txtLATenant";
             this.txtLATenant.Size = new System.Drawing.Size(273, 20);
-            this.txtLATenant.TabIndex = 5;
+            this.txtLATenant.TabIndex = 30;
+            this.txtLATenant.Text = "Azure Tenant Id";
+            this.txtLATenant.Enter += new System.EventHandler(this.configValueEnter);
+            this.txtLATenant.Leave += new System.EventHandler(this.configValueLeave);
             // 
             // lblLATenant
             // 
@@ -316,11 +359,15 @@
             // 
             // txtSubscriptionId
             // 
+            this.txtSubscriptionId.ForeColor = System.Drawing.Color.Silver;
             this.txtSubscriptionId.Location = new System.Drawing.Point(101, 56);
             this.txtSubscriptionId.Name = "txtSubscriptionId";
             this.txtSubscriptionId.Size = new System.Drawing.Size(273, 20);
-            this.txtSubscriptionId.TabIndex = 3;
+            this.txtSubscriptionId.TabIndex = 20;
             this.txtSubscriptionId.Tag = "0";
+            this.txtSubscriptionId.Text = "Azure Subscription Id";
+            this.txtSubscriptionId.Enter += new System.EventHandler(this.configValueEnter);
+            this.txtSubscriptionId.Leave += new System.EventHandler(this.configValueLeave);
             // 
             // panelFlow
             // 
@@ -344,6 +391,16 @@
             this.panelFlow.Size = new System.Drawing.Size(387, 187);
             this.panelFlow.TabIndex = 12;
             // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(364, 1);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(17, 23);
+            this.btnRemove.TabIndex = 15;
+            this.btnRemove.Text = "-";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
             // lblName
             // 
             this.lblName.AutoSize = true;
@@ -355,18 +412,22 @@
             // 
             // txtName
             // 
+            this.txtName.ForeColor = System.Drawing.Color.Silver;
             this.txtName.Location = new System.Drawing.Point(101, 30);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(273, 20);
-            this.txtName.TabIndex = 19;
+            this.txtName.TabIndex = 20;
             this.txtName.Tag = "0";
+            this.txtName.Text = "Label for Connection";
+            this.txtName.Enter += new System.EventHandler(this.configValueEnter);
+            this.txtName.Leave += new System.EventHandler(this.configValueLeave);
             // 
             // btnFlowAdd
             // 
             this.btnFlowAdd.Location = new System.Drawing.Point(344, 1);
             this.btnFlowAdd.Name = "btnFlowAdd";
             this.btnFlowAdd.Size = new System.Drawing.Size(17, 23);
-            this.btnFlowAdd.TabIndex = 17;
+            this.btnFlowAdd.TabIndex = 10;
             this.btnFlowAdd.Text = "+";
             this.btnFlowAdd.UseVisualStyleBackColor = true;
             this.btnFlowAdd.Click += new System.EventHandler(this.btnFlowAdd_Click);
@@ -378,7 +439,7 @@
             this.cboFlowConns.Location = new System.Drawing.Point(101, 3);
             this.cboFlowConns.Name = "cboFlowConns";
             this.cboFlowConns.Size = new System.Drawing.Size(241, 21);
-            this.cboFlowConns.TabIndex = 16;
+            this.cboFlowConns.TabIndex = 5;
             this.cboFlowConns.SelectedIndexChanged += new System.EventHandler(this.cboFlowConns_SelectedIndexChanged);
             // 
             // label1
@@ -390,25 +451,18 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "Select:";
             // 
-            // btnRemoveLA
+            // btnHelp
             // 
-            this.btnRemoveLA.Location = new System.Drawing.Point(364, 2);
-            this.btnRemoveLA.Name = "btnRemoveLA";
-            this.btnRemoveLA.Size = new System.Drawing.Size(17, 23);
-            this.btnRemoveLA.TabIndex = 17;
-            this.btnRemoveLA.Text = "-";
-            this.btnRemoveLA.UseVisualStyleBackColor = true;
-            this.btnRemoveLA.Click += new System.EventHandler(this.btnRemoveLA_Click);
-            // 
-            // btnRemove
-            // 
-            this.btnRemove.Location = new System.Drawing.Point(364, 1);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(17, 23);
-            this.btnRemove.TabIndex = 18;
-            this.btnRemove.Text = "-";
-            this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            this.btnHelp.AccessibleDescription = "Shows help page on how to connect to the API to retrive Flows/Logic Apps";
+            this.btnHelp.AccessibleName = "Help Button";
+            this.btnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHelp.Location = new System.Drawing.Point(12, 211);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(75, 23);
+            this.btnHelp.TabIndex = 110;
+            this.btnHelp.Text = "Help";
+            this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // ApiConnection
             // 
@@ -418,7 +472,8 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(413, 249);
+            this.ClientSize = new System.Drawing.Size(413, 243);
+            this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.flowMain);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -474,5 +529,6 @@
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button btnRemoveLA;
         private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.Button btnHelp;
     }
 }
