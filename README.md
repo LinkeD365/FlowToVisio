@@ -26,9 +26,11 @@ Find the Visio and open it up.
 
 ## Connecting to Non-Solutioned Flows
 
-Flows will only appear in the main list if they are part of a solution. Solutions are only available with a Dataverse configuration. If you want to document flows that appear under My Flows, use the Connect to Flow API button  
+Flows will only appear in the main list if they are part of a solution. Solutions are only available with a Dataverse configuration. If you want to document flows that appear under My Flows, use the Connect to Flow API button. The dialogue allows you to add more than one connection, depending on your environments. Select the appropriate one, when you have created one, by using the select field. 
 
-![](https://user-images.githubusercontent.com/43988771/106387955-2894f780-63d4-11eb-988c-3c49cfb677e2.png)
+Add a new connection by selecting the + button. The Label field is just that, a name for the connection to distinguish it. The other 3 parts need to be populated with information created or retrieved in Azure.
+
+![](https://user-images.githubusercontent.com/43988771/123132474-b25a6580-d446-11eb-9aee-1b0f1f0b3eba.png)
 
 Firstly, you will need to register an Azure application, more details are available [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app). 
 
