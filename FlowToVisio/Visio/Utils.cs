@@ -96,6 +96,9 @@ namespace LinkeD365.FlowToVisio
         public static List<string> VisioTemplates => (ActionTemplate["visioShapes"] as JArray).Select(jt => jt.ToString()).ToList();
 
         private static List<FlowRegion> _flowRegions;
+        internal static int totalVisio;
+        internal static int totalActions;
+
         public static List<FlowRegion> FlowRegions
         {
             get
@@ -145,9 +148,6 @@ namespace LinkeD365.FlowToVisio
         {
             try
             {
-
-
-
                 if (actionProperty.Value["type"] == null)
                 {
                     return new Action(actionProperty, parent, curCount, childCount);
@@ -358,9 +358,10 @@ namespace LinkeD365.FlowToVisio
         {
             if (actionProperty.Value["type"].ToString() == "OpenApiConnection" || actionProperty.Value["type"].ToString() == "OpenApiConnectionWebhook")
             {
-                var template = OpenApiTemplates.FirstOrDefault(prop =>
-                    prop.Value["connectionName"].ToString() == actionProperty.Value["inputs"]["host"]["connectionName"].ToString() &&
-                    prop.Value["operationId"].ToString() == actionProperty.Value["inputs"]["host"]["operationId"].ToString());
+                var template = OpenApiTemplates.FirstOrDefault(templateDef =>
+                    templateDef.Value["connectionName"].ToString() == 
+                        Connection.APIConnections.First(api => api.Name == actionProperty.Value["inputs"]["host"]["connectionName"].ToString()).Api &&
+                    templateDef.Value["operationId"].ToString() == actionProperty.Value["inputs"]["host"]["operationId"].ToString());
                 if (template == null)
                 {
                     return null;

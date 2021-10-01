@@ -9,24 +9,26 @@ namespace LinkeD365.FlowToVisio
 {
     public class TemplateAction : Action
     {
+        public JProperty Template { get; private set; }
         public TemplateAction(JProperty template, JProperty property, Action parent, int current, int children, string templateName) : base(property, parent, current, children, templateName)
         {
+            Template = template;
             AddName();
             AddType(template.Name);
             var sb = new StringBuilder();
-            if (template.Value["display"] != null)
+            if (Template.Value["display"] != null)
             {
-                foreach (var display in template.Value["display"].Children<JProperty>())
+                foreach (var display in Template.Value["display"].Children<JProperty>())
                 {
                     var splitList = display.Value["value"].ToString().Split('|').ToList();
-                    string value = GetPropValue(property, splitList, display.Value["options"]);
+                    string value = GetPropValue(property, splitList, display.Value["options"], ((bool?)display.Value["parameter"]));
                     if (value != string.Empty) sb.AppendLine(display.Name + " : " + value);
                 }
             }
 
-            if (template.Value["repeat"] != null)
+            if (Template.Value["repeat"] != null)
             {
-                foreach (var display in template.Value["repeat"].Children<JObject>())
+                foreach (var display in Template.Value["repeat"].Children<JObject>())
                 {
                     var repeat = CreateRepeat(property, display["path"].ToString().Split('|').ToList(),
                         display["filter"]?.ToString().Split('|').ToList() ?? new List<string>(), int.Parse(display["left"]?.ToString() ?? "0"), display["class"] != null && bool.Parse(display["class"].ToString()));
@@ -41,6 +43,8 @@ namespace LinkeD365.FlowToVisio
 
             AddText(sb);
         }
+
+
 
         private string CreateRepeat(JToken property, List<string> splitList, List<string> filter, int left, bool isClass)
         {
@@ -132,7 +136,7 @@ namespace LinkeD365.FlowToVisio
             return sb.ToString();
         }
 
-        private string GetPropValue(JToken property, List<string> splitList, JToken options)
+        private string GetPropValue(JToken property, List<string> splitList, JToken options, bool? parameter)
         {
             string name = splitList[0];
             if (property.Type == JTokenType.Object)
@@ -141,13 +145,14 @@ namespace LinkeD365.FlowToVisio
                 if (childObject == null) return string.Empty;
                 if (splitList.Count == 1) return GetOptionValue(childObject.Value.ToString(), options);
 
-                return GetPropValue(childObject, splitList.GetRange(1, splitList.Count - 1), options);
+                return GetPropValue(childObject, splitList.GetRange(1, splitList.Count - 1), options, parameter);
             }
             else if (property.Type == JTokenType.Property)
             {
+                if ((parameter ?? false) && splitList.Count == 1) return GetParameters(property, name); //((JProperty)property).Values().Where(v => ((JProperty)v).Name.Contains(name))
                 if (((JProperty)property).Value[name] == null) return string.Empty;
                 if (splitList.Count == 1) return GetOptionValue(((JProperty)property).Value[name].ToString(), options);
-                return GetPropValue(((JProperty)property).Value[name], splitList.GetRange(1, splitList.Count - 1), options);
+                return GetPropValue(((JProperty)property).Value[name], splitList.GetRange(1, splitList.Count - 1), options, parameter);
             }
 
             return string.Empty;
@@ -155,6 +160,18 @@ namespace LinkeD365.FlowToVisio
             // if (splitList.Count == 0) return property.Value[name].ToString();
 
             //return GetPropValue((JProperty)property.Value[name], splitList.GetRange(1, splitList.Count));
+        }
+
+        private string GetParameters(JToken property, string name)
+        {
+            var sb = new StringBuilder();
+
+            foreach (JProperty parameter in ((JProperty)property).Values().Where(v => ((JProperty)v).Name.Contains(name)))
+            {
+                sb.AppendLine(parameter.Name.Substring(name.Length) + " : " + parameter.Value.ToString());
+            }
+            if(sb.ToString() != string.Empty) return Environment.NewLine + sb.ToString();
+            return string.Empty;
         }
 
         private string GetOptionValue(string value, JToken options)

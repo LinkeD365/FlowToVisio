@@ -1,0 +1,584 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<MasterContents xmlns='http://schemas.microsoft.com/office/visio/2012/main' xmlns:r='http://schemas.openxmlformats.org/officeDocument/2006/relationships' xml:space='preserve'><Shapes><Shape ID='14' NameU='Action.1001' IsCustomNameU='1' Name='Action.1001' IsCustomName='1' Type='Group' LineStyle='0' FillStyle='0' TextStyle='0' UniqueID='{D8A2FC1E-818D-49F5-BF5E-873C2DD8E98B}'><Cell N='PinX' V='3.503116891917883'/><Cell N='PinY' V='6.604330909403677'/><Cell N='Width' V='3.426837445164725'/><Cell N='Height' V='1.161417421136719'/><Cell N='LocPinX' V='1.713418722582363' F='Width*0.5'/><Cell N='LocPinY' V='0.5807087105683593' F='Height*0.5'/><Cell N='Angle' V='0'/><Cell N='FlipX' V='0'/><Cell N='FlipY' V='0'/><Cell N='ResizeMode' V='0'/><Section N='Connection'><Row T='Connection' IX='0'><Cell N='X' V='1.713418722582363' F='Width*0.5'/><Cell N='Y' V='1.161417418590357' F='Height*0.99999999780754'/><Cell N='DirX' V='0'/><Cell N='DirY' V='0'/><Cell N='Type' V='0'/><Cell N='AutoGen' V='0'/><Cell N='Prompt' V='' F='No Formula'/></Row></Section><Section N='Property'><Row N='ActionType'><Cell N='Value' V='test type' U='STR'/><Cell N='Prompt' V='' F='No Formula'/><Cell N='Label' V='ActionType'/><Cell N='Format' V='' F='No Formula'/><Cell N='SortKey' V='' F='No Formula'/><Cell N='Type' V='0'/><Cell N='Invisible' V='0' F='No Formula'/><Cell N='Verify' V='0' F='No Formula'/><Cell N='DataLinked' V='0' F='No Formula'/><Cell N='LangID' V='en-GB'/><Cell N='Calendar' V='0' F='No Formula'/></Row><Row N='ActionName'><Cell N='Value' V=' adf' U='STR'/><Cell N='Prompt' V='' F='No Formula'/><Cell N='Label' V='ActionName'/><Cell N='Format' V='' F='No Formula'/><Cell N='SortKey' V='' F='No Formula'/><Cell N='Type' V='0'/><Cell N='Invisible' V='0' F='No Formula'/><Cell N='Verify' V='0' F='No Formula'/><Cell N='DataLinked' V='0' F='No Formula'/><Cell N='LangID' V='en-GB'/><Cell N='Calendar' V='0' F='No Formula'/></Row></Section><Shapes><Shape ID='15' Type='Group' LineStyle='3' FillStyle='3' TextStyle='3'><Cell N='PinX' V='1.713418722582363' F='Sheet.14!Width*0.5'/><Cell N='PinY' V='0.5807087105683593' F='Sheet.14!Height*0.5'/><Cell N='Width' V='3.426837445164725' F='Sheet.14!Width*1'/><Cell N='Height' V='1.161417421136719' F='Sheet.14!Height*1'/><Cell N='LocPinX' V='1.713418722582363' F='Width*0.5'/><Cell N='LocPinY' V='0.5807087105683593' F='Height*0.5'/><Cell N='Angle' V='0'/><Cell N='FlipX' V='0'/><Cell N='FlipY' V='0'/><Cell N='ResizeMode' V='0'/><Cell N='ShapeShdwShow' V='2'/><Cell N='SelectMode' V='0'/><Cell N='ColorSchemeIndex' V='0'/><Cell N='EffectSchemeIndex' V='0'/><Cell N='ConnectorSchemeIndex' V='0'/><Cell N='FontSchemeIndex' V='0'/><Cell N='ThemeIndex' V='0'/><Section N='Property'><Row N='ActionType'><Cell N='Value' V='Action Type' U='STR'/><Cell N='Prompt' V='' F='No Formula'/><Cell N='Label' V='ActionType'/><Cell N='Format' V='' F='No Formula'/><Cell N='SortKey' V='' F='No Formula'/><Cell N='Type' V='0'/><Cell N='Invisible' V='0' F='No Formula'/><Cell N='Verify' V='0' F='No Formula'/><Cell N='DataLinked' V='0' F='No Formula'/><Cell N='LangID' V='en-GB'/><Cell N='Calendar' V='0' F='No Formula'/></Row><Row N='ActionName'><Cell N='Value' V='Action Name ' U='STR'/><Cell N='Prompt' V='' F='No Formula'/><Cell N='Label' V='ActionName'/><Cell N='Format' V='' F='No Formula'/><Cell N='SortKey' V='' F='No Formula'/><Cell N='Type' V='0'/><Cell N='Invisible' V='0' F='No Formula'/><Cell N='Verify' V='0' F='No Formula'/><Cell N='DataLinked' V='0' F='No Formula'/><Cell N='LangID' V='en-GB'/><Cell N='Calendar' V='0' F='No Formula'/></Row><Row N='ActionProperties'><Cell N='Value' V='Action Properties' U='STR'/><Cell N='Prompt' V='' F='No Formula'/><Cell N='Label' V='ActionProperties'/><Cell N='Format' V='' F='No Formula'/><Cell N='SortKey' V='' F='No Formula'/><Cell N='Type' V='0'/><Cell N='Invisible' V='0' F='No Formula'/><Cell N='Verify' V='0' F='No Formula'/><Cell N='DataLinked' V='0' F='No Formula'/><Cell N='LangID' V='en-GB'/><Cell N='Calendar' V='0' F='No Formula'/></Row></Section><Section N='Geometry' IX='0'><Cell N='NoFill' V='0'/><Cell N='NoLine' V='0'/><Cell N='NoShow' V='0'/><Cell N='NoSnap' V='0'/><Cell N='NoQuickDrag' V='0'/><Row T='RelMoveTo' IX='1'><Cell N='X' V='0'/><Cell N='Y' V='0'/></Row><Row T='RelLineTo' IX='2'><Cell N='X' V='1'/><Cell N='Y' V='0'/></Row><Row T='RelLineTo' IX='3'><Cell N='X' V='1'/><Cell N='Y' V='1'/></Row><Row T='RelLineTo' IX='4'><Cell N='X' V='0'/><Cell N='Y' V='1'/></Row><Row T='RelLineTo' IX='5'><Cell N='X' V='0'/><Cell N='Y' V='0'/></Row></Section></Shape><Shape ID='16' Type='Group' LineStyle='3' FillStyle='3' TextStyle='3'><Cell N='PinX' V='1.713418722582363' F='GUARD(Sheet.15!PinX)'/><Cell N='PinY' V='0.5807087105683593' F='GUARD(Sheet.15!PinY)'/><Cell N='Width' V='3.426837445164725' F='GUARD(Sheet.15!Width)'/><Cell N='Height' V='1.161417421136719' F='GUARD(Sheet.15!Height)'/><Cell N='LocPinX' V='1.713418722582363' F='Width*0.5'/><Cell N='LocPinY' V='0.5807087105683593' F='Height*0.5'/><Cell N='Angle' V='0'/><Cell N='FlipX' V='0'/><Cell N='FlipY' V='0'/><Cell N='ResizeMode' V='0'/><Cell N='QuickStyleVariation' V='2'/><Cell N='LinePattern' V='0'/><Cell N='LineGradientEnabled' V='0'/><Cell N='ShapeShdwShow' V='2'/><Shapes><Shape ID='17' Type='Group' LineStyle='3' FillStyle='3' TextStyle='3'><Cell N='PinX' V='0.07874015748031496' U='MM' F='GUARD(2MM)'/><Cell N='PinY' V='0' F='GUARD(0)'/><Cell N='Width' V='3.229987051463938' U='MM' F='GUARD(Sheet.14!Width-5MM)'/><Cell N='Height' V='0.8965785656329387' U='MM' F='GUARD(Sheet.15!Height-Sheet.19!Height-Sheet.21!Height)'/><Cell N='LocPinX' V='0' F='GUARD(0)'/><Cell N='LocPinY' V='0' F='GUARD(0)'/><Cell N='Angle' V='0'/><Cell N='FlipX' V='0'/><Cell N='FlipY' V='0'/><Cell N='ResizeMode' V='0'/><Cell N='LeftMargin' V='0' U='MM'/><Cell N='RightMargin' V='0' U='MM'/><Cell N='TopMargin' V='0' U='MM'/><Cell N='BottomMargin' V='0' U='MM'/><Cell N='VerticalAlign' V='0'/><Cell N='LinePattern' V='0'/><Cell N='HideText' V='1'/><Cell N='LangID' V='de-DE' F='Inh'/><Cell N='QuickStyleVariation' V='4'/><Cell N='LineGradientEnabled' V='0'/><Section N='Control'><Row N='Correction'><Cell N='X' V='3.229987051463938' U='MM' F='GUARD(Width*1)'/><Cell N='Y' V='0.4537076987685962' U='MM' F='Height*0.50604343686078'/><Cell N='XDyn' V='3.229987051463938' U='MM' F='Controls.Correction'/><Cell N='YDyn' V='0.4537076987685962' U='MM' F='Controls.Correction.Y'/><Cell N='XCon' V='0'/><Cell N='YCon' V='0'/><Cell N='CanGlue' V='1'/><Cell N='Prompt' V=''/></Row></Section><Section N='Character'><Row IX='0'><Cell N='Font' V='Calibri Light'/><Cell N='Style' V='0'/><Cell N='Size' V='0.08333333333333333' U='PT'/><Cell N='ComplexScriptFont' V='Calibri Light'/></Row></Section><Section N='Paragraph'><Row IX='0'><Cell N='HorzAlign' V='0'/></Row></Section><Text><cp IX='0'/><pp IX='0'/>Properties: 
+type : Request
+kind : Http
+inputs : {
+  "schema": {
+    "type": "object",
+    "properties": {
+      "version": {
+        "type": "string"
+      },
+      "session": {
+        "type": "object",
+        "properties": {
+          "sessionId": {
+            "type": "string"
+          },
+          "application": {
+            "type": "object",
+            "properties": {
+              "applicationId": {
+                "type": "string"
+              }
+            }
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "userId": {
+                "type": "string"
+              },
+              "permissions": {
+                "type": "object",
+                "properties": {
+                  "consentToken": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "new": {
+            "type": "boolean"
+          }
+        }
+      },
+      "context": {
+        "type": "object",
+        "properties": {
+          "System": {
+            "type": "object",
+            "properties": {
+              "application": {
+                "type": "object",
+                "properties": {
+                  "applicationId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "user": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string"
+                  },
+                  "permissions": {
+                    "type": "object",
+                    "properties": {
+                      "consentToken": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "device": {
+                "type": "object",
+                "properties": {
+                  "supportedInterfaces": {
+                    "type": "object",
+                    "properties": {}
+                  },
+                  "deviceId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "apiEndpoint": {
+                "type": "string"
+              },
+              "apiAccessToken": {
+                "type": "string"
+              }
+            }
+          },
+          "Viewport": {
+            "type": "object",
+            "properties": {
+              "experiences": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "arcMinuteWidth": {
+                      "type": "integer"
+                    },
+                    "arcMinuteHeight": {
+                      "type": "integer"
+                    },
+                    "canRotate": {
+                      "type": "boolean"
+                    },
+                    "canResize": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "arcMinuteWidth",
+                    "arcMinuteHeight",
+                    "canRotate",
+                    "canResize"
+                  ]
+                }
+              },
+              "shape": {
+                "type": "string"
+              },
+              "pixelWidth": {
+                "type": "integer"
+              },
+              "pixelHeight": {
+                "type": "integer"
+              },
+              "dpi": {
+                "type": "integer"
+              },
+              "currentPixelWidth": {
+                "type": "integer"
+              },
+              "currentPixelHeight": {
+                "type": "integer"
+              },
+              "touch": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "string"
+          },
+          "intent": {
+            "type": "object",
+            "properties": {
+              "slots": {
+                "type": "object",
+                "properties": {
+                  "day": {
+                    "type": "object",
+                    "properties": {
+                      "confirmationStatus": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "device": {
+                    "type": "object",
+                    "properties": {
+                      "resolutions": {
+                        "type": "object",
+                        "properties": {
+                          "resolutionsPerAuthority": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "authority": {
+                                  "type": "string"
+                                },
+                                "values": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "value": {
+                                        "type": "object",
+                                        "properties": {
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "id": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "value"
+                                    ]
+                                  }
+                                },
+                                "status": {
+                                  "type": "object",
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "required": [
+                                "authority",
+                                "status",
+                                "values"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "confirmationStatus": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "date": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "confirmationStatus": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "name": {
+                "type": "string"
+              },
+              "confirmationStatus": {
+                "type": "string"
+              }
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
+</Text><Shapes><Shape ID='18' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'><Cell N='PinX' V='0' F='GUARD(0)'/><Cell N='PinY' V='0' F='GUARD(0)'/><Cell N='Width' V='3.229987051463938' U='MM' F='GUARD(Sheet.17!Width)'/><Cell N='Height' V='0.8965785656329387' U='MM' F='GUARD(Sheet.17!Height)'/><Cell N='LocPinX' V='0' F='GUARD(0)'/><Cell N='LocPinY' V='0' F='GUARD(0)'/><Cell N='Angle' V='0'/><Cell N='FlipX' V='0'/><Cell N='FlipY' V='0'/><Cell N='ResizeMode' V='0'/><Cell N='FillPattern' V='0'/><Cell N='LeftMargin' V='0' U='MM'/><Cell N='RightMargin' V='0.01968503937007874' U='MM'/><Cell N='TopMargin' V='0' U='MM'/><Cell N='BottomMargin' V='0' U='MM'/><Cell N='VerticalAlign' V='0'/><Cell N='LinePattern' V='0'/><Cell N='LineGradientEnabled' V='0'/><Cell N='FillGradientEnabled' V='0' F='THEMEVAL("FillGradientEnabled",FALSE)'/><Cell N='LangID' V='de-DE' F='Inh'/><Section N='User'><Row N='Text'><Cell N='Value' U='STR' F='SHAPETEXT(Sheet.17!TheText)'>Properties: 
+type : Request
+kind : Http
+inputs : {
+  "schema": {
+    "type": "object",
+    "properties": {
+      "version": {
+        "type": "string"
+      },
+      "session": {
+        "type": "object",
+        "properties": {
+          "sessionId": {
+            "type": "string"
+          },
+          "application": {
+            "type": "object",
+            "properties": {
+              "applicationId": {
+                "type": "string"
+              }
+            }
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "userId": {
+                "type": "string"
+              },
+              "permissions": {
+                "type": "object",
+                "properties": {
+                  "consentToken": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "new": {
+            "type": "boolean"
+          }
+        }
+      },
+      "context": {
+        "type": "object",
+        "properties": {
+          "System": {
+            "type": "object",
+            "properties": {
+              "application": {
+                "type": "object",
+                "properties": {
+                  "applicationId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "user": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string"
+                  },
+                  "permissions": {
+                    "type": "object",
+                    "properties": {
+                      "consentToken": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "device": {
+                "type": "object",
+                "properties": {
+                  "supportedInterfaces": {
+                    "type": "object",
+                    "properties": {}
+                  },
+                  "deviceId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "apiEndpoint": {
+                "type": "string"
+              },
+              "apiAccessToken": {
+                "type": "string"
+              }
+            }
+          },
+          "Viewport": {
+            "type": "object",
+            "properties": {
+              "experiences": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "arcMinuteWidth": {
+                      "type": "integer"
+                    },
+                    "arcMinuteHeight": {
+                      "type": "integer"
+                    },
+                    "canRotate": {
+                      "type": "boolean"
+                    },
+                    "canResize": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "arcMinuteWidth",
+                    "arcMinuteHeight",
+                    "canRotate",
+                    "canResize"
+                  ]
+                }
+              },
+              "shape": {
+                "type": "string"
+              },
+              "pixelWidth": {
+                "type": "integer"
+              },
+              "pixelHeight": {
+                "type": "integer"
+              },
+              "dpi": {
+                "type": "integer"
+              },
+              "currentPixelWidth": {
+                "type": "integer"
+              },
+              "currentPixelHeight": {
+                "type": "integer"
+              },
+              "touch": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "string"
+          },
+          "intent": {
+            "type": "object",
+            "properties": {
+              "slots": {
+                "type": "object",
+                "properties": {
+                  "day": {
+                    "type": "object",
+                    "properties": {
+                      "confirmationStatus": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "device": {
+                    "type": "object",
+                    "properties": {
+                      "resolutions": {
+                        "type": "object",
+                        "properties": {
+                          "resolutionsPerAuthority": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "authority": {
+                                  "type": "string"
+                                },
+                                "values": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "value": {
+                                        "type": "object",
+                                        "properties": {
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "id": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "value"
+                                    ]
+                                  }
+                                },
+                                "status": {
+                                  "type": "object",
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "required": [
+                                "authority",
+                                "status",
+                                "values"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "confirmationStatus": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "date": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "confirmationStatus": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "name": {
+                "type": "string"
+              },
+              "confirmationStatus": {
+                "type": "string"
+              }
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}</Cell><Cell N='Prompt' V=''/></Row><Row N='HeightRatio'><Cell N='Value' V='0.03225146165277752' F='Sheet.17!Height/TEXTHEIGHT(Sheet.17!TheText,Sheet.17!Width)'/><Cell N='Prompt' V=''/></Row><Row N='TruncText'><Cell N='Value' U='STR' F='LEFT(User.Text,User.TruncLen)&amp;IF(User.TruncLen&lt;User.Len," ... ","")'>Properties: 
+type : Request
+kind : Http
+inputs : {
+  "schema": {
+    "type": "object",
+    "properties": {
+      "version": {
+ ... </Cell><Cell N='Prompt' V=''/></Row><Row N='TextHeight'><Cell N='Value' V='1.8143322265625' U='DL' F='TEXTHEIGHT(User.Text,Width)'/><Cell N='Prompt' V=''/></Row><Row N='TruncLen'><Cell N='Value' V='134' F='INT(LEN(User.Text)*User.HeightRatio*User.Correction)'/><Cell N='Prompt' V=''/></Row><Row N='Len'><Cell N='Value' V='8473' F='LEN(User.Text)'/><Cell N='Prompt' V=''/></Row><Row N='Correction'><Cell N='Value' V='0.493956563139225' F='1-Sheet.17!Controls.Correction.Y/Sheet.17!Height'/><Cell N='Prompt' V=''/></Row></Section><Section N='Field'><Row IX='0'><Cell N='Value' U='STR' F='User.TruncText'>Properties: 
+type : Request
+kind : Http
+inputs : {
+  "schema": {
+    "type": "object",
+    "properties": {
+      "version": {
+ ... </Cell><Cell N='Format' V='esc(0)' U='STR' F='FIELDPICTURE(0)'/><Cell N='Type' V='0'/><Cell N='UICat' V='0'/><Cell N='UICod' V='255'/><Cell N='UIFmt' V='0'/><Cell N='Calendar' V='0'/><Cell N='ObjectKind' V='0'/></Row></Section><Section N='Character'><Row IX='0'><Cell N='Font' V='Calibri Light'/><Cell N='Style' V='0'/><Cell N='Size' V='0.08333333333333333' U='PT'/><Cell N='ComplexScriptFont' V='Calibri Light'/><Cell N='LangID' V='de-DE'/></Row></Section><Section N='Paragraph'><Row IX='0'><Cell N='HorzAlign' V='0'/></Row></Section><Section N='Geometry' IX='0'><Cell N='NoFill' V='0'/><Cell N='NoLine' V='0'/><Cell N='NoShow' V='0'/><Cell N='NoSnap' V='0'/><Cell N='NoQuickDrag' V='0'/><Row T='MoveTo' IX='1'><Cell N='X' V='0' U='MM' F='Width*0'/><Cell N='Y' V='0' U='MM' F='Height*0'/></Row><Row T='LineTo' IX='2'><Cell N='X' V='3.229987051463938' U='MM' F='Width*1'/><Cell N='Y' V='0' U='MM' F='Height*0'/></Row><Row T='LineTo' IX='3'><Cell N='X' V='3.229987051463938' U='MM' F='Width*1'/><Cell N='Y' V='0.8965785656329387' U='MM' F='Height*1'/></Row><Row T='LineTo' IX='4'><Cell N='X' V='0' U='MM' F='Width*0'/><Cell N='Y' V='0.8965785656329387' U='MM' F='Height*1'/></Row><Row T='LineTo' IX='5'><Cell N='X' V='0' U='MM' F='Width*0'/><Cell N='Y' V='0' U='MM' F='Height*0'/></Row></Section><Text><cp IX='0'/><pp IX='0'/><fld IX='0'>Properties: 
+type : Request
+kind : Http
+inputs : {
+  "schema": {
+    "type": "object",
+    "properties": {
+      "version": {
+ ... </fld>
+</Text></Shape></Shapes></Shape><Shape ID='19' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'><Cell N='PinX' V='0' F='GUARD(0)'/><Cell N='PinY' V='0.8965785656329387' U='MM' F='Sheet.16!Height-Height-Sheet.21!Height'/><Cell N='Width' V='3.426837445164725' F='Sheet.16!Width'/><Cell N='Height' V='0.1324194277518899' U='MM' F='GUARD(TEXTHEIGHT(TheText,3)-2MM)'/><Cell N='LocPinX' V='0' F='GUARD(0)'/><Cell N='LocPinY' V='0' F='GUARD(0)'/><Cell N='Angle' V='0'/><Cell N='FlipX' V='0'/><Cell N='FlipY' V='0'/><Cell N='ResizeMode' V='0'/><Cell N='LinePattern' V='0'/><Cell N='LineGradientEnabled' V='0'/><Section N='Field'><Row IX='0'><Cell N='Value' V=' adf' U='STR' F='Sheet.14!Prop.ActionName'/><Cell N='Format' V='esc(0)' U='STR' F='FIELDPICTURE(0)'/><Cell N='Type' V='0'/><Cell N='UICat' V='0'/><Cell N='UICod' V='0'/><Cell N='UIFmt' V='0'/><Cell N='Calendar' V='0'/><Cell N='ObjectKind' V='0'/></Row></Section><Section N='Character'><Row IX='0'><Cell N='Style' V='17'/><Cell N='Size' V='0.08333333333333333'/></Row></Section><Section N='Paragraph'><Row IX='0'><Cell N='HorzAlign' V='0'/></Row></Section><Section N='Geometry' IX='0'><Cell N='NoFill' V='0'/><Cell N='NoLine' V='0'/><Cell N='NoShow' V='0'/><Cell N='NoSnap' V='0'/><Cell N='NoQuickDrag' V='0'/><Row T='RelMoveTo' IX='1'><Cell N='X' V='0'/><Cell N='Y' V='0'/></Row><Row T='RelLineTo' IX='2'><Cell N='X' V='1'/><Cell N='Y' V='0'/></Row><Row T='RelLineTo' IX='3'><Cell N='X' V='1'/><Cell N='Y' V='1'/></Row><Row T='RelLineTo' IX='4'><Cell N='X' V='0'/><Cell N='Y' V='1'/></Row><Row T='RelLineTo' IX='5'><Cell N='X' V='0'/><Cell N='Y' V='0'/></Row></Section><Text><cp IX='0'/><pp IX='0'/><fld IX='0'> adf</fld>
+</Text></Shape><Shape ID='21' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'><Cell N='PinX' V='0' F='GUARD(0)'/><Cell N='PinY' V='1.028997993384829' U='MM' F='Sheet.16!Height-Height'/><Cell N='Width' V='3.426837445164725' F='Sheet.16!Width'/><Cell N='Height' V='0.1324194277518899' U='MM' F='GUARD(TEXTHEIGHT(TheText,2)-2MM)'/><Cell N='LocPinX' V='0' F='Width*0'/><Cell N='LocPinY' V='0' U='MM' F='Height*0'/><Cell N='Angle' V='0'/><Cell N='FlipX' V='0'/><Cell N='FlipY' V='0'/><Cell N='ResizeMode' V='0'/><Cell N='LinePattern' V='0'/><Cell N='LineGradientDir' V='0'/><Cell N='LineGradientAngle' V='1.5707963267949' U='DEG'/><Cell N='LineGradientEnabled' V='0'/><Section N='Field'><Row IX='0'><Cell N='Value' V='test type' U='STR' F='Sheet.14!Prop.ActionType'/><Cell N='Format' V='esc(0)' U='STR' F='FIELDPICTURE(0)'/><Cell N='Type' V='0'/><Cell N='UICat' V='0'/><Cell N='UICod' V='0'/><Cell N='UIFmt' V='0'/><Cell N='Calendar' V='0'/><Cell N='ObjectKind' V='0'/></Row></Section><Section N='Character'><Row IX='0'><Cell N='Size' V='0.08333333333333333'/></Row></Section><Section N='Paragraph'><Row IX='0'><Cell N='HorzAlign' V='0'/></Row></Section><Section N='LineGradient'><Row IX='0'><Cell N='GradientStopColor' V='#fbf6f5' F='THEMEGUARD(MSOTINT(THEMEVAL("AccentColor"),95))'/><Cell N='GradientStopColorTrans' V='0'/><Cell N='GradientStopPosition' V='0'/></Row><Row IX='1'><Cell N='GradientStopColor' V='#e2b0ab' F='THEMEGUARD(MSOTINT(THEMEVAL("AccentColor"),55))'/><Cell N='GradientStopColorTrans' V='0'/><Cell N='GradientStopPosition' V='0.74'/></Row><Row IX='2'><Cell N='GradientStopColor' V='#e2b0ab' F='THEMEGUARD(MSOTINT(THEMEVAL("AccentColor"),55))'/><Cell N='GradientStopColorTrans' V='0'/><Cell N='GradientStopPosition' V='0.83'/></Row><Row IX='3'><Cell N='GradientStopColor' V='#eccac7' F='THEMEGUARD(MSOTINT(THEMEVAL("AccentColor"),70))'/><Cell N='GradientStopColorTrans' V='0'/><Cell N='GradientStopPosition' V='1'/></Row><Row IX='4' Del='1'/><Row IX='5' Del='1'/><Row IX='6' Del='1'/><Row IX='7' Del='1'/><Row IX='8' Del='1'/><Row IX='9' Del='1'/></Section><Section N='Geometry' IX='0'><Cell N='NoFill' V='0'/><Cell N='NoLine' V='0'/><Cell N='NoShow' V='0'/><Cell N='NoSnap' V='0'/><Cell N='NoQuickDrag' V='0'/><Row T='RelMoveTo' IX='1'><Cell N='X' V='0'/><Cell N='Y' V='0'/></Row><Row T='RelLineTo' IX='2'><Cell N='X' V='1'/><Cell N='Y' V='0'/></Row><Row T='RelLineTo' IX='3'><Cell N='X' V='1'/><Cell N='Y' V='1'/></Row><Row T='RelLineTo' IX='4'><Cell N='X' V='0'/><Cell N='Y' V='1'/></Row><Row T='RelLineTo' IX='5'><Cell N='X' V='0'/><Cell N='Y' V='0'/></Row></Section><Text><cp IX='0'/><pp IX='0'/><fld IX='0'>test type</fld>
+</Text></Shape></Shapes></Shape></Shapes></Shape></Shapes></MasterContents>

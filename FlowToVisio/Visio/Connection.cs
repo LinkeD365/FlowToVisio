@@ -31,7 +31,7 @@ namespace LinkeD365.FlowToVisio
                 foreach (var item in root["properties"]["connectionReferences"].Children<JProperty>())
                     if (item.Value["api"] != null) aPIConnections.Add(new Connection(item.Name, ((JProperty)item.Value["api"].Children().First()).Value.ToString()));
                     else aPIConnections.Add(new Connection(item.Name, item.Value["connectionName"].ToString()));
-            else if (root["properties"]["parameters"]["$connections"]["value"] != null) // For Logic App connections
+            else if (root["properties"]?["parameters"]?["$connections"]?["value"] != null) // For Logic App connections
                 foreach (var item in root["properties"]["parameters"]["$connections"]["value"].Children<JProperty>())
                     aPIConnections.Add(new Connection(item.Name, item.Value["id"].ToString().Substring(item.Value["id"].ToString().LastIndexOf("/") + 1)));
         }

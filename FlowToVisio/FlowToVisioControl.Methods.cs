@@ -215,41 +215,24 @@ namespace LinkeD365.FlowToVisio
             string api = flowDefinition.LogicApp
                 ? $"https://management.azure.com{flowDefinition.Id}?api-version=2016-06-01"
                 : $"https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConn.Environment}/flows/{flowDefinition.Id}?&api-version=2016-11-01";
+            var result = _client.GetAsync(api).GetAwaiter().GetResult();            
 
-            WorkAsync(new WorkAsyncInfo
-            {
-                Message = "Loading Flow",
-                Work = (w, args) => args.Result = _client.GetAsync(api).GetAwaiter().GetResult(),
-                ProgressChanged = e =>
+
+                if (result.StatusCode == HttpStatusCode.OK)
                 {
-                },
-                PostWorkCallBack = args =>
+                    //     flowObject = JObject.Parse(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                    flowDefinition.Definition = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    GenerateVisio(fileName, flowDefinition, flowDefinition.LogicApp);
+                }
+                else
                 {
-                    if (args.Error != null)
-                    {
-                        ShowError(args.Error, "Error retrieving Flow via API");
-                        return;
-                    }
+                    LogError("Get single Flow via API", result);
+                    ShowError($"Status: {result.StatusCode}\r\n{result.ReasonPhrase}\r\nSee XrmToolBox log for details.", "Get Flow Error");
+                }
 
-                    if (args.Result is HttpResponseMessage)
-                    {
-                        var response = args.Result as HttpResponseMessage;
-                        if (response.StatusCode == HttpStatusCode.OK)
-                        {
-                            flowObject = JObject.Parse(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-                            GenerateVisio(fileName, flowDefinition.LogicApp);
-                        }
-                        else
-                        {
-                            LogError("Get single Flow via API", response);
-                            ShowError($"Status: {response.StatusCode}\r\n{response.ReasonPhrase}\r\nSee XrmToolBox log for details.", "Get Flow Error");
-                        }
+            
+                
 
-                    }
-
-
-                },
-            });
 
             return null;
         }

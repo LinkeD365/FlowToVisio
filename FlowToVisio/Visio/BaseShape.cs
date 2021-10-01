@@ -35,7 +35,7 @@ namespace LinkeD365.FlowToVisio
                 {
                     var selectedElements =
                         from el in Shapes.Elements()
-                        where el.Attribute("ID").Value == "1000"
+                        where el.Attribute("ID").Value == "1301"
                         select el;
                     line = selectedElements.DefaultIfEmpty(null).FirstOrDefault();
                 }

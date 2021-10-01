@@ -11,18 +11,26 @@
     <iconUrl>https://linked365.blog/wp-content/uploads/2020/03/smallIcon.png</iconUrl>
     <description>A XrmToolBox tool to create Visio diagram of your Power Automate Flows that are within your CDS</description>
     <releaseNotes>
+      #31, #32 Reduced bottom border for all shapes (Thanks @rappen, @mrhyde1st)
+      #30 Added append to string icon and value (DO IT YOUR SELF NEXT TIME @MCJ)
+      #29 Added SQL actions, which led to a lot of work to get parameters showing (Bloody MCJ)
+      #28 Added open file option (Thanks @MCJ)
+      #27 Resolved issue with Dataverse shape (thanks @Geoff-RSM)
+      #26 Resolved issue where no connectors on logic apps caused error (thanks @BTSSCarol)
+      #15 Allowed multi select of flows to create a large file (thanks @MichaelLaMontagne)
+
       #25 Added Help and improved user interface for connecting to Power Automate and Logic Apps
-      
+
       #23 Fixed Filter/Search
       #22 Fixed Sort
       #20 Also returns flows that have been shared with me (Thanks Gilles) 👍
       #24 Allowed multi configurations for Power Automate and Logic Apps (Thanks Fred) 🙌
       Changed retrun from Flow and Logic apps to check if there are more to get
-      
+
       #17 Added Office 365 actions
-      
+
       #16 Added Logic App config, very beta 🤞
-      
+
       #14 Removed File button
       #13 Fixed bug in conditions missing steps
       #8 Implemented INoConnectionRequired to tidy up and removed initial call to get flows from Dataverse 😜

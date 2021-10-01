@@ -38,7 +38,8 @@
     "CustVoice",
     "Forms",
     "Email",
-    "Office"
+    "Office",
+    "SQL"
   ],
   "actions": {
     "Today&apos;s forecast": {
@@ -389,9 +390,15 @@
       "operationId": "CreateFileItem",
       "visioShape": "Word",
       "display": {
-        "Source": { "value": "inputs|parameters|source" },
-        "Drive": { "value": "inputs|parameters|drive" },
-        "File": { "value": "inputs|parameters|File" }
+        "Source": {
+          "value": "inputs|parameters|source"
+        },
+        "Drive": {
+          "value": "inputs|parameters|drive"
+        },
+        "File": {
+          "value": "inputs|parameters|File"
+        }
       }
     },
     "Convert a Word Doc": {
@@ -400,9 +407,15 @@
       "operationId": "GetFilePDF",
       "visioShape": "Word",
       "display": {
-        "Source": { "value": "inputs|parameters|source" },
-        "Drive": { "value": "inputs|parameters|drive" },
-        "File": { "value": "inputs|parameters|file" }
+        "Source": {
+          "value": "inputs|parameters|source"
+        },
+        "Drive": {
+          "value": "inputs|parameters|drive"
+        },
+        "File": {
+          "value": "inputs|parameters|file"
+        }
       }
     },
     "Create File": {
@@ -411,9 +424,15 @@
       "operationId": "CreateFile",
       "visioShape": "OneDrive",
       "display": {
-        "Folder": { "value": "inputs|parameters|folderPath" },
-        "Name": { "value": "inputs|parameters|name" },
-        "Body": { "value": "inputs|parameters|body" }
+        "Folder": {
+          "value": "inputs|parameters|folderPath"
+        },
+        "Name": {
+          "value": "inputs|parameters|name"
+        },
+        "Body": {
+          "value": "inputs|parameters|body"
+        }
 
       }
     },
@@ -423,7 +442,9 @@
       "operationId": "ListFolderV2",
       "visioShape": "OneDrive",
       "display": {
-        "Folder": { "value": "inputs|parameters|id" }
+        "Folder": {
+          "value": "inputs|parameters|id"
+        }
       }
     },
     "Convert File": {
@@ -432,8 +453,12 @@
       "operationId": "ConvertFile",
       "visioShape": "OneDrive",
       "display": {
-        "File": { "value": "inputs|parameters|id" },
-        "Convert To": { "value": "inputs|parameters|type" }
+        "File": {
+          "value": "inputs|parameters|id"
+        },
+        "Convert To": {
+          "value": "inputs|parameters|type"
+        }
       }
     },
     "Convert File By Path": {
@@ -442,8 +467,12 @@
       "operationId": "ConvertFileByPath",
       "visioShape": "OneDrive",
       "display": {
-        "Path": { "value": "inputs|parameters|path" },
-        "Convert To": { "value": "inputs|parameters|type" }
+        "Path": {
+          "value": "inputs|parameters|path"
+        },
+        "Convert To": {
+          "value": "inputs|parameters|type"
+        }
       }
     },
     "Copy File": {
@@ -452,9 +481,15 @@
       "operationId": "CopyDriveFile",
       "visioShape": "OneDrive",
       "display": {
-        "Source": { "value": "inputs|parameters|id" },
-        "Destination": { "value": "inputs|parameters|destination" },
-        "Overwrite": { "value": "inputs|parameters|overwrite" }
+        "Source": {
+          "value": "inputs|parameters|id"
+        },
+        "Destination": {
+          "value": "inputs|parameters|destination"
+        },
+        "Overwrite": {
+          "value": "inputs|parameters|overwrite"
+        }
       }
     },
     "Copy File By Path": {
@@ -463,9 +498,15 @@
       "operationId": "CopyDriveFileByPath",
       "visioShape": "OneDrive",
       "display": {
-        "Source": { "value": "inputs|parameters|source" },
-        "Destination": { "value": "inputs|parameters|destination" },
-        "Overwrite": { "value": "inputs|parameters|overwrite" }
+        "Source": {
+          "value": "inputs|parameters|source"
+        },
+        "Destination": {
+          "value": "inputs|parameters|destination"
+        },
+        "Overwrite": {
+          "value": "inputs|parameters|overwrite"
+        }
       }
     },
     "Create Share Link": {
@@ -474,9 +515,15 @@
       "operationId": "CreateShareLink",
       "visioShape": "OneDrive",
       "display": {
-        "Source": { "value": "inputs|parameters|id" },
-        "Type": { "value": "inputs|parameters|type" },
-        "scope": { "value": "inputs|parameters|scope" }
+        "Source": {
+          "value": "inputs|parameters|id"
+        },
+        "Type": {
+          "value": "inputs|parameters|type"
+        },
+        "scope": {
+          "value": "inputs|parameters|scope"
+        }
       }
     },
     "Create Share Link By Path": {
@@ -485,9 +532,15 @@
       "operationId": "CreateShareLinkByPath",
       "visioShape": "OneDrive",
       "display": {
-        "Source": { "value": "inputs|parameters|path" },
-        "Type": { "value": "inputs|parameters|type" },
-        "scope": { "value": "inputs|parameters|scope" }
+        "Source": {
+          "value": "inputs|parameters|path"
+        },
+        "Type": {
+          "value": "inputs|parameters|type"
+        },
+        "scope": {
+          "value": "inputs|parameters|scope"
+        }
       }
     },
     "Delete File": {
@@ -496,7 +549,9 @@
       "operationId": "DeleteFile",
       "visioShape": "OneDrive",
       "display": {
-        "Source": { "value": "inputs|parameters|id" }
+        "Source": {
+          "value": "inputs|parameters|id"
+        }
       }
     },
     "Extract Archive": {
@@ -505,9 +560,15 @@
       "operationId": "ExtractFolderV2",
       "visioShape": "OneDrive",
       "display": {
-        "Source": { "value": "inputs|parameters|source" },
-        "Destination": { "value": "inputs|parameters|destination" },
-        "Overwrite": { "value": "inputs|parameters|overwrite" }
+        "Source": {
+          "value": "inputs|parameters|source"
+        },
+        "Destination": {
+          "value": "inputs|parameters|destination"
+        },
+        "Overwrite": {
+          "value": "inputs|parameters|overwrite"
+        }
       }
     },
     "Find Files in Folder": {
@@ -516,10 +577,18 @@
       "operationId": "FindFiles",
       "visioShape": "OneDrive",
       "display": {
-        "Source": { "value": "inputs|parameters|id" },
-        "Query": { "value": "inputs|parameters|query" },
-        "Find Mode": { "value": "inputs|parameters|findMode" },
-        "Max Files": { "value": "inputs|parameters|maxFileCount" }
+        "Source": {
+          "value": "inputs|parameters|id"
+        },
+        "Query": {
+          "value": "inputs|parameters|query"
+        },
+        "Find Mode": {
+          "value": "inputs|parameters|findMode"
+        },
+        "Max Files": {
+          "value": "inputs|parameters|maxFileCount"
+        }
       }
     },
     "Get File Content": {
@@ -528,8 +597,12 @@
       "operationId": "GetFileContent",
       "visioShape": "OneDrive",
       "display": {
-        "Source": { "value": "inputs|parameters|id" },
-        "Infer Type": { "value": "inputs|parameters|inferContentType" }
+        "Source": {
+          "value": "inputs|parameters|id"
+        },
+        "Infer Type": {
+          "value": "inputs|parameters|inferContentType"
+        }
       }
     },
     "Get File Meta": {
@@ -538,7 +611,9 @@
       "operationId": "GetFileMetadata",
       "visioShape": "OneDrive",
       "display": {
-        "Source": { "value": "inputs|parameters|id" }
+        "Source": {
+          "value": "inputs|parameters|id"
+        }
       }
     },
     "Get File Meta By Path": {
@@ -547,7 +622,9 @@
       "operationId": "GetFileMetadataByPath",
       "visioShape": "OneDrive",
       "display": {
-        "Source": { "value": "inputs|parameters|path" }
+        "Source": {
+          "value": "inputs|parameters|path"
+        }
       }
     },
     "Get File Thumbnail": {
@@ -556,8 +633,12 @@
       "operationId": "GetFileThumbnail",
       "visioShape": "OneDrive",
       "display": {
-        "Source": { "value": "inputs|parameters|id" },
-        "Size": { "value": "inputs|parameters|size" }
+        "Source": {
+          "value": "inputs|parameters|id"
+        },
+        "Size": {
+          "value": "inputs|parameters|size"
+        }
       }
     },
     "List files in Root folder": {
@@ -572,9 +653,15 @@
       "operationId": "MoveFile",
       "visioShape": "OneDrive",
       "display": {
-        "Source": { "value": "inputs|parameters|id" },
-        "Destination": { "value": "inputs|parameters|destination" },
-        "Overwrite": { "value": "inputs|parameters|overwrite" }
+        "Source": {
+          "value": "inputs|parameters|id"
+        },
+        "Destination": {
+          "value": "inputs|parameters|destination"
+        },
+        "Overwrite": {
+          "value": "inputs|parameters|overwrite"
+        }
       }
     },
     "Move or rename file with path": {
@@ -583,9 +670,15 @@
       "operationId": "MoveFileByPath",
       "visioShape": "OneDrive",
       "display": {
-        "Source": { "value": "inputs|parameters|source" },
-        "Destination": { "value": "inputs|parameters|destination" },
-        "Overwrite": { "value": "inputs|parameters|overwrite" }
+        "Source": {
+          "value": "inputs|parameters|source"
+        },
+        "Destination": {
+          "value": "inputs|parameters|destination"
+        },
+        "Overwrite": {
+          "value": "inputs|parameters|overwrite"
+        }
       }
     },
     "Update File": {
@@ -594,8 +687,12 @@
       "operationId": "UpdateFile",
       "visioShape": "OneDrive",
       "display": {
-        "File": { "value": "inputs|parameters|id" },
-        "Body": { "value": "inputs|parameters|body" }
+        "File": {
+          "value": "inputs|parameters|id"
+        },
+        "Body": {
+          "value": "inputs|parameters|body"
+        }
       }
     },
     "Upload file from URL": {
@@ -604,9 +701,15 @@
       "operationId": "CopyFile",
       "visioShape": "OneDrive",
       "display": {
-        "Source": { "value": "inputs|parameters|source" },
-        "Destination": { "value": "inputs|parameters|destination" },
-        "Overwrite": { "value": "inputs|parameters|overwrite" }
+        "Source": {
+          "value": "inputs|parameters|source"
+        },
+        "Destination": {
+          "value": "inputs|parameters|destination"
+        },
+        "Overwrite": {
+          "value": "inputs|parameters|overwrite"
+        }
       }
     },
     "When a file is created": {
@@ -615,9 +718,15 @@
       "operationId": "OnNewFileV2",
       "visioShape": "OneDrive",
       "display": {
-        "Folder": { "value": "inputs|parameters|folderId" },
-        "Include Sub Folders": { "value": "inputs|parameters|includeSubfolders" },
-        "Infer Type": { "value": "inputs|parameters|inferContentType" }
+        "Folder": {
+          "value": "inputs|parameters|folderId"
+        },
+        "Include Sub Folders": {
+          "value": "inputs|parameters|includeSubfolders"
+        },
+        "Infer Type": {
+          "value": "inputs|parameters|inferContentType"
+        }
       }
     },
     "When a file is modified": {
@@ -626,9 +735,15 @@
       "operationId": "OnNewFileV2",
       "visioShape": "OneDrive",
       "display": {
-        "Folder": { "value": "inputs|parameters|folderId" },
-        "Include Sub Folders": { "value": "inputs|parameters|includeSubfolders" },
-        "Infer Type": { "value": "inputs|parameters|inferContentType" }
+        "Folder": {
+          "value": "inputs|parameters|folderId"
+        },
+        "Include Sub Folders": {
+          "value": "inputs|parameters|includeSubfolders"
+        },
+        "Infer Type": {
+          "value": "inputs|parameters|inferContentType"
+        }
       }
     },
     "When a file is created (properties only)": {
@@ -637,8 +752,12 @@
       "operationId": "OnNewFilesV2",
       "visioShape": "OneDrive",
       "display": {
-        "Folder": { "value": "inputs|parameters|folderId" },
-        "Include Sub Folders": { "value": "inputs|parameters|includeSubfolders" }
+        "Folder": {
+          "value": "inputs|parameters|folderId"
+        },
+        "Include Sub Folders": {
+          "value": "inputs|parameters|includeSubfolders"
+        }
       }
     },
     "When a file is modified (properties only)": {
@@ -647,8 +766,12 @@
       "operationId": "OnUpdatedFilesV2",
       "visioShape": "OneDrive",
       "display": {
-        "Folder": { "value": "inputs|parameters|folderId" },
-        "Include Sub Folders": { "value": "inputs|parameters|includeSubfolders" }
+        "Folder": {
+          "value": "inputs|parameters|folderId"
+        },
+        "Include Sub Folders": {
+          "value": "inputs|parameters|includeSubfolders"
+        }
       }
     },
     "Edit Role Assignment)": {
@@ -657,10 +780,18 @@
       "operationId": "Edit-AppRoleAssignment",
       "visioShape": "PowerApp",
       "display": {
-        "App": { "value": "inputs|parameters|app" },
-        "API Version": { "value": "inputs|parameters|api-version" },
-        "Filter": { "value": "inputs|parameters|$filter" },
-        "Content Type": { "value": "inputs|parameters|Content-Type" }
+        "App": {
+          "value": "inputs|parameters|app"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        },
+        "Filter": {
+          "value": "inputs|parameters|$filter"
+        },
+        "Content Type": {
+          "value": "inputs|parameters|Content-Type"
+        }
       },
       "repeat": [
         {
@@ -682,11 +813,21 @@
       "operationId": "Edit-ConnectionRoleAssignment",
       "visioShape": "PowerApp",
       "display": {
-        "Connector": { "value": "inputs|parameters|connectorName" },
-        "Connection": { "value": "inputs|parameters|connectionName" },
-        "API Version": { "value": "inputs|parameters|api-version" },
-        "Filter": { "value": "inputs|parameters|$filter" },
-        "Content Type": { "value": "inputs|parameters|Content-Type" }
+        "Connector": {
+          "value": "inputs|parameters|connectorName"
+        },
+        "Connection": {
+          "value": "inputs|parameters|connectionName"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        },
+        "Filter": {
+          "value": "inputs|parameters|$filter"
+        },
+        "Content Type": {
+          "value": "inputs|parameters|Content-Type"
+        }
       },
       "repeat": [
         {
@@ -708,10 +849,18 @@
       "operationId": "Edit-ConnectorRoleAssignment",
       "visioShape": "PowerApp",
       "display": {
-        "Connector": { "value": "inputs|parameters|connectorName" },
-        "API Version": { "value": "inputs|parameters|api-version" },
-        "Filter": { "value": "inputs|parameters|$filter" },
-        "Content Type": { "value": "inputs|parameters|Content-Type" }
+        "Connector": {
+          "value": "inputs|parameters|connectorName"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        },
+        "Filter": {
+          "value": "inputs|parameters|$filter"
+        },
+        "Content Type": {
+          "value": "inputs|parameters|Content-Type"
+        }
       },
       "repeat": [
         {
@@ -733,8 +882,12 @@
       "operationId": "Get-App",
       "visioShape": "PowerApp",
       "display": {
-        "App": { "value": "inputs|parameters|app" },
-        "API Version": { "value": "inputs|parameters|api-version" }
+        "App": {
+          "value": "inputs|parameters|app"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        }
       }
     },
     "Get App Role Assignments": {
@@ -743,9 +896,15 @@
       "operationId": "Get-AppRoleAssignment",
       "visioShape": "PowerApp",
       "display": {
-        "App": { "value": "inputs|parameters|app" },
-        "API Version": { "value": "inputs|parameters|api-version" },
-        "Top": { "value": "inputs|parameters|$top" }
+        "App": {
+          "value": "inputs|parameters|app"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        },
+        "Top": {
+          "value": "inputs|parameters|$top"
+        }
       }
     },
     "Get App Versions": {
@@ -754,9 +913,15 @@
       "operationId": "Get-AppVersions",
       "visioShape": "PowerApp",
       "display": {
-        "App": { "value": "inputs|parameters|app" },
-        "API Version": { "value": "inputs|parameters|api-version" },
-        "Top": { "value": "inputs|parameters|$top" }
+        "App": {
+          "value": "inputs|parameters|app"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        },
+        "Top": {
+          "value": "inputs|parameters|$top"
+        }
       }
     },
     "Get Apps": {
@@ -765,9 +930,15 @@
       "operationId": "Get-Apps",
       "visioShape": "PowerApp",
       "display": {
-        "API Version": { "value": "inputs|parameters|api-version" },
-        "Filter": { "value": "inputs|parameters|$filter" },
-        "Page Size": { "value": "inputs|parameters|$top" }
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        },
+        "Filter": {
+          "value": "inputs|parameters|$filter"
+        },
+        "Page Size": {
+          "value": "inputs|parameters|$top"
+        }
       }
     },
     "Get Connection Role Assignment)": {
@@ -776,11 +947,21 @@
       "operationId": "Get-ConnectionRoleAssignment",
       "visioShape": "PowerApp",
       "display": {
-        "Connector": { "value": "inputs|parameters|connectorName" },
-        "Connection": { "value": "inputs|parameters|connectionName" },
-        "API Version": { "value": "inputs|parameters|api-version" },
-        "Filter": { "value": "inputs|parameters|$filter" },
-        "Page Size": { "value": "inputs|parameters|$top" }
+        "Connector": {
+          "value": "inputs|parameters|connectorName"
+        },
+        "Connection": {
+          "value": "inputs|parameters|connectionName"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        },
+        "Filter": {
+          "value": "inputs|parameters|$filter"
+        },
+        "Page Size": {
+          "value": "inputs|parameters|$top"
+        }
       }
 
     },
@@ -790,9 +971,15 @@
       "operationId": "Get-Connections",
       "visioShape": "PowerApp",
       "display": {
-        "API Version": { "value": "inputs|parameters|api-version" },
-        "Filter": { "value": "inputs|parameters|$filter" },
-        "Page Size": { "value": "inputs|parameters|$top" }
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        },
+        "Filter": {
+          "value": "inputs|parameters|$filter"
+        },
+        "Page Size": {
+          "value": "inputs|parameters|$top"
+        }
       }
     },
     "Get Connector": {
@@ -801,9 +988,15 @@
       "operationId": "Get-Connector",
       "visioShape": "PowerApp",
       "display": {
-        "Connector": { "value": "inputs|parameters|connectorName" },
-        "Filter": { "value": "inputs|parameters|$filter" },
-        "Page Size": { "value": "inputs|parameters|$top" }
+        "Connector": {
+          "value": "inputs|parameters|connectorName"
+        },
+        "Filter": {
+          "value": "inputs|parameters|$filter"
+        },
+        "Page Size": {
+          "value": "inputs|parameters|$top"
+        }
       }
     },
     "Get Connector Role Assignment)": {
@@ -812,10 +1005,18 @@
       "operationId": "Get-ConnectorRoleAssignment",
       "visioShape": "PowerApp",
       "display": {
-        "Connector": { "value": "inputs|parameters|connectorName" },
-        "API Version": { "value": "inputs|parameters|api-version" },
-        "Filter": { "value": "inputs|parameters|$filter" },
-        "Page Size": { "value": "inputs|parameters|$top" }
+        "Connector": {
+          "value": "inputs|parameters|connectorName"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        },
+        "Filter": {
+          "value": "inputs|parameters|$filter"
+        },
+        "Page Size": {
+          "value": "inputs|parameters|$top"
+        }
       }
 
     },
@@ -825,10 +1026,18 @@
       "operationId": "Get-Connectors",
       "visioShape": "PowerApp",
       "display": {
-        "Show All APIs": { "value": "inputs|parameters|showApisWithToS" },
-        "API Version": { "value": "inputs|parameters|api-version" },
-        "Filter": { "value": "inputs|parameters|$filter" },
-        "Page Size": { "value": "inputs|parameters|$top" }
+        "Show All APIs": {
+          "value": "inputs|parameters|showApisWithToS"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        },
+        "Filter": {
+          "value": "inputs|parameters|$filter"
+        },
+        "Page Size": {
+          "value": "inputs|parameters|$top"
+        }
       }
     },
     "Get Environments": {
@@ -837,8 +1046,12 @@
       "operationId": "Get-Environments",
       "visioShape": "PowerApp",
       "display": {
-        "API Version": { "value": "inputs|parameters|api-version" },
-        "Page Size": { "value": "inputs|parameters|$top" }
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        },
+        "Page Size": {
+          "value": "inputs|parameters|$top"
+        }
       }
     },
     "Publish App": {
@@ -847,8 +1060,12 @@
       "operationId": "Publish-App",
       "visioShape": "PowerApp",
       "display": {
-        "App": { "value": "inputs|parameters|app" },
-        "API Version": { "value": "inputs|parameters|api-version" }
+        "App": {
+          "value": "inputs|parameters|app"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        }
       }
     },
     "Remove App": {
@@ -857,8 +1074,12 @@
       "operationId": "Remove-App",
       "visioShape": "PowerApp",
       "display": {
-        "App": { "value": "inputs|parameters|app" },
-        "API Version": { "value": "inputs|parameters|api-version" }
+        "App": {
+          "value": "inputs|parameters|app"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        }
       }
     },
     "Remove Connection": {
@@ -867,10 +1088,18 @@
       "operationId": "Remove-Connection",
       "visioShape": "PowerApp",
       "display": {
-        "Connector": { "value": "inputs|parameters|connectorName" },
-        "Connection": { "value": "inputs|parameters|connectionName" },
-        "Filter": { "value": "inputs|parameters|$filter" },
-        "API Version": { "value": "inputs|parameters|api-version" }
+        "Connector": {
+          "value": "inputs|parameters|connectorName"
+        },
+        "Connection": {
+          "value": "inputs|parameters|connectionName"
+        },
+        "Filter": {
+          "value": "inputs|parameters|$filter"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        }
       }
     },
     "Remove Connector": {
@@ -879,9 +1108,15 @@
       "operationId": "Remove-Connector",
       "visioShape": "PowerApp",
       "display": {
-        "Connector": { "value": "inputs|parameters|connectorName" },
-        "Filter": { "value": "inputs|parameters|$filter" },
-        "API Version": { "value": "inputs|parameters|api-version" }
+        "Connector": {
+          "value": "inputs|parameters|connectorName"
+        },
+        "Filter": {
+          "value": "inputs|parameters|$filter"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        }
       }
     },
     "Restore App": {
@@ -890,9 +1125,15 @@
       "operationId": "Restore-AppVersion",
       "visioShape": "PowerApp",
       "display": {
-        "App": { "value": "inputs|parameters|app" },
-        "App Version": { "value": "inputs|parameters|appVersionName" },
-        "API Version": { "value": "inputs|parameters|api-version" }
+        "App": {
+          "value": "inputs|parameters|app"
+        },
+        "App Version": {
+          "value": "inputs|parameters|appVersionName"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        }
       }
     },
     "Set App Display Name": {
@@ -901,10 +1142,18 @@
       "operationId": "Set-AppDisplayName",
       "visioShape": "PowerApp",
       "display": {
-        "App": { "value": "inputs|parameters|app" },
-        "API Version": { "value": "inputs|parameters|api-version" },
-        "Content Type": { "value": "inputs|parameters|Content-Type" },
-        "Name": { "value": "inputs|parameters|body/displayName" }
+        "App": {
+          "value": "inputs|parameters|app"
+        },
+        "API Version": {
+          "value": "inputs|parameters|api-version"
+        },
+        "Content Type": {
+          "value": "inputs|parameters|Content-Type"
+        },
+        "Name": {
+          "value": "inputs|parameters|body/displayName"
+        }
 
       }
     },
@@ -914,9 +1163,15 @@
       "operationId": "SubscribeOnNewItems",
       "visioShape": "CDS",
       "display": {
-        "Environment": { "value": "inputs|parameters|dataset" },
-        "Entity": { "value": "inputs|parameters|table" },
-        "Scope": { "value": "inputs|parameters|scope" }
+        "Environment": {
+          "value": "inputs|parameters|dataset"
+        },
+        "Entity": {
+          "value": "inputs|parameters|table"
+        },
+        "Scope": {
+          "value": "inputs|parameters|scope"
+        }
       }
     },
     "When A Record Is Deleted": {
@@ -925,9 +1180,15 @@
       "operationId": "SubscribeOnDeletedItems",
       "visioShape": "CDS",
       "display": {
-        "Environment": { "value": "inputs|parameters|dataset" },
-        "Entity": { "value": "inputs|parameters|table" },
-        "Scope": { "value": "inputs|parameters|scope" }
+        "Environment": {
+          "value": "inputs|parameters|dataset"
+        },
+        "Entity": {
+          "value": "inputs|parameters|table"
+        },
+        "Scope": {
+          "value": "inputs|parameters|scope"
+        }
       }
     },
     "When A Record Is Updated": {
@@ -936,9 +1197,15 @@
       "operationId": "SubscribeOnUpdatedItems",
       "visioShape": "CDS",
       "display": {
-        "Environment": { "value": "inputs|parameters|dataset" },
-        "Entity": { "value": "inputs|parameters|table" },
-        "Scope": { "value": "inputs|parameters|scope" }
+        "Environment": {
+          "value": "inputs|parameters|dataset"
+        },
+        "Entity": {
+          "value": "inputs|parameters|table"
+        },
+        "Scope": {
+          "value": "inputs|parameters|scope"
+        }
       },
       "repeat": [
         {
@@ -954,8 +1221,12 @@
       "operationId": "GetOnNewItems_V2",
       "visioShape": "CDS",
       "display": {
-        "Environment": { "value": "inputs|parameters|dataset" },
-        "Entity": { "value": "inputs|parameters|table" }
+        "Environment": {
+          "value": "inputs|parameters|dataset"
+        },
+        "Entity": {
+          "value": "inputs|parameters|table"
+        }
       },
       "repeat": [
         {
@@ -984,7 +1255,9 @@
       "operationId": "CreateFormWebhook",
       "visioShape": "Forms",
       "display": {
-        "Form": { "value": "inputs|parameters|form_id" }
+        "Form": {
+          "value": "inputs|parameters|form_id"
+        }
       }
     },
     "Get Response Detail": {
@@ -993,8 +1266,12 @@
       "operationId": "GetFormResponseById",
       "visioShape": "Forms",
       "display": {
-        "Form": { "value": "inputs|parameters|form_id" },
-        "Response": { "value": "inputs|parameters|response_id" }
+        "Form": {
+          "value": "inputs|parameters|form_id"
+        },
+        "Response": {
+          "value": "inputs|parameters|response_id"
+        }
       }
     },
     "Create an Invitation": {
@@ -1003,15 +1280,33 @@
       "operationId": "createSurveyInvite",
       "visioShape": "CustVoice",
       "display": {
-        "Project": { "value": "inputs|parameters|ProjectId" },
-        "Form": { "value": "inputs|parameters|FormId" },
-        "Email": { "value": "inputs|parameters|Email" },
-        "Subject": { "value": "inputs|parameters|subject" },
-        "First Name": { "value": "inputs|parameters|firstName" },
-        "Last Name": { "value": "inputs|parameters|lastName" },
-        "Regarding": { "value": "inputs|parameters|Regarding" },
-        "Recipient": { "value": "inputs|parameters|RecipientInfo" },
-        "Locale": { "value": "inputs|parameters|item/locale" }
+        "Project": {
+          "value": "inputs|parameters|ProjectId"
+        },
+        "Form": {
+          "value": "inputs|parameters|FormId"
+        },
+        "Email": {
+          "value": "inputs|parameters|Email"
+        },
+        "Subject": {
+          "value": "inputs|parameters|subject"
+        },
+        "First Name": {
+          "value": "inputs|parameters|firstName"
+        },
+        "Last Name": {
+          "value": "inputs|parameters|lastName"
+        },
+        "Regarding": {
+          "value": "inputs|parameters|Regarding"
+        },
+        "Recipient": {
+          "value": "inputs|parameters|RecipientInfo"
+        },
+        "Locale": {
+          "value": "inputs|parameters|item/locale"
+        }
       },
       "repeat": [
         {
@@ -1027,15 +1322,33 @@
       "operationId": "sendSurvey",
       "visioShape": "CustVoice",
       "display": {
-        "Project": { "value": "inputs|parameters|ProjectId" },
-        "Form": { "value": "inputs|parameters|FormId" },
-        "To": { "value": "inputs|parameters|to" },
-        "Template": { "value": "inputs|parameters|EmailTemplateId" },
-        "First Name": { "value": "inputs|parameters|firstName" },
-        "Last Name": { "value": "inputs|parameters|lastName" },
-        "Regarding": { "value": "inputs|parameters|Regarding" },
-        "Recipient": { "value": "inputs|parameters|RecipientInfo" },
-        "Locale": { "value": "inputs|parameters|item/locale" }
+        "Project": {
+          "value": "inputs|parameters|ProjectId"
+        },
+        "Form": {
+          "value": "inputs|parameters|FormId"
+        },
+        "To": {
+          "value": "inputs|parameters|to"
+        },
+        "Template": {
+          "value": "inputs|parameters|EmailTemplateId"
+        },
+        "First Name": {
+          "value": "inputs|parameters|firstName"
+        },
+        "Last Name": {
+          "value": "inputs|parameters|lastName"
+        },
+        "Regarding": {
+          "value": "inputs|parameters|Regarding"
+        },
+        "Recipient": {
+          "value": "inputs|parameters|RecipientInfo"
+        },
+        "Locale": {
+          "value": "inputs|parameters|item/locale"
+        }
       },
       "repeat": [
         {
@@ -1051,9 +1364,15 @@
       "operationId": "SendNotification",
       "visioShape": "Push",
       "display": {
-        "Text": { "value": "inputs|parameters|NotificationDefinition/notificationText" },
-        "Link": { "value": "inputs|parameters|NotificationDefinition/notificationLink/uri" },
-        "Label": { "value": "inputs|parameters|NotificationDefinition/notificationLink/label" }
+        "Text": {
+          "value": "inputs|parameters|NotificationDefinition/notificationText"
+        },
+        "Link": {
+          "value": "inputs|parameters|NotificationDefinition/notificationLink/uri"
+        },
+        "Label": {
+          "value": "inputs|parameters|NotificationDefinition/notificationLink/label"
+        }
 
       }
     },
@@ -1063,8 +1382,12 @@
       "operationId": "SendEmailNotification",
       "visioShape": "Push",
       "display": {
-        "Subject": { "value": "inputs|parameters|NotificationEmailDefinition/notificationSubject" },
-        "Link": { "value": "inputs|parameters|NotificationEmailDefinition/notificationBody" }
+        "Subject": {
+          "value": "inputs|parameters|NotificationEmailDefinition/notificationSubject"
+        },
+        "Link": {
+          "value": "inputs|parameters|NotificationEmailDefinition/notificationBody"
+        }
 
       }
     },
@@ -1072,16 +1395,24 @@
       "type": "AppendToArrayVariable",
       "visioShape": "VariableAction",
       "display": {
-        "Array": { "value": "inputs|name" },
-        "Value": { "value": "inputs|value" }
+        "Array": {
+          "value": "inputs|name"
+        },
+        "Value": {
+          "value": "inputs|value"
+        }
       }
     },
     "Increment Variable": {
       "type": "IncrementVariable",
       "visioShape": "VariableAction",
       "display": {
-        "Variable": { "value": "inputs|name" },
-        "Value": { "value": "inputs|value" }
+        "Variable": {
+          "value": "inputs|name"
+        },
+        "Value": {
+          "value": "inputs|value"
+        }
       }
     },
     "Get Direct Reports": {
@@ -1090,7 +1421,9 @@
       "operationId": "DirectReports_V2",
       "visioShape": "Office",
       "display": {
-        "User": { "value": "inputs|parameters|id" }
+        "User": {
+          "value": "inputs|parameters|id"
+        }
       }
 
     },
@@ -1100,8 +1433,12 @@
       "operationId": "Manager_V2",
       "visioShape": "Office",
       "display": {
-        "User": { "value": "inputs|parameters|id" },
-        "Fields": { "value": "inputs|parameters|$select" }
+        "User": {
+          "value": "inputs|parameters|id"
+        },
+        "Fields": {
+          "value": "inputs|parameters|$select"
+        }
 
       }
 
@@ -1112,7 +1449,9 @@
       "operationId": "MyProfile_V2",
       "visioShape": "Office",
       "display": {
-        "Fields": { "value": "inputs|parameters|$select" }
+        "Fields": {
+          "value": "inputs|parameters|$select"
+        }
 
       }
 
@@ -1123,7 +1462,9 @@
       "operationId": "MyTrendingDocuments",
       "visioShape": "Office",
       "display": {
-        "Filter": { "value": "inputs|parameters|$filter" }
+        "Filter": {
+          "value": "inputs|parameters|$filter"
+        }
 
       }
 
@@ -1134,7 +1475,9 @@
       "operationId": "RelevantPeople",
       "visioShape": "Office",
       "display": {
-        "User": { "value": "inputs|parameters|userId" }
+        "User": {
+          "value": "inputs|parameters|userId"
+        }
 
       }
 
@@ -1145,8 +1488,12 @@
       "operationId": "TrendingDocuments",
       "visioShape": "Office",
       "display": {
-        "User": { "value": "inputs|parameters|id" },
-        "Filter": { "value": "inputs|parameters|$filter" }
+        "User": {
+          "value": "inputs|parameters|id"
+        },
+        "Filter": {
+          "value": "inputs|parameters|$filter"
+        }
       }
 
     },
@@ -1156,7 +1503,9 @@
       "operationId": "UserPhoto_V2",
       "visioShape": "Office",
       "display": {
-        "User": { "value": "inputs|parameters|id" }
+        "User": {
+          "value": "inputs|parameters|id"
+        }
 
       }
 
@@ -1167,7 +1516,9 @@
       "operationId": "UserPhotoMetadata",
       "visioShape": "Office",
       "display": {
-        "User": { "value": "inputs|parameters|userId" }
+        "User": {
+          "value": "inputs|parameters|userId"
+        }
 
       }
 
@@ -1178,8 +1529,12 @@
       "operationId": "UserProfile_V2",
       "visioShape": "Office",
       "display": {
-        "User": { "value": "inputs|parameters|id" },
-        "Fields": { "value": "inputs|parameters|$select" }
+        "User": {
+          "value": "inputs|parameters|id"
+        },
+        "Fields": {
+          "value": "inputs|parameters|$select"
+        }
 
       }
 
@@ -1190,8 +1545,12 @@
       "operationId": "SearchUserV2",
       "visioShape": "Office",
       "display": {
-        "Search Term": { "value": "inputs|parameters|searchTerm" },
-        "Top": { "value": "inputs|parameters|top" }
+        "Search Term": {
+          "value": "inputs|parameters|searchTerm"
+        },
+        "Top": {
+          "value": "inputs|parameters|top"
+        }
       }
 
     },
@@ -1201,9 +1560,15 @@
       "operationId": "UpdateMyProfile",
       "visioShape": "Office",
       "display": {
-        "About Me": { "value": "inputs|parameters|body/aboutMe" },
-        "Birthday": { "value": "inputs|parameters|body/birthday" },
-        "My Site": { "value": "inputs|parameters|body/mySite" }
+        "About Me": {
+          "value": "inputs|parameters|body/aboutMe"
+        },
+        "Birthday": {
+          "value": "inputs|parameters|body/birthday"
+        },
+        "My Site": {
+          "value": "inputs|parameters|body/mySite"
+        }
 
       },
       "repeat": [
@@ -1235,8 +1600,12 @@
       "operationId": "UpdateMyPhoto",
       "visioShape": "Office",
       "display": {
-        "Image": { "value": "inputs|parameters|body" },
-        "Type": { "value": "inputs|parameters|Content-Type" }
+        "Image": {
+          "value": "inputs|parameters|body"
+        },
+        "Type": {
+          "value": "inputs|parameters|Content-Type"
+        }
       }
     },
     "Delete Record": {
@@ -1244,6 +1613,135 @@
       "connectionName": "commondataservice",
       "operationId": "delete",
       "visioShape": "Office"
+    },
+    "Append to String Variable": {
+      "type": "AppendToStringVariable",
+      "visioShape": "VariableAction",
+      "display": {
+        "Variable": { "value": "inputs|name" },
+        "Value": { "value": "inputs|value" }
+      }
+
+    },
+    "Delete Row (V2)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_sql",
+      "operationId": "DeleteItem_V2",
+      "visioShape": "SQL",
+      "display": {
+        "Server": { "value": "inputs|parameters|server" },
+        "Database": { "value": "inputs|parameters|database" },
+        "Table": { "value": "inputs|parameters|table" },
+        "Row Id": { "value": "inputs|parameters|id" }
+
+      }
+    },
+    "Execute a SQL Query (V2)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_sql",
+      "operationId": "ExecutePassThroughNativeQuery_V2",
+      "visioShape": "SQL",
+      "display": {
+        "Server": { "value": "inputs|parameters|server" },
+        "Database": { "value": "inputs|parameters|database" },
+        "Query": { "value": "inputs|parameters|query/query" },
+        "Param Values": {
+          "value": "inputs|parameters|query/actualParameters/",
+          "parameter": true
+        }
+      },
+      "repeat": [
+        {
+          "title": "Parameter Definition",
+          "path": "inputs|parameters|query/formalParameters",
+          "left": 0
+        }
+      ]
+    },
+    "Execute a stored procedure (V2)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_sql",
+      "operationId": "ExecuteProcedure_V2",
+      "visioShape": "SQL",
+      "display": {
+        "Server": { "value": "inputs|parameters|server" },
+        "Database": { "value": "inputs|parameters|database" },
+        "Procedure": { "value": "inputs|parameters|procedure" },
+        "Param Values": {
+          "value": "inputs|parameters|parameters/",
+          "parameter": true
+        }
+      }
+    },
+    "Get Row (V2)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_sql",
+      "operationId": "GetItem_V2",
+      "visioShape": "SQL",
+      "display": {
+        "Server": { "value": "inputs|parameters|server" },
+        "Database": { "value": "inputs|parameters|database" },
+        "Table": { "value": "inputs|parameters|table" },
+        "Row Id": { "value": "inputs|parameters|id" }
+      }
+    },
+    "Get Rows (V2)": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_sql",
+      "operationId": "GetItems_V2",
+      "visioShape": "SQL",
+      "display": {
+        "Server": { "value": "inputs|parameters|server" },
+        "Database": { "value": "inputs|parameters|database" },
+        "Table": { "value": "inputs|parameters|table" },
+        "Aggregation Transformation": { "value": "inputs|parameters|$apply" },
+        "Filter Query": { "value": "inputs|parameters|$filter" },
+        "Order By": { "value": "inputs|parameters|$orderby" },
+        "Skip": { "value": "inputs|parameters|$skip" },
+        "Top": { "value": "inputs|parameters|$top" },
+        "Query": { "value": "inputs|parameters|$select" }
+      }
+    },
+    "Insert Row": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_sql",
+      "operationId": "PostItem_V2",
+      "visioShape": "SQL",
+      "display": {
+        "Server": { "value": "inputs|parameters|server" },
+        "Database": { "value": "inputs|parameters|database" },
+        "Table": { "value": "inputs|parameters|table" },
+        "Param Values": {
+          "value": "inputs|parameters|item/",
+          "parameter": true
+        }
+      }
+    },
+    "Update Row": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_sql",
+      "operationId": "PatchItem_V2",
+      "visioShape": "SQL",
+      "display": {
+        "Server": { "value": "inputs|parameters|server" },
+        "Database": { "value": "inputs|parameters|database" },
+        "Table": { "value": "inputs|parameters|table" },
+        "Row Id": { "value": "inputs|parameters|id" },
+        "Param Values": {
+          "value": "inputs|parameters|item/",
+          "parameter": true
+        }
+      }
+    },
+    "Get Tables": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_sql",
+      "operationId": "GetTables_V2",
+      "visioShape": "SQL",
+      "display": {
+        "Server": { "value": "inputs|parameters|server" },
+        "Database": { "value": "inputs|parameters|database" }
+      }
     }
   }
 }

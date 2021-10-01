@@ -138,24 +138,49 @@ namespace LinkeD365.FlowToVisio
 
         private void btnCreateVisio_Click(object sender, EventArgs e)
         {
-            var selectFlow = ((FlowDefinition)grdFlows.SelectedRows[0].DataBoundItem);
+            var selectedFlows = grdFlows.SelectedRows;
 
-
-            saveDialog.FileName = selectFlow.Name + ".vsdx";
-            if (saveDialog.ShowDialog() != DialogResult.OK)
+            if (selectedFlows.Count == 0) return;
+            if (selectedFlows.Count == 1)
             {
-                return;
-            }
+                var selectFlow = ((FlowDefinition)grdFlows.SelectedRows[0].DataBoundItem);
 
-            if (selectFlow.Solution)
-            {
-                flowObject = JObject.Parse(selectFlow.Definition);
-                GenerateVisio(saveDialog.FileName);
+
+                saveDialog.FileName = selectFlow.Name + ".vsdx";
+                if (saveDialog.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
+                if (selectFlow.Solution)
+                {
+                   // flowObject = JObject.Parse(selectFlow.Definition);
+                    GenerateVisio(saveDialog.FileName, selectFlow);
+                }
+                else
+                {
+                    LoadFlow(selectFlow, saveDialog.FileName);
+                }
             }
             else
             {
-                flowObject = LoadFlow(selectFlow, saveDialog.FileName);
+                saveDialog.FileName = "My Flows.vsdx";
+                if (saveDialog.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
+                foreach (DataGridViewRow selectedRow in selectedFlows)
+                {
+                    var selFlow = (FlowDefinition)selectedRow.DataBoundItem;
+                    if (selFlow.Solution) GenerateVisio(saveDialog.FileName, selFlow, false);
+                    else LoadFlow(selFlow, saveDialog.FileName);
+
+                }
             }
+            CompleteVisio(saveDialog.FileName);
+
+
         }
 
         public List<dynamic> Sort<T>(List<dynamic> input, string property)
