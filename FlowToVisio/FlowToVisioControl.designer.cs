@@ -136,7 +136,7 @@
             this.chkShowConCurrency,
             this.chkShowTriggerConditions,
             this.chkShowTrackedProps});
-            this.dropOptions.Image = ((System.Drawing.Image)(resources.GetObject("dropOptions.Image")));
+            this.dropOptions.Image = global::LinkeD365.FlowToVisio.Properties.Resources.Options;
             this.dropOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.dropOptions.Name = "dropOptions";
             this.dropOptions.Size = new System.Drawing.Size(86, 28);
