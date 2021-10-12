@@ -37,6 +37,12 @@
             this.btnConnectFlow = new System.Windows.Forms.ToolStripButton();
             this.btnConnectCDS = new System.Windows.Forms.ToolStripButton();
             this.btnConnectLogicApps = new System.Windows.Forms.ToolStripButton();
+            this.dropOptions = new System.Windows.Forms.ToolStripDropDownButton();
+            this.chkShowCustomTracking = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkShowSecure = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkShowConCurrency = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkShowTriggerConditions = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkShowTrackedProps = new System.Windows.Forms.ToolStripMenuItem();
             this.splitMain = new System.Windows.Forms.SplitContainer();
             this.splitSearch = new System.Windows.Forms.SplitContainer();
             this.lblSearch = new System.Windows.Forms.Label();
@@ -65,7 +71,8 @@
             this.btnCreateVisio,
             this.btnConnectFlow,
             this.btnConnectCDS,
-            this.btnConnectLogicApps});
+            this.btnConnectLogicApps,
+            this.dropOptions});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
             this.toolStripMenu.Size = new System.Drawing.Size(908, 31);
@@ -120,6 +127,62 @@
             this.btnConnectLogicApps.Size = new System.Drawing.Size(156, 28);
             this.btnConnectLogicApps.Text = "Connect to Logic Apps";
             this.btnConnectLogicApps.Click += new System.EventHandler(this.btnConnectLogicApps_Click);
+            // 
+            // dropOptions
+            // 
+            this.dropOptions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.chkShowCustomTracking,
+            this.chkShowSecure,
+            this.chkShowConCurrency,
+            this.chkShowTriggerConditions,
+            this.chkShowTrackedProps});
+            this.dropOptions.Image = ((System.Drawing.Image)(resources.GetObject("dropOptions.Image")));
+            this.dropOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.dropOptions.Name = "dropOptions";
+            this.dropOptions.Size = new System.Drawing.Size(86, 28);
+            this.dropOptions.Text = "Options";
+            // 
+            // chkShowCustomTracking
+            // 
+            this.chkShowCustomTracking.CheckOnClick = true;
+            this.chkShowCustomTracking.Name = "chkShowCustomTracking";
+            this.chkShowCustomTracking.Size = new System.Drawing.Size(203, 22);
+            this.chkShowCustomTracking.Text = "Show Custom Tracking";
+            this.chkShowCustomTracking.CheckedChanged += new System.EventHandler(this.chkShowCustomTracking_CheckedChanged);
+            // 
+            // chkShowSecure
+            // 
+            this.chkShowSecure.CheckOnClick = true;
+            this.chkShowSecure.Name = "chkShowSecure";
+            this.chkShowSecure.Size = new System.Drawing.Size(203, 22);
+            this.chkShowSecure.Text = "Show Secure Params";
+            this.chkShowSecure.CheckedChanged += new System.EventHandler(this.chkShowSecure_CheckedChanged);
+            // 
+            // chkShowConCurrency
+            // 
+            this.chkShowConCurrency.CheckOnClick = true;
+            this.chkShowConCurrency.Name = "chkShowConCurrency";
+            this.chkShowConCurrency.Size = new System.Drawing.Size(203, 22);
+            this.chkShowConCurrency.Text = "Show Concurrency";
+            this.chkShowConCurrency.CheckedChanged += new System.EventHandler(this.chkShowConCurrency_CheckedChanged);
+            this.chkShowConCurrency.Click += new System.EventHandler(this.chkShowConCurrency_Click);
+            // 
+            // chkShowTriggerConditions
+            // 
+            this.chkShowTriggerConditions.CheckOnClick = true;
+            this.chkShowTriggerConditions.Name = "chkShowTriggerConditions";
+            this.chkShowTriggerConditions.Size = new System.Drawing.Size(203, 22);
+            this.chkShowTriggerConditions.Text = "Show Trigger Conditions";
+            this.chkShowTriggerConditions.CheckedChanged += new System.EventHandler(this.chkShowTriggerConditions_CheckedChanged);
+            // 
+            // chkShowTrackedProps
+            // 
+            this.chkShowTrackedProps.CheckOnClick = true;
+            this.chkShowTrackedProps.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.chkShowTrackedProps.Name = "chkShowTrackedProps";
+            this.chkShowTrackedProps.Size = new System.Drawing.Size(203, 22);
+            this.chkShowTrackedProps.Text = "Show Tracked Properties";
+            this.chkShowTrackedProps.CheckedChanged += new System.EventHandler(this.chkShowTrackedProps_CheckedChanged);
             // 
             // splitMain
             // 
@@ -207,7 +270,6 @@
             this.PluginIcon = ((System.Drawing.Icon)(resources.GetObject("$this.PluginIcon")));
             this.Size = new System.Drawing.Size(908, 754);
             this.TabIcon = ((System.Drawing.Image)(resources.GetObject("$this.TabIcon")));
-            this.OnCloseTool += new System.EventHandler(this.FlowToVisioControl_OnClose);
             this.Load += new System.EventHandler(this.FlowToVisioControl_Load);
             this.toolStripMenu.ResumeLayout(false);
             this.toolStripMenu.PerformLayout();
@@ -242,5 +304,11 @@
         private System.Windows.Forms.DataGridView grdFlows;
         private System.Windows.Forms.ToolStripButton btnConnectCDS;
         private System.Windows.Forms.ToolStripButton btnConnectLogicApps;
+        private System.Windows.Forms.ToolStripDropDownButton dropOptions;
+        private System.Windows.Forms.ToolStripMenuItem chkShowConCurrency;
+        private System.Windows.Forms.ToolStripMenuItem chkShowSecure;
+        private System.Windows.Forms.ToolStripMenuItem chkShowCustomTracking;
+        private System.Windows.Forms.ToolStripMenuItem chkShowTriggerConditions;
+        private System.Windows.Forms.ToolStripMenuItem chkShowTrackedProps;
     }
 }

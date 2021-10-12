@@ -124,8 +124,32 @@ namespace LinkeD365.FlowToVisio
         protected void AddText(string text)
         {
             var textElement = Shape.Descendants().Where(el => el.Name.LocalName == "Text").First();
-            if (Property.Value["description"] != null) text = new StringBuilder("Comment: " + Property.Value["description"]).AppendLine().Append(text).ToString();
-            textElement.ReplaceWith(XElement.Parse("<Text><![CDATA[" + text + "]]></Text>"));
+            var sb = new StringBuilder();
+
+            if (Utils.Display.ShowTrackingID && Property.Value["correlation"]?["clientTrackingId"] != null)
+                sb.AppendLine("Client Tracking ID: " + Property.Value["correlation"]["clientTrackingId"]).ToString();
+
+            if (Utils.Display.ShowConCurrency && Property.Value["runtimeConfiguration"]?["concurrency"]?["runs"] != null)
+                sb.AppendLine("ConCurrency: " + Property.Value["runtimeConfiguration"]["concurrency"]["runs"]).ToString();
+            if (Utils.Display.ShowSecure && Property.Value["runtimeConfiguration"]?["secureData"]?["properties"] != null)
+            {
+                if (((JArray)(Property.Value["runtimeConfiguration"]["secureData"]["properties"])).Select(jt => jt.ToString()).ToList().Any(st => st == "inputs")) sb.AppendLine("Secure Inputs: true");
+                if (((JArray)(Property.Value["runtimeConfiguration"]["secureData"]["properties"])).Select(jt => jt.ToString()).ToList().Any(st => st == "outputs")) sb.AppendLine("Secure Outputs: true");
+            }
+            if (Utils.Display.ShowTriggers && Property.Value["conditions"] != null)
+            {
+                sb.AppendLine("Triggers:");
+                ((JArray)Property.Value["conditions"]).Children<JToken>().ToList().ForEach(jt => sb.AppendLine(jt["expression"].ToString()));
+            }
+
+            if (Utils.Display.ShowTrackedProps && Property.Value["trackedProperties"] != null)
+            {
+                sb.AppendLine("Tracked Properties:");
+                (Property.Value["trackedProperties"]).Children<JProperty>().ToList().ForEach(jp => sb.AppendLine(jp.Name + " : " + jp.Value.ToString()));
+            }
+            if (Property.Value["description"] != null) sb.AppendLine("Comment: " + Property.Value["description"]);
+            sb.AppendLine(text).ToString();
+            textElement.ReplaceWith(XElement.Parse("<Text><![CDATA[" + sb.ToString() + "]]></Text>"));
         }
 
         protected void AddText(StringBuilder sb)

@@ -15,6 +15,7 @@ namespace LinkeD365.FlowToVisio
             Template = template;
             AddName();
             AddType(template.Name);
+            
             var sb = new StringBuilder();
             if (Template.Value["display"] != null)
             {
@@ -141,6 +142,7 @@ namespace LinkeD365.FlowToVisio
             string name = splitList[0];
             if (property.Type == JTokenType.Object)
             {
+                if ((parameter ?? false) && splitList.Count == 1) return GetParameters(property, name);
                 var childObject = ((JObject)property).Children<JProperty>().FirstOrDefault(prop => prop.Name == name);
                 if (childObject == null) return string.Empty;
                 if (splitList.Count == 1) return GetOptionValue(childObject.Value.ToString(), options);

@@ -429,6 +429,17 @@ namespace LinkeD365.FlowToVisio
     {
         public List<LogicAppConn> LogicAppConns = new List<LogicAppConn>();
         public List<FlowConn> FlowConns = new List<FlowConn>();
+
+        public Display Display = new Display();
+    }
+
+    public class Display
+    {
+        public bool ShowConCurrency { get; set; }
+        public bool ShowSecure { get; set; }
+        public bool ShowTrackedProps { get; set; }
+        public bool ShowTriggers { get; set; }
+        public bool ShowTrackingID { get; set; }
     }
 
     public class LogicAppConn

@@ -238,25 +238,7 @@
       ]
 
     },
-    "HTTP Webhook": {
-      "type": "HttpWebhook",
-      "visioShape": "HttpAction",
-      "repeat": [
-        {
-          "title": "Subscribe Info",
-          "path": "inputs|subscribe",
-          "filter": "",
-          "left": 0
-        },
-        {
-          "title": "Unsubscribe Info",
-          "path": "inputs|unsubscribe",
-          "filter": "",
-          "left": 0
-        }
-      ]
 
-    },
     "Analyse positive or negative sentiment": {
       "type": "OpenApiConnection",
       "connectionName": "shared_commondataserviceforapps",
@@ -1742,6 +1724,87 @@
         "Server": { "value": "inputs|parameters|server" },
         "Database": { "value": "inputs|parameters|database" }
       }
+    },
+    "Http Request": {
+      "type": "Request",
+      "kind": "Http",
+      "visioShape": "HttpAction",
+      "display": {
+        "Method": { "value": "inputs|method" },
+        "Relative Path": { "value": "inputs|relativePath" },
+        "Operation Options": { "value": "operationOptions" }
+
+      }
+    },
+    "HTTP": {
+      "type": "Http",
+      "visioShape": "HttpAction",
+      "display": {
+        "cookie": {
+          "value": "inputs|cookie"
+        },
+        "Authentication Type": { "value": "inputs|authentication|type" },
+        "Authentication User": { "value": "inputs|authentication|username" },
+        "Password": { "value": "inputs|authentication|password" },
+        "Pfx": { "value": "inputs|authentication|pfx" },
+        "Tenant": { "value": "inputs|authentication|tenant" },
+        "Audience": { "value": "inputs|authentication|audience" },
+        "Client Id": { "value": "inputs|authentication|clientId" },
+        "Secret": { "value": "inputs|authentication|secret" },
+        "Auth Value": { "value": "inputs|authentication|value" },
+        "Pagination Threshold": { "value": "runtimeConfiguration|paginationPolicy|minimumItemCount" },
+        "Operation Options": { "value": "operationOptions" },
+        "Timeout Limit": { "value": "limit|timeout" },
+        "Retry Policy": { "value": "inputs|retryPolicy|type" },
+        "Retry Count": { "value": "inputs|retryPolicy|count" },
+        "Retry interval": { "value": "inputs|retryPolicy|interval" },
+        "Allow Chunking": { "value": "runtimeConfiguration|contentTransfer|transferMode" }
+      },
+      "repeat": [
+        {
+          "title": "Headers",
+          "path": "inputs|headers",
+          "filter": "",
+          "left": 0
+        },
+        {
+          "title": "Queries",
+          "path": "inputs|queries",
+          "filter": "",
+          "left": 0
+        },
+        {
+          "title": "Body",
+          "path": "inputs|body",
+          "filter": "",
+          "left": 0
+        }
+      ]
+    },
+    "HTTP Webhook": {
+      "type": "HttpWebhook",
+      "visioShape": "HttpAction",
+      "display": {
+        "Retry Policy": { "value": "inputs|retryPolicy|type" },
+        "Retry Count": { "value": "inputs|retryPolicy|count" },
+        "Retry interval": { "value": "inputs|retryPolicy|interval" },
+        "Timeout Limit": { "value": "limit|timeout" }
+      },
+      "repeat": [
+        {
+          "title": "Subscribe Info",
+          "path": "inputs|subscribe",
+          "filter": "",
+          "left": 0
+        },
+        {
+          "title": "Unsubscribe Info",
+          "path": "inputs|unsubscribe",
+          "filter": "",
+          "left": 0
+        }
+      ]
+
     }
   }
 }

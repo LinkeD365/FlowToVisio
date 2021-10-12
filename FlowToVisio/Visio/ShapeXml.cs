@@ -187,6 +187,7 @@ namespace LinkeD365.FlowToVisio
             AddType("HTTP Request");
 
             AddText("Schema: " + Property.Value["inputs"]["schema"]);
+
         }
     }
 

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.Xml.Linq;
 
@@ -98,36 +97,18 @@ namespace LinkeD365.FlowToVisio
         private static List<FlowRegion> _flowRegions;
         internal static int totalVisio;
         internal static int totalActions;
-
-        public static List<FlowRegion> FlowRegions
-        {
-            get
-            {
-                if (_flowRegions == null)
-                {
-                    _flowRegions = new List<FlowRegion>();
-                    foreach (JProperty regionToken in ActionTemplate["regions"])
-                    {
-                        _flowRegions.Add(new FlowRegion
-                        {
-                            Name = regionToken.Name,
-                            crmPart = regionToken.Value["crmpart"].ToString(),
-                            flowPrefix = regionToken.Value["url"].ToString()
-
-                            // Name = regionToken.
-                        });
-                    }
-                }
-
-                return _flowRegions;
-            }
-        }
+        internal static bool showConCurrency;
+        internal static bool showSecure;
+        internal static bool showTrigger;
+        internal static bool showTrackProps;
 
         private static List<JProperty> OpenApiTemplates => ActionTemplate["actions"].Children<JProperty>()
                     .Where(prop => prop.Value["type"] != null && (prop.Value["type"].ToString() == "OpenApiConnection" || prop.Value["type"].ToString() == "OpenApiConnectionWebhook")).ToList();
 
         private static List<JProperty> OtherTemplates => ActionTemplate["actions"].Children<JProperty>()
                     .Where(prop => prop.Value["type"] != null && prop.Value["type"].ToString() != "OpenApiConnection").ToList();
+
+        public static Display Display { get; internal set; }
 
         private const string aiEndpoint = "https://dc.services.visualstudio.com/v2/track";
 

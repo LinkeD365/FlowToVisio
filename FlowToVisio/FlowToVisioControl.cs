@@ -81,27 +81,11 @@ namespace LinkeD365.FlowToVisio
                 LogWarning("Settings not found => a new settings file has been created!");
             }
 
-            // Loads or creates the settings for the plugin
-            //if (!SettingsManager.Instance.TryLoad(GetType(), out aPIConnections))
-            //{
-            //    FlowConnection flowConnection;
-            //    if (!SettingsManager.Instance.TryLoad(GetType(), out flowConnection))
-            //    {
-            //        aPIConnections = new APIConns();
-
-            //        LogWarning("Settings not found => a new settings file has been created!");
-            //    }
-            //    else
-            //    {
-
-
-            //    }
-            //}
-            //else
-            //{
-            //    LogInfo("Settings found and loaded");
-            //}
-            // ExecuteMethod(LoadFlows);
+            chkShowConCurrency.Checked = aPIConnections.Display.ShowConCurrency;
+            chkShowSecure.Checked = aPIConnections.Display.ShowSecure;
+            chkShowCustomTracking.Checked = aPIConnections.Display.ShowTrackingID;
+            chkShowTrackedProps.Checked = aPIConnections.Display.ShowTrackedProps;
+            chkShowTriggerConditions.Checked = aPIConnections.Display.ShowTriggers;
         }
 
         private void tsbClose_Click(object sender, EventArgs e)
@@ -109,15 +93,11 @@ namespace LinkeD365.FlowToVisio
             CloseTool();
         }
 
-        /// <summary>
-        /// This event occurs when the plugin is closed
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void FlowToVisioControl_OnClose(object sender, EventArgs e)
+        public override void ClosingPlugin(PluginCloseInfo info)
         {
-            // Before leaving, save the settings
             SettingsManager.Instance.Save(GetType(), aPIConnections);
+
+            base.ClosingPlugin(info);
         }
 
         /// <summary>
@@ -141,6 +121,8 @@ namespace LinkeD365.FlowToVisio
             var selectedFlows = grdFlows.SelectedRows;
 
             if (selectedFlows.Count == 0) return;
+
+            Utils.Display = aPIConnections.Display;
             if (selectedFlows.Count == 1)
             {
                 var selectFlow = ((FlowDefinition)grdFlows.SelectedRows[0].DataBoundItem);
@@ -264,6 +246,39 @@ namespace LinkeD365.FlowToVisio
             LoadLogicApps();
         }
 
+        private void chkShowConCurrency_CheckedChanged(object sender, EventArgs e)
+        {
+            aPIConnections.Display.ShowConCurrency = chkShowConCurrency.Checked;
 
+        }
+
+        private void chkShowConCurrency_Click(object sender, EventArgs e)
+        {
+        }
+
+
+        private void chkShowTrackedProps_CheckedChanged(object sender, EventArgs e)
+        {
+            aPIConnections.Display.ShowTrackedProps = chkShowTrackedProps.Checked;
+
+        }
+
+        private void chkShowTriggerConditions_CheckedChanged(object sender, EventArgs e)
+        {
+            aPIConnections.Display.ShowTriggers = chkShowTriggerConditions.Checked;
+
+        }
+
+        private void chkShowSecure_CheckedChanged(object sender, EventArgs e)
+        {
+            aPIConnections.Display.ShowSecure = chkShowSecure.Checked;
+
+        }
+
+        private void chkShowCustomTracking_CheckedChanged(object sender, EventArgs e)
+        {
+            aPIConnections.Display.ShowTrackingID = chkShowCustomTracking.Checked;
+
+        }
     }
 }
