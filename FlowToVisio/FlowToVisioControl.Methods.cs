@@ -208,7 +208,7 @@ namespace LinkeD365.FlowToVisio
             }
         }
 
-        private JObject LoadFlow(FlowDefinition flowDefinition, string fileName)
+        private JObject LoadFlow(FlowDefinition flowDefinition, string fileName, int flowCount)
         {
 
             // GetClient();
@@ -222,7 +222,7 @@ namespace LinkeD365.FlowToVisio
                 {
                     //     flowObject = JObject.Parse(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                     flowDefinition.Definition = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    GenerateVisio(fileName, flowDefinition, flowDefinition.LogicApp);
+                    GenerateVisio(fileName, flowDefinition,flowCount, flowDefinition.LogicApp);
                 }
                 else
                 {

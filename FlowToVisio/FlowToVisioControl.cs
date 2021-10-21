@@ -137,11 +137,11 @@ namespace LinkeD365.FlowToVisio
                 if (selectFlow.Solution)
                 {
                    // flowObject = JObject.Parse(selectFlow.Definition);
-                    GenerateVisio(saveDialog.FileName, selectFlow);
+                    GenerateVisio(saveDialog.FileName, selectFlow, 1);
                 }
                 else
                 {
-                    LoadFlow(selectFlow, saveDialog.FileName);
+                    LoadFlow(selectFlow, saveDialog.FileName, 1);
                 }
             }
             else
@@ -151,12 +151,13 @@ namespace LinkeD365.FlowToVisio
                 {
                     return;
                 }
-
+                int flowCount = 0;
                 foreach (DataGridViewRow selectedRow in selectedFlows)
                 {
+                    flowCount++;
                     var selFlow = (FlowDefinition)selectedRow.DataBoundItem;
-                    if (selFlow.Solution) GenerateVisio(saveDialog.FileName, selFlow, false);
-                    else LoadFlow(selFlow, saveDialog.FileName);
+                    if (selFlow.Solution) GenerateVisio(saveDialog.FileName, selFlow, flowCount, false);
+                    else LoadFlow(selFlow, saveDialog.FileName, flowCount);
 
                 }
             }

@@ -45,6 +45,8 @@ namespace LinkeD365.FlowToVisio
             var pageXML = new XElement(templatePage);
             pageXML.SetAttributeValue("Name", name);
             pageXML.SetAttributeValue("NameU", name);
+            pageXML.SetAttributeValue("IsCustomNameU", "1");
+            pageXML.SetAttributeValue("IsCustomName", "1");
             pageXML.SetAttributeValue("ID", templatePage.Parent.Elements().Count());
             XNamespace ns = pagesXml.Root.GetNamespaceOfPrefix("r");
             pageXML.Elements().First(el => el.Name.LocalName == "Rel").SetAttributeValue(ns + "id", rel.Id);

@@ -11,9 +11,11 @@
     <iconUrl>https://linked365.blog/wp-content/uploads/2020/03/smallIcon.png</iconUrl>
     <description>A XrmToolBox tool to create Visio diagram of your Power Automate Flows that are within your CDS</description>
     <releaseNotes>
+      #33, #34 flows with [] in the name are corrupted (Thanks @RobCieloCosta, @banderson-eco)
+
       #31 Added Options drop down to allow display of advanced settings
       Added more detail to Http triggers and actions
-      
+
       #31, #32 Reduced bottom border for all shapes (Thanks @rappen, @mrhyde1st)
       #30 Added append to string icon and value (DO IT YOUR SELF NEXT TIME @MCJ)
       #29 Added SQL actions, which led to a lot of work to get parameters showing (Bloody MCJ)

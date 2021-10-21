@@ -28,7 +28,7 @@ namespace LinkeD365.FlowToVisio
 
         #endregion xmlVisio bits
 
-        public void GenerateVisio(string fileName, FlowDefinition flow, bool logicApp = false)
+        public void GenerateVisio(string fileName, FlowDefinition flow, int flowCount, bool logicApp = false)
         {
             CreateVisio(fileName);
             JObject flowObject = JObject.Parse(flow.Definition);
@@ -47,7 +47,8 @@ namespace LinkeD365.FlowToVisio
 
             
             //SaveXDocumentToPart(page, Utils.XMLPage);
-            CreateNewPage(package, pages, Utils.XMLPage, new Uri( Uri.EscapeUriString($"/visio/pages/{flow.Name.Replace(' ','_')}.xml"),UriKind.Relative), page.ContentType, "http://schemas.microsoft.com/visio/2010/relationships/page", flow.Name);
+            CreateNewPage(package, pages, Utils.XMLPage, //new Uri( Uri.EscapeUriString($"/visio/pages/{flow.Name.Replace(' ','_')}.xml"),UriKind.Relative), 
+                new Uri(Uri.EscapeUriString($"/visio/pages/flowPage{flowCount}.xml"), UriKind.Relative), page.ContentType, "http://schemas.microsoft.com/visio/2010/relationships/page", flow.Name);
             Utils.Ai.WriteEvent(logicApp ? "Logic App Actions" : "Flow Actions", Utils.actionCount);
             Utils.totalVisio += 1;
             Utils.totalActions += Utils.actionCount;
