@@ -38,14 +38,14 @@ namespace LinkeD365.FlowToVisio
             var triggerProperty = flowObject["properties"]["definition"]["triggers"].First() as JProperty;
 
             var triggerShape = Utils.AddAction(triggerProperty, null, 0, 1);
-
+            Utils.AddComment(triggerShape);
             if (flowObject["properties"]["definition"]["actions"].Children<JProperty>().Where(a => !a.Value["runAfter"].HasValues).Any())
                 Utils.AddActions(flowObject["properties"]["definition"]["actions"].Children<JProperty>().Where(a => !a.Value["runAfter"].HasValues), triggerShape);
 
             foreach (var shapeName in Utils.VisioTemplates)
                 triggerShape.GetTemplateShape(shapeName).Remove();
 
-            
+
             //SaveXDocumentToPart(page, Utils.XMLPage);
             CreateNewPage(package, pages, Utils.XMLPage, //new Uri( Uri.EscapeUriString($"/visio/pages/{flow.Name.Replace(' ','_')}.xml"),UriKind.Relative), 
                 new Uri(Uri.EscapeUriString($"/visio/pages/flowPage{flowCount}.xml"), UriKind.Relative), page.ContentType, "http://schemas.microsoft.com/visio/2010/relationships/page", flow.Name);
@@ -57,13 +57,15 @@ namespace LinkeD365.FlowToVisio
             return;
         }
 
+
+
         public void CompleteVisio(string fileName)
         {
 
             RemoveTemplate();
             RecalcDocument(package);
             package.Close();
-            if (MessageBox.Show($@"{Utils.totalVisio} Visio{(Utils.totalVisio > 1 ? "s":"")} generated with {Utils.totalActions} actions.{Environment.NewLine}Do you want to open the file?", "Visio Created Succesfully",
+            if (MessageBox.Show($@"{Utils.totalVisio} Visio{(Utils.totalVisio > 1 ? "s" : "")} generated with {Utils.totalActions} actions.{Environment.NewLine}Do you want to open the file?", "Visio Created Succesfully",
                 MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
                 Process.Start(fileName);
@@ -91,7 +93,7 @@ namespace LinkeD365.FlowToVisio
 
             pages = GetPackagePart(package, document, "http://schemas.microsoft.com/visio/2010/relationships/pages");
             page = GetPackagePart(package, pages, "http://schemas.microsoft.com/visio/2010/relationships/page");
-;
+            ;
             Utils.XMLPage = GetXMLFromPart(page);
 
             #endregion get to the xml of the page

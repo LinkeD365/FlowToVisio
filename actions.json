@@ -39,7 +39,8 @@
     "Forms",
     "Email",
     "Office",
-    "SQL"
+    "SQL",
+    "Comment"
   ],
   "actions": {
     "Today&apos;s forecast": {

@@ -343,6 +343,8 @@ namespace LinkeD365.FlowToVisio
         public bool Managed { get; set; }
         public string OwnerType { get; set; }
         public bool LogicApp { get; internal set; }
+
+        public List<Comment> Comments = new List<Comment>();
     }
 
     class FlowDefComparer : IComparer<FlowDefinition>
@@ -440,6 +442,7 @@ namespace LinkeD365.FlowToVisio
         public bool ShowTrackedProps { get; set; }
         public bool ShowTriggers { get; set; }
         public bool ShowTrackingID { get; set; }
+        public bool ShowComments { get; set; } = true;
     }
 
     public class LogicAppConn

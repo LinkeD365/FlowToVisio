@@ -245,6 +245,7 @@
     <Compile Include="Visio\Action.cs" />
     <Compile Include="Visio\BaseShape.cs" />
     <Compile Include="Visio\CaseAction.cs" />
+    <Compile Include="Visio\Comment.cs" />
     <Compile Include="Visio\ConditionAction.cs" />
     <Compile Include="Visio\Connection.cs" />
     <Compile Include="Visio\ShapeXML.Conditions.cs" />

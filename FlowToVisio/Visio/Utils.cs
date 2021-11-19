@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Xml.Linq;
 
 namespace LinkeD365.FlowToVisio
@@ -14,6 +15,7 @@ namespace LinkeD365.FlowToVisio
         public static int actionCount = 0;
         public static JObject Root { get; set; }
 
+        public static List<Comment> Comments { get; set; } = new List<Comment>();
         public static XDocument XMLPage
         {
             get => _xmlPage;
@@ -114,6 +116,23 @@ namespace LinkeD365.FlowToVisio
 
         private const string aiKey = "cc383234-dfdb-429a-a970-d17847361df3";
 
+        public  static void AddComment(Action shape)
+        {
+            if (shape.Property?.Value["metadata"]?["operationMetadataId"] != null && Comments.Any(cmt => cmt.AnchorId == shape.Property.Value["metadata"]["operationMetadataId"].ToString()))
+            {
+                var commentAction = new Action("Comment", shape.PinX + 2, shape.PinY);
+                StringBuilder sb = new StringBuilder();
+                foreach (Comment comment in Comments.Where(cmt => cmt.AnchorId == shape.Property.Value["metadata"]["operationMetadataId"].ToString()))
+                {
+                    sb.AppendLine(comment.Commenter + " : " + comment.Created);
+                    sb.AppendLine(comment.CommentString);
+                }
+                commentAction.AddText(sb.ToString());
+            }
+            // triggerProperty.Value["metadata"]["operationMetadataId"]
+            //  if (flow.Comments.Contains(triggerShape.Property..))
+        }
+
         public static void AddActions(IEnumerable<JProperty> childActions, Action parent)
         {
             int childCount = childActions.Count();
@@ -121,6 +140,7 @@ namespace LinkeD365.FlowToVisio
             foreach (var actionProperty in childActions)
             {
                 var childAction = AddAction(actionProperty, parent, ++curCount, childCount);
+                AddComment(childAction);
                 AddActions(Root["properties"]["definition"]["actions"].Children<JProperty>().Where(a => a.Value["runAfter"].HasValues && ((JProperty)a.Value["runAfter"].First()).Name == childAction.Name), childAction);
             }
         }

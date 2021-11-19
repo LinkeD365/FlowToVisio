@@ -50,6 +50,7 @@
             this.grdFlows = new System.Windows.Forms.DataGridView();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.chkShowComments = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
@@ -135,7 +136,8 @@
             this.chkShowSecure,
             this.chkShowConCurrency,
             this.chkShowTriggerConditions,
-            this.chkShowTrackedProps});
+            this.chkShowTrackedProps,
+            this.chkShowComments});
             this.dropOptions.Image = global::LinkeD365.FlowToVisio.Properties.Resources.Options;
             this.dropOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.dropOptions.Name = "dropOptions";
@@ -260,6 +262,14 @@
             this.saveDialog.DefaultExt = "vsdx";
             this.saveDialog.Filter = "Visio Files(*.vsdx)|*.vsdx";
             // 
+            // chkShowComments
+            // 
+            this.chkShowComments.CheckOnClick = true;
+            this.chkShowComments.Name = "chkShowComments";
+            this.chkShowComments.Size = new System.Drawing.Size(203, 22);
+            this.chkShowComments.Text = "Show Comments";
+            this.chkShowComments.CheckedChanged += new System.EventHandler(this.chkShowComments_CheckedChanged);
+            // 
             // FlowToVisioControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -310,5 +320,6 @@
         private System.Windows.Forms.ToolStripMenuItem chkShowCustomTracking;
         private System.Windows.Forms.ToolStripMenuItem chkShowTriggerConditions;
         private System.Windows.Forms.ToolStripMenuItem chkShowTrackedProps;
+        private System.Windows.Forms.ToolStripMenuItem chkShowComments;
     }
 }

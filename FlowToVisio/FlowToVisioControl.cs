@@ -1,5 +1,6 @@
 ﻿using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -86,6 +87,7 @@ namespace LinkeD365.FlowToVisio
             chkShowCustomTracking.Checked = aPIConnections.Display.ShowTrackingID;
             chkShowTrackedProps.Checked = aPIConnections.Display.ShowTrackedProps;
             chkShowTriggerConditions.Checked = aPIConnections.Display.ShowTriggers;
+            chkShowComments.Checked = aPIConnections.Display.ShowComments;
         }
 
         private void tsbClose_Click(object sender, EventArgs e)
@@ -136,7 +138,8 @@ namespace LinkeD365.FlowToVisio
 
                 if (selectFlow.Solution)
                 {
-                   // flowObject = JObject.Parse(selectFlow.Definition);
+                    PopulateComment(selectFlow);
+                    // flowObject = JObject.Parse(selectFlow.Definition);
                     GenerateVisio(saveDialog.FileName, selectFlow, 1);
                 }
                 else
@@ -156,13 +159,21 @@ namespace LinkeD365.FlowToVisio
                 {
                     flowCount++;
                     var selFlow = (FlowDefinition)selectedRow.DataBoundItem;
-                    if (selFlow.Solution) GenerateVisio(saveDialog.FileName, selFlow, flowCount, false);
-                    else LoadFlow(selFlow, saveDialog.FileName, flowCount);
+                    if (selFlow.Solution)
+                    {
+                        PopulateComment(selFlow);
+                        GenerateVisio(saveDialog.FileName, selFlow, flowCount, false);
+                    }
+                    else
+                    {
+                        LoadFlow(selFlow, saveDialog.FileName, flowCount);
 
+                    }
                 }
+
+
             }
             CompleteVisio(saveDialog.FileName);
-
 
         }
 
@@ -225,7 +236,32 @@ namespace LinkeD365.FlowToVisio
             //GetClient();
             LoadUnSolutionedFlows();
         }
+        private void PopulateComment(FlowDefinition selectFlow)
+        {
+            if (!selectFlow.Solution) return;
+            if (!aPIConnections.Display.ShowComments) return;
 
+            var fetchXml = $@"
+<fetch xmlns:generator='MarkMpn.SQL4CDS'>
+  <entity name='comment'>
+    <attribute name='createdby' />
+    <attribute name='artifactid' />
+    <attribute name='body' />
+    <attribute name='anchor' />
+    <attribute name='kind' />
+    <attribute name='createdon' />
+    <link-entity name='comment' from='commentid' to='container' link-type='inner'>
+      <filter>
+        <condition attribute='artifactid' operator='eq' value='{selectFlow.Id}'/>
+      </filter>
+    </link-entity>
+  </entity>
+</fetch>";
+            var fe = new FetchExpression(fetchXml);
+            var comments = Service.RetrieveMultiple(fe);
+
+            Utils.Comments = comments.Entities.Select(com => new Comment(com)).OrderBy(cmt => cmt.Kind).ToList();
+        }
 
         private HttpClient _client;
 
@@ -280,6 +316,11 @@ namespace LinkeD365.FlowToVisio
         {
             aPIConnections.Display.ShowTrackingID = chkShowCustomTracking.Checked;
 
+        }
+
+        private void chkShowComments_CheckedChanged(object sender, EventArgs e)
+        {
+            aPIConnections.Display.ShowComments = chkShowComments.Checked;
         }
     }
 }
