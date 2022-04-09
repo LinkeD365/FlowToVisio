@@ -26,7 +26,7 @@ namespace LinkeD365.FlowToVisio
 
             WorkAsync(new WorkAsyncInfo
             {
-                Message = "Retrieiving the Flows",
+                Message = "Retrieving the Cloud Flows",
                 Work = (w, e) =>
                 {
                     var qe = new QueryExpression("workflow");
