@@ -1726,6 +1726,18 @@
         "Database": { "value": "inputs|parameters|database" }
       }
     },
+    "Ask in PowerApps": {
+      "type": "Request",
+      "kind": "PowerAppV2",
+      "visioShape": "PowerApp",
+      "repeat": [
+        {
+          "title": "Parameters",
+          "path": "inputs|schema|properties",
+          "filter": "x-ms-content-hint|x-ms-dynamically-added"
+        }
+      ]
+    },
     "Http Request": {
       "type": "Request",
       "kind": "Http",
@@ -1806,6 +1818,136 @@
         }
       ]
 
+    },
+    "Get A Row by ID": {
+      "type": "OpenApiConnection",
+      "visioShape": "CDS",
+      "connectionName": "shared_commondataserviceforapps",
+      "operationId": "GetItem",
+      "display": {
+        "Table": { "value": "inputs|parameters|entityName" },
+        "RowId": { "value": "inputs|parameters|recordId" },
+        "Columns": { "value": "inputs|parameters|$select" },
+        "Expand": { "value": "inputs|parameters|$expand" },
+        "Partition": { "value": "inputs|parameters|partitionId" }
+      }
+    },
+    "Update A Row": {
+      "type": "OpenApiConnection",
+      "visioShape": "CDS",
+      "connectionName": "shared_commondataserviceforapps",
+      "operationId": "UpdateRecord",
+      "display": {
+        "Table": { "value": "inputs|parameters|entityName" },
+        "RowId": { "value": "inputs|parameters|recordId" },
+        "Row Values": {
+          "value": "inputs|parameters|item/",
+          "parameter": true
+        }
+      }
+    },
+    "List Rows": {
+      "type": "OpenApiConnection",
+      "visioShape": "CDS",
+      "connectionName": "shared_commondataserviceforapps",
+      "operationId": "ListRecords",
+      "display": {
+        "Table": { "value": "inputs|parameters|entityName" },
+        "Columns": { "value": "inputs|parameters|$select" },
+        "Filter Rows": { "value": "inputs|parameters|$filter" },
+        "Sort Rows": { "value": "inputs|parameters|$orderby" },
+        "Fetch Xml Query": { "value": "inputs|parameters|fetchXml" },
+        "Skip Token": { "value": "inputs|parameters|$skiptoken" },
+        "Row Count": { "value": "inputs|parameters|$top" },
+        "Expand": { "value": "inputs|parameters|$expand" },
+        "Partition": { "value": "inputs|parameters|partitionId" }
+      }
+    },
+    "Add a new row": {
+      "type": "OpenApiConnection",
+      "visioShape": "CDS",
+      "connectionName": "shared_commondataserviceforapps",
+      "operationId": "CreateRecord",
+      "display": {
+        "Table": { "value": "inputs|parameters|entityName" },
+        "Row Values": {
+          "value": "inputs|parameters|item/",
+          "parameter": true
+        }
+      }
+    },
+    "Send Email": {
+      "type": "OpenApiConnection",
+      "visioShape": "Outlook",
+      "connectionName": "shared_office365",
+      "operationId": "SendEmailV2",
+      "display": {
+        "To": { "value": "inputs|parameters|emailMessage/To" },
+        "Subject": { "value": "inputs|parameters|emailMessage/Subject" },
+        "Body": { "value": "inputs|parameters|emailMessage/Body" },
+
+        "From": { "value": "inputs|parameters|emailMessage/From" },
+        "CC": { "value": "inputs|parameters|emailMessage/Cc" },
+        "BCC": { "value": "inputs|parameters|emailMessage/Bcc" },
+        "Sensitivity": { "value": "inputs|parameters|emailMessage/Sensitivity" },
+        "Importance": { "value": "inputs|parameters|emailMessage/Importance" },
+        "Reply To": { "value": "inputs|parameters|emailMessage/ReplyTo" }
+      },
+      "repeat": [
+        {
+          "title": "Attachments",
+          "path": "inputs|parameters|emailMessage/Attachments",
+          "filter": "",
+          "left": 0
+        }
+      ]
+    },
+    "Send HTTP Request to SharePoint": {
+      "type": "OpenApiConnection",
+      "connectionName": "shared_sharepointonline",
+      "operationId": "HttpRequest",
+      "visioShape": "SharePoint",
+      "display": {
+        "Site": { "value": "inputs|parameters|dataset" },
+        "Method": { "value": "inputs|parameters|parameters/method" },
+        "Body": { "value": "inputs|parameters|parameters/body" },
+        "URI": { "value": "inputs|parameters|parameters/uri" }
+      },
+      "repeat": [
+        {
+          "title": "Headers",
+          "path": "inputs|parameters|parameters/headers"
+        }
+      ]
+
+    },
+    "Perform a Bound Action": {
+      "type": "OpenApiConnection",
+      "visioShape": "CDS",
+      "connectionName": "shared_commondataserviceforapps",
+      "operationId": "PerformBoundAction",
+      "display": {
+        "Table": { "value": "inputs|parameters|entityName" },
+        "Action": { "value": "inputs|parameters|actionName" },
+        "Row Id": { "value": "inputs|parameters|recordId" },
+        "Parameters": {
+          "value": "inputs|parameters|item/",
+          "parameter": true
+        }
+      }
+    },
+    "Perform an Unbound Action": {
+      "type": "OpenApiConnection",
+      "visioShape": "CDS",
+      "connectionName": "shared_commondataserviceforapps",
+      "operationId": "PerformUnboundAction",
+      "display": {
+        "Action": { "value": "inputs|parameters|actionName" },
+        "Values": {
+          "value": "inputs|parameters|item/",
+          "parameter": true
+        }
+      }
     }
   }
 }

@@ -11,6 +11,9 @@
     <iconUrl>https://linked365.blog/wp-content/uploads/2020/03/smallIcon.png</iconUrl>
     <description>A XrmToolBox tool to create Visio diagram of your Power Automate Flows that are within your CDS</description>
     <releaseNotes>
+	  Updated tool version
+	  added Actions for dataverse
+	  
       #35 Added toggle to display comments
       
       #33, #34 flows with [] in the name are corrupted (Thanks @RobCieloCosta, @banderson-eco)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Newtonsoft.Json.Linq;
 using System;
@@ -67,11 +68,122 @@ namespace LinkeD365.FlowToVisio
                     btnConnectCDS.Visible = !returnFlows.Any();
                     btnConnectLogicApps.Visible = returnFlows.Any();
                     btnConnectFlow.Visible = returnFlows.Any();
+
                     //flowRecords = (EntityCollection)e.Result;
                     //gridFlows.DataSource = flowRecords;
                 },
             });
         }
+
+        private void LoadSolutions()
+        {
+            WorkAsync(new WorkAsyncInfo
+            {
+                Message = "Retrieiving the Solutions",
+                Work = (w, e) =>
+                {
+                    QueryExpression solQry = new QueryExpression("solution");
+                    solQry.Distinct = true;
+                    solQry.ColumnSet = new ColumnSet("friendlyname", "version", "publisherid", "solutionid");
+                    solQry.AddOrder("friendlyname", OrderType.Ascending);
+                    solQry.Criteria = new FilterExpression();
+                    solQry.Criteria.AddCondition(new ConditionExpression("isvisible", ConditionOperator.Equal, true));
+                    solQry.Criteria.AddCondition(new ConditionExpression("uniquename", ConditionOperator.NotEqual, "Default"));
+                    List<Solution> solList = new List<Solution>();
+
+                    var solutionRows = Service.RetrieveMultiple(solQry);
+                    foreach (var solution in solutionRows.Entities)
+                    {
+                        solList.Add(new Solution
+                        {
+                            Id = solution["solutionid"].ToString(),
+                            Name = solution["friendlyname"].ToString(),
+                            Publisher = ((EntityReference)solution["publisherid"]).Name
+
+                        });
+                    }
+
+                    e.Result = solList;
+                },
+                ProgressChanged = e =>
+                {
+                },
+                PostWorkCallBack = e =>
+                {
+                    var solList = e.Result as List<Solution>;
+                    splitTop.Panel2Collapsed = !solList.Any();
+
+                    solList.Insert(0, new Solution() { Name = "Filter on Solution" });
+                    ddlSolutions.DataSource = solList;
+                    ddlSolutions.DisplayMember = "Name";
+
+                },
+            });
+        }
+
+        private void GetFlowsForSolution()
+        {
+            if (ddlSolutions.SelectedIndex == 0) { LoadFlows(); return; }
+            string solId = ((Solution)ddlSolutions.SelectedItem).Id;
+            WorkAsync(new WorkAsyncInfo
+            {
+                Message = "Retrieiving the Flows for Solution",
+                Work = (w, e) =>
+                {
+
+                    var qe = new QueryExpression("workflow");
+                    qe.ColumnSet.AddColumns("ismanaged", "clientdata", "description", "name", "createdon", "modifiedon", "modifiedby", "createdby");
+                    qe.AddOrder("name", OrderType.Ascending);
+                    qe.Criteria.AddCondition("category", ConditionOperator.Equal, 5);
+                    var solComp = qe.AddLink("solutioncomponent", "workflowid", "objectid", JoinOperator.Inner);
+                    solComp.EntityAlias = "solComp";
+                    var sol = solComp.AddLink("solution", "solutionid", "solutionid");
+                    sol.EntityAlias = "sol";
+                    sol.LinkCriteria.AddCondition("solutionid", ConditionOperator.Equal, solId);
+
+
+                    List<FlowDefinition> flowList = new List<FlowDefinition>();
+
+                    var flowRecords = Service.RetrieveMultiple(qe);
+                    foreach (var flowRecord in flowRecords.Entities)
+                    {
+                        flowList.Add(new FlowDefinition
+                        {
+                            Id = flowRecord["workflowid"].ToString(),
+                            Name = flowRecord["name"].ToString(),
+                            Definition = flowRecord["clientdata"].ToString(),
+                            Description = !flowRecord.Attributes.Contains("description") ? string.Empty : flowRecord["description"].ToString(),
+                            Solution = true,
+                            Managed = (bool)flowRecord["ismanaged"]
+                        });
+                    }
+
+
+                    e.Result = flowList;
+                },
+                ProgressChanged = e =>
+                {
+                },
+                PostWorkCallBack = e =>
+                {
+                    var returnFlows = e.Result as List<FlowDefinition>;
+                    flows = returnFlows;
+                    grdFlows.DataSource = flows;
+                    if (returnFlows.Any())
+                    {
+
+                        SortGrid("Name", SortOrder.Ascending);
+
+                    }
+
+                    btnConnectCDS.Visible = !returnFlows.Any();
+                    btnConnectLogicApps.Visible = returnFlows.Any();
+                    btnConnectFlow.Visible = returnFlows.Any();
+
+                },
+            });
+        }
+
 
         private void LoadUnSolutionedFlows()
         {
@@ -111,6 +223,8 @@ namespace LinkeD365.FlowToVisio
 
                             btnConnectCDS.Visible = flows.Any();
                             btnConnectFlow.Visible = !flows.Any();
+                            splitTop.Panel2Collapsed = true;
+
                         }
                 }
             );
@@ -215,23 +329,23 @@ namespace LinkeD365.FlowToVisio
             string api = flowDefinition.LogicApp
                 ? $"https://management.azure.com{flowDefinition.Id}?api-version=2016-06-01"
                 : $"https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConn.Environment}/flows/{flowDefinition.Id}?&api-version=2016-11-01";
-            var result = _client.GetAsync(api).GetAwaiter().GetResult();            
+            var result = _client.GetAsync(api).GetAwaiter().GetResult();
 
 
-                if (result.StatusCode == HttpStatusCode.OK)
-                {
-                    //     flowObject = JObject.Parse(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-                    flowDefinition.Definition = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    GenerateVisio(fileName, flowDefinition,flowCount, flowDefinition.LogicApp);
-                }
-                else
-                {
-                    LogError("Get single Flow via API", result);
-                    ShowError($"Status: {result.StatusCode}\r\n{result.ReasonPhrase}\r\nSee XrmToolBox log for details.", "Get Flow Error");
-                }
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                //     flowObject = JObject.Parse(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                flowDefinition.Definition = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                GenerateVisio(fileName, flowDefinition, flowCount, flowDefinition.LogicApp);
+            }
+            else
+            {
+                LogError("Get single Flow via API", result);
+                ShowError($"Status: {result.StatusCode}\r\n{result.ReasonPhrase}\r\nSee XrmToolBox log for details.", "Get Flow Error");
+            }
 
-            
-                
+
+
 
 
             return null;
@@ -289,13 +403,11 @@ namespace LinkeD365.FlowToVisio
                     btnConnectCDS.Visible = flows.Any();
                     btnConnectFlow.Visible = flows.Any();
                     btnConnectLogicApps.Visible = !flows.Any();
-
-                    //   var returnFlows = e.Result as List<FlowDefinition>;
+                    splitTop.Panel2Collapsed = true;
 
                 }
-            }); ;
+            });
 
-            //  var returnlist = _client.GetAsync($"https://management.azure.com/subscriptions/{flowConnection.SubscriptionId} /providers/Microsoft.Logic/workflows?api-version=2016-06-01");
         }
 
         private void Connect(bool logicApps)
@@ -332,7 +444,12 @@ namespace LinkeD365.FlowToVisio
             }
         }
     }
-
+    public class Solution
+    {
+        public string Name { get; set; }
+        public string Publisher { get; set; }
+        public string Id { get; set; }
+    }
     public class FlowDefinition
     {
         public bool Solution;

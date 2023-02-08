@@ -1,10 +1,8 @@
 ﻿using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Windows.Forms;
@@ -82,12 +80,6 @@ namespace LinkeD365.FlowToVisio
                 LogWarning("Settings not found => a new settings file has been created!");
             }
 
-            chkShowConCurrency.Checked = aPIConnections.Display.ShowConCurrency;
-            chkShowSecure.Checked = aPIConnections.Display.ShowSecure;
-            chkShowCustomTracking.Checked = aPIConnections.Display.ShowTrackingID;
-            chkShowTrackedProps.Checked = aPIConnections.Display.ShowTrackedProps;
-            chkShowTriggerConditions.Checked = aPIConnections.Display.ShowTriggers;
-            chkShowComments.Checked = aPIConnections.Display.ShowComments;
         }
 
         private void tsbClose_Click(object sender, EventArgs e)
@@ -116,6 +108,7 @@ namespace LinkeD365.FlowToVisio
             }
 
             LoadFlows();
+            LoadSolutions();
         }
 
         private void btnCreateVisio_Click(object sender, EventArgs e)
@@ -149,7 +142,11 @@ namespace LinkeD365.FlowToVisio
             }
             else
             {
-                saveDialog.FileName = "My Flows.vsdx";
+                if (!splitTop.Panel2Collapsed && ddlSolutions.SelectedIndex > 0)
+                {
+                    saveDialog.FileName = ddlSolutions.Text + ".vsdx";
+                }
+                else saveDialog.FileName = "My Flows.vsdx";
                 if (saveDialog.ShowDialog() != DialogResult.OK)
                 {
                     return;
@@ -268,7 +265,10 @@ namespace LinkeD365.FlowToVisio
         private void btnConnectCDS_Click(object sender, EventArgs e)
         {
             ExecuteMethod(LoadFlows);
+            ExecuteMethod(LoadSolutions);
         }
+
+
 
         private void InitGrid()
         {
@@ -321,6 +321,11 @@ namespace LinkeD365.FlowToVisio
         private void chkShowComments_CheckedChanged(object sender, EventArgs e)
         {
             aPIConnections.Display.ShowComments = chkShowComments.Checked;
+        }
+
+        private void ddlSolutions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ExecuteMethod(GetFlowsForSolution);
         }
     }
 }
