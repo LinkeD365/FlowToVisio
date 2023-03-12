@@ -142,5 +142,18 @@ namespace LinkeD365.FlowToVisio
             dgvFlowRuns.DataSource = FlowRuns.Where(fr => fr.Status == ddlFilter.Text).ToList();
             SetupColumns();
         }
+
+        private void dgvFlowRuns_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvFlowRuns.IsCurrentCellDirty)
+            {
+                dgvFlowRuns.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        private void dgvFlowRuns_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            dgvFlowRuns.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
     }
 }

@@ -352,5 +352,10 @@ namespace LinkeD365.FlowToVisio
                 GetAllFlowRuns(flow);
             }
         }
+
+        private void grdFlows_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            grdFlows.Cursor = e.ColumnIndex < 0 ? Cursors.Default : (grdFlows.Columns[e.ColumnIndex].Name == "history") ? Cursors.Hand : Cursors.Default;
+        }
     }
 }

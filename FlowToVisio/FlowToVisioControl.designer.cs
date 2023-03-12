@@ -350,6 +350,7 @@
             this.grdFlows.Size = new System.Drawing.Size(908, 694);
             this.grdFlows.TabIndex = 6;
             this.grdFlows.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdFlows_CellClick);
+            this.grdFlows.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdFlows_CellMouseEnter);
             this.grdFlows.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdFlows_ColumnHeaderMouseClick);
             // 
             // saveDialog

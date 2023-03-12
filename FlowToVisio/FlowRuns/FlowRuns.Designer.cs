@@ -49,13 +49,16 @@
             this.dgvFlowRuns.AllowUserToDeleteRows = false;
             this.dgvFlowRuns.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFlowRuns.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvFlowRuns.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dgvFlowRuns.Location = new System.Drawing.Point(0, 0);
             this.dgvFlowRuns.MultiSelect = false;
             this.dgvFlowRuns.Name = "dgvFlowRuns";
             this.dgvFlowRuns.RowHeadersVisible = false;
-            this.dgvFlowRuns.Size = new System.Drawing.Size(800, 425);
+            this.dgvFlowRuns.Size = new System.Drawing.Size(545, 425);
             this.dgvFlowRuns.TabIndex = 0;
+            this.dgvFlowRuns.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFlowRuns_CellValueChanged);
             this.dgvFlowRuns.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvFlowRuns_ColumnHeaderMouseClick);
+            this.dgvFlowRuns.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvFlowRuns_CurrentCellDirtyStateChanged);
             // 
             // tscMain
             // 
@@ -66,13 +69,13 @@
             this.tscMain.ContentPanel.Controls.Add(this.lblCancel);
             this.tscMain.ContentPanel.Controls.Add(this.chkAll);
             this.tscMain.ContentPanel.Controls.Add(this.dgvFlowRuns);
-            this.tscMain.ContentPanel.Size = new System.Drawing.Size(800, 425);
+            this.tscMain.ContentPanel.Size = new System.Drawing.Size(545, 425);
             this.tscMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tscMain.LeftToolStripPanelVisible = false;
             this.tscMain.Location = new System.Drawing.Point(0, 0);
             this.tscMain.Name = "tscMain";
             this.tscMain.RightToolStripPanelVisible = false;
-            this.tscMain.Size = new System.Drawing.Size(800, 450);
+            this.tscMain.Size = new System.Drawing.Size(545, 450);
             this.tscMain.TabIndex = 2;
             this.tscMain.Text = "toolStripContainer1";
             // 
@@ -122,7 +125,7 @@
             this.lblCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCancel.Location = new System.Drawing.Point(0, 0);
             this.lblCancel.Name = "lblCancel";
-            this.lblCancel.Size = new System.Drawing.Size(800, 425);
+            this.lblCancel.Size = new System.Drawing.Size(545, 425);
             this.lblCancel.TabIndex = 2;
             this.lblCancel.Text = "Cancelling Flow Runs";
             this.lblCancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -131,7 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(545, 450);
             this.Controls.Add(this.tscMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FlowRunForm";
