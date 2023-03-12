@@ -1,21 +1,21 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace LinkeD365.FlowToVisio
 {
     public class TemplateAction : Action
     {
         public JProperty Template { get; private set; }
+
         public TemplateAction(JProperty template, JProperty property, Action parent, int current, int children, string templateName) : base(property, parent, current, children, templateName)
         {
             Template = template;
             AddName();
             AddType(template.Name);
-            
+
             var sb = new StringBuilder();
             if (Template.Value["display"] != null)
             {
@@ -39,20 +39,16 @@ namespace LinkeD365.FlowToVisio
                         sb.AppendLine(repeat);
                     }
                 }
-
             }
 
             AddText(sb);
         }
-
-
 
         private string CreateRepeat(JToken property, List<string> splitList, List<string> filter, int left, bool isClass)
         {
             string name = splitList[0];
             if (property.Type == JTokenType.Object)
             {
-
                 var childObject = ((JObject)property).Children<JProperty>().FirstOrDefault(prop => prop.Name == name);
                 if (childObject == null) return string.Empty;
                 if (splitList.Count == 1)
@@ -74,7 +70,6 @@ namespace LinkeD365.FlowToVisio
                     }
 
                     return sb.ToString();
-
                 }
                 return CreateRepeat(childObject, splitList.GetRange(1, splitList.Count - 1), filter, left, isClass);
                 //if (((JProperty)property).Value[name] == null) return string.Empty;
@@ -87,7 +82,6 @@ namespace LinkeD365.FlowToVisio
                     var sb = new StringBuilder();
                     if (((JProperty)property).Value[name] is JObject)
                     {
-
                         var valueObject = ((JProperty)property).Value[name] as JObject;
                         foreach (var valueProp in valueObject.Children<JProperty>().Where(vo => !filter.Contains(vo.Name)))
                         {
@@ -158,8 +152,8 @@ namespace LinkeD365.FlowToVisio
             }
 
             return string.Empty;
-            //   if (property.Value[name] == null) return string.Empty;
-            // if (splitList.Count == 0) return property.Value[name].ToString();
+            // if (property.Value[name] == null) return string.Empty; if (splitList.Count == 0)
+            // return property.Value[name].ToString();
 
             //return GetPropValue((JProperty)property.Value[name], splitList.GetRange(1, splitList.Count));
         }
@@ -172,7 +166,7 @@ namespace LinkeD365.FlowToVisio
             {
                 sb.AppendLine(parameter.Name.Substring(name.Length) + " : " + parameter.Value.ToString());
             }
-            if(sb.ToString() != string.Empty) return Environment.NewLine + sb.ToString();
+            if (sb.ToString() != string.Empty) return Environment.NewLine + sb.ToString();
             return string.Empty;
         }
 

@@ -1,16 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace LinkeD365.FlowToVisio
 {
     public class IfAction : ConditionAction
     {
-
         public CaseAction Yes { get; private set; }
         public CaseAction No { get; private set; }
 
@@ -19,7 +15,6 @@ namespace LinkeD365.FlowToVisio
             Yes = new CaseAction(this, 1, 2, Property.Name + ".Yes");
             Yes.Props.Add(XElement.Parse("<Row N='ActionCase'> <Cell N='Value' V='If yes' U='STR'/></Row>"));
             Yes.AddFillColour("136, 218, 141");
-
 
             FinalActions.Add(Yes);
             if (Property.Value["actions"] != null && Property.Value["actions"].Count() > 0)

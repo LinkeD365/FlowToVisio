@@ -9,13 +9,13 @@ using System.Xml.Linq;
 
 namespace LinkeD365.FlowToVisio
 {
-
     public class Utils
     {
         public static int actionCount = 0;
         public static JObject Root { get; set; }
 
         public static List<Comment> Comments { get; set; } = new List<Comment>();
+
         public static XDocument XMLPage
         {
             get => _xmlPage;
@@ -25,6 +25,7 @@ namespace LinkeD365.FlowToVisio
                 connects = null;
             }
         }
+
         private static XDocument _xmlPage;
 
         private static XElement connects;
@@ -87,7 +88,6 @@ namespace LinkeD365.FlowToVisio
                         new System.Net.WebClient().DownloadString("https://raw.githubusercontent.com/LinkeD365/FlowToVisio/master/actions.json");
                     _actionTemplate = JObject.Parse(jsonString);
 #endif
-
                 }
 
                 return _actionTemplate;
@@ -116,7 +116,7 @@ namespace LinkeD365.FlowToVisio
 
         private const string aiKey = "cc383234-dfdb-429a-a970-d17847361df3";
 
-        public  static void AddComment(Action shape)
+        public static void AddComment(Action shape)
         {
             if (shape.Property?.Value["metadata"]?["operationMetadataId"] != null && Comments.Any(cmt => cmt.AnchorId == shape.Property.Value["metadata"]["operationMetadataId"].ToString()))
             {
@@ -129,8 +129,7 @@ namespace LinkeD365.FlowToVisio
                 }
                 commentAction.AddText(sb.ToString());
             }
-            // triggerProperty.Value["metadata"]["operationMetadataId"]
-            //  if (flow.Comments.Contains(triggerShape.Property..))
+            // triggerProperty.Value["metadata"]["operationMetadataId"] if (flow.Comments.Contains(triggerShape.Property..))
         }
 
         public static void AddActions(IEnumerable<JProperty> childActions, Action parent)
@@ -240,7 +239,6 @@ namespace LinkeD365.FlowToVisio
                 return new Action(actionProperty, parent, curCount, childCount);
                 //throw;
             }
-
         }
 
         private static Action CreateWebhook(JProperty actionProperty, Action parent, int curCount, int childCount)
@@ -321,6 +319,7 @@ namespace LinkeD365.FlowToVisio
 
                     case "shared_flowmanagement":
                         return new FlowAction(actionProperty, parent, curCount, childCount);
+
                     case "shared_sharepointonline":
                         return new SharePointAction(actionProperty, parent, curCount, childCount);
                 }
@@ -344,12 +343,12 @@ namespace LinkeD365.FlowToVisio
                     case "shared_commondataserviceforapps":
                     case "shared_commondataservice":
                         return new CDSAction(actionProperty, parent, curCount, childCount);
+
                     case "shared_sharepointonline":
                         return new SharePointAction(actionProperty, parent, curCount, childCount);
                 }
                 Ai.WriteEvent("No Open API Action: " + Connection.APIConnections.First(con => con.Name == connectName).Api
                     + " Operation:" + (actionProperty.Value["inputs"]?["host"]?["operationId"].ToString() ?? string.Empty));
-
             }
 
             return new Action(actionProperty, parent, curCount, childCount);
@@ -360,7 +359,7 @@ namespace LinkeD365.FlowToVisio
             if (actionProperty.Value["type"].ToString() == "OpenApiConnection" || actionProperty.Value["type"].ToString() == "OpenApiConnectionWebhook")
             {
                 var template = OpenApiTemplates.FirstOrDefault(templateDef =>
-                    templateDef.Value["connectionName"].ToString() == 
+                    templateDef.Value["connectionName"].ToString() ==
                         Connection.APIConnections.First(api => api.Name == actionProperty.Value["inputs"]["host"]["connectionName"].ToString()).Api &&
                     templateDef.Value["operationId"].ToString() == actionProperty.Value["inputs"]["host"]["operationId"].ToString());
                 if (template == null)
@@ -397,8 +396,6 @@ namespace LinkeD365.FlowToVisio
             if (actionProperty.Value["type"].ToString() == "ApiConnection")
             {
             }
-
-
 
             return null;
         }

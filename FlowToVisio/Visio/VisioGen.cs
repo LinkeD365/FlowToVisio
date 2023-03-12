@@ -12,8 +12,6 @@ namespace LinkeD365.FlowToVisio
 {
     public partial class FlowToVisioControl : PluginControlBase
     {
-
-
         //private JObject flowObject;
 
         #region xmlVisio bits
@@ -45,9 +43,8 @@ namespace LinkeD365.FlowToVisio
             foreach (var shapeName in Utils.VisioTemplates)
                 triggerShape.GetTemplateShape(shapeName).Remove();
 
-
             //SaveXDocumentToPart(page, Utils.XMLPage);
-            CreateNewPage(package, pages, Utils.XMLPage, //new Uri( Uri.EscapeUriString($"/visio/pages/{flow.Name.Replace(' ','_')}.xml"),UriKind.Relative), 
+            CreateNewPage(package, pages, Utils.XMLPage, //new Uri( Uri.EscapeUriString($"/visio/pages/{flow.Name.Replace(' ','_')}.xml"),UriKind.Relative),
                 new Uri(Uri.EscapeUriString($"/visio/pages/flowPage{flowCount}.xml"), UriKind.Relative), page.ContentType, "http://schemas.microsoft.com/visio/2010/relationships/page", flow.Name);
             Utils.Ai.WriteEvent(logicApp ? "Logic App Actions" : "Flow Actions", Utils.actionCount);
             Utils.totalVisio += 1;
@@ -57,11 +54,8 @@ namespace LinkeD365.FlowToVisio
             return;
         }
 
-
-
         public void CompleteVisio(string fileName)
         {
-
             RemoveTemplate();
             RecalcDocument(package);
             package.Close();
@@ -80,10 +74,9 @@ namespace LinkeD365.FlowToVisio
             // create a copy of the resource template
             if (package == null)
             {
-
                 File.WriteAllBytes(fileName, Resources.VisioTemplate);
-                // var template = Package.Open(new MemoryStream(Properties.Resources.VisioTemplate), FileMode.Open);
-                //  template.
+                // var template = Package.Open(new MemoryStream(Properties.Resources.VisioTemplate),
+                // FileMode.Open); template.
 
                 #region get to the xml of the page
 
@@ -100,8 +93,5 @@ namespace LinkeD365.FlowToVisio
 
             return;
         }
-
-
-
     }
 }

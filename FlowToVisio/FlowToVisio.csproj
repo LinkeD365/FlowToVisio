@@ -232,6 +232,19 @@
     <Compile Include="APIConnection\ApiConnection.Designer.cs">
       <DependentUpon>ApiConnection.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\APIConns.cs" />
+    <Compile Include="Classes\Display.cs" />
+    <Compile Include="Classes\FlowConn.cs" />
+    <Compile Include="Classes\FlowDefinition.cs" />
+    <Compile Include="Classes\FlowRun.cs" />
+    <Compile Include="Classes\LogicAppConn.cs" />
+    <Compile Include="Classes\Solution.cs" />
+    <Compile Include="FlowRuns\FlowRuns.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FlowRuns\FlowRuns.Designer.cs">
+      <DependentUpon>FlowRuns.cs</DependentUpon>
+    </Compile>
     <Compile Include="FlowToVisioControl.Methods.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -276,6 +289,9 @@
     <EmbeddedResource Include="APIConnection\ApiConnection.resx">
       <DependentUpon>ApiConnection.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FlowRuns\FlowRuns.resx">
+      <DependentUpon>FlowRuns.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FlowToVisioControl.resx">
       <DependentUpon>FlowToVisioControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -301,6 +317,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Options.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\powerautomate %28Custom%29.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cancel-16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -61,6 +61,16 @@ namespace LinkeD365.FlowToVisio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Cancel_16 {
+            get {
+                object obj = ResourceManager.GetObject("Cancel-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] CDS {
@@ -106,6 +116,16 @@ namespace LinkeD365.FlowToVisio.Properties {
         public static System.Drawing.Bitmap powerautomate {
             get {
                 object obj = ResourceManager.GetObject("powerautomate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap powerautomate__Custom_ {
+            get {
+                object obj = ResourceManager.GetObject("powerautomate__Custom_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

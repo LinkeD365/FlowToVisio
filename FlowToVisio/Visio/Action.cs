@@ -20,10 +20,11 @@ namespace LinkeD365.FlowToVisio
             get
             {
                 if (children == 1) return 0;
-                //    if (children == 2)
+                // if (children == 2)
                 double width = children + 1;
                 return (-(width / 2) + (double)current / (children + 1) * width) * offsetX;
-                //    return (Math.Ceiling((double)children / 2) - current + (children % 2 == 0 ? 1 : 0)) * offsetX;
+                // return (Math.Ceiling((double)children / 2) - current + (children % 2 == 0 ? 1 :
+                // 0)) * offsetX;
             }
         }
 
@@ -250,8 +251,8 @@ namespace LinkeD365.FlowToVisio
         {
             Props.Add(XElement.Parse("<Row N='ActionName'> <Cell N='Value' V='" + PropertyName + "' U='STR'/></Row>"));
             Props.Add(XElement.Parse("<Row N='ActionType'> <Cell N='Value' V='" + Property.Value["type"] + "' U='STR'/></Row>"));
-            // var sb = "<Text><cp IX = '0' /><pp IX = '0' />" + PropertyName + "\n";
-            //   var textElement = Shape.Descendants().Where(el => el.Name.LocalName == "Text").First();
+            // var sb = "<Text><cp IX = '0' /><pp IX = '0' />" + PropertyName + "\n"; var
+            // textElement = Shape.Descendants().Where(el => el.Name.LocalName == "Text").First();
             var sb = new StringBuilder("Properties: ");
             sb.AppendLine();
             if (((JObject)Property.Value).Properties().Count() > 0)

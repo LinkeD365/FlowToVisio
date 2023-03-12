@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlowToVisioControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStripMenu = new System.Windows.Forms.ToolStrip();
             this.tsbClose = new System.Windows.Forms.ToolStripButton();
             this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -47,34 +47,34 @@
             this.chkShowTrackedProps = new System.Windows.Forms.ToolStripMenuItem();
             this.chkShowComments = new System.Windows.Forms.ToolStripMenuItem();
             this.splitMain = new System.Windows.Forms.SplitContainer();
+            this.splitTop = new System.Windows.Forms.SplitContainer();
             this.splitSearch = new System.Windows.Forms.SplitContainer();
             this.lblSearch = new System.Windows.Forms.Label();
             this.textSearch = new System.Windows.Forms.TextBox();
+            this.splitSolution = new System.Windows.Forms.SplitContainer();
+            this.lblSolution = new System.Windows.Forms.Label();
+            this.ddlSolutions = new System.Windows.Forms.ComboBox();
             this.grdFlows = new System.Windows.Forms.DataGridView();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.splitSolution = new System.Windows.Forms.SplitContainer();
-            this.lblSolution = new System.Windows.Forms.Label();
-            this.splitTop = new System.Windows.Forms.SplitContainer();
-            this.ddlSolutions = new System.Windows.Forms.ComboBox();
             this.toolStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
             this.splitMain.Panel2.SuspendLayout();
             this.splitMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitSearch)).BeginInit();
-            this.splitSearch.Panel1.SuspendLayout();
-            this.splitSearch.Panel2.SuspendLayout();
-            this.splitSearch.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdFlows)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitSolution)).BeginInit();
-            this.splitSolution.Panel1.SuspendLayout();
-            this.splitSolution.Panel2.SuspendLayout();
-            this.splitSolution.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitTop)).BeginInit();
             this.splitTop.Panel1.SuspendLayout();
             this.splitTop.Panel2.SuspendLayout();
             this.splitTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitSearch)).BeginInit();
+            this.splitSearch.Panel1.SuspendLayout();
+            this.splitSearch.Panel2.SuspendLayout();
+            this.splitSearch.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitSolution)).BeginInit();
+            this.splitSolution.Panel1.SuspendLayout();
+            this.splitSolution.Panel2.SuspendLayout();
+            this.splitSolution.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdFlows)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -228,6 +228,23 @@
             this.splitMain.SplitterDistance = 25;
             this.splitMain.TabIndex = 6;
             // 
+            // splitTop
+            // 
+            this.splitTop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitTop.Location = new System.Drawing.Point(0, 0);
+            this.splitTop.Name = "splitTop";
+            // 
+            // splitTop.Panel1
+            // 
+            this.splitTop.Panel1.Controls.Add(this.splitSearch);
+            // 
+            // splitTop.Panel2
+            // 
+            this.splitTop.Panel2.Controls.Add(this.splitSolution);
+            this.splitTop.Size = new System.Drawing.Size(908, 25);
+            this.splitTop.SplitterDistance = 478;
+            this.splitTop.TabIndex = 8;
+            // 
             // splitSearch
             // 
             this.splitSearch.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -265,41 +282,6 @@
             this.textSearch.TabIndex = 4;
             this.textSearch.TextChanged += new System.EventHandler(this.textSearch_TextChanged);
             // 
-            // grdFlows
-            // 
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.grdFlows.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdFlows.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            this.grdFlows.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grdFlows.DefaultCellStyle = dataGridViewCellStyle9;
-            this.grdFlows.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdFlows.Location = new System.Drawing.Point(0, 0);
-            this.grdFlows.Name = "grdFlows";
-            this.grdFlows.ReadOnly = true;
-            this.grdFlows.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdFlows.Size = new System.Drawing.Size(908, 694);
-            this.grdFlows.TabIndex = 6;
-            this.grdFlows.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdFlows_ColumnHeaderMouseClick);
-            // 
-            // saveDialog
-            // 
-            this.saveDialog.DefaultExt = "vsdx";
-            this.saveDialog.Filter = "Visio Files(*.vsdx)|*.vsdx";
-            // 
             // splitSolution
             // 
             this.splitSolution.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -328,23 +310,6 @@
             this.lblSolution.TabIndex = 5;
             this.lblSolution.Text = "Solution";
             // 
-            // splitTop
-            // 
-            this.splitTop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitTop.Location = new System.Drawing.Point(0, 0);
-            this.splitTop.Name = "splitTop";
-            // 
-            // splitTop.Panel1
-            // 
-            this.splitTop.Panel1.Controls.Add(this.splitSearch);
-            // 
-            // splitTop.Panel2
-            // 
-            this.splitTop.Panel2.Controls.Add(this.splitSolution);
-            this.splitTop.Size = new System.Drawing.Size(908, 25);
-            this.splitTop.SplitterDistance = 478;
-            this.splitTop.TabIndex = 8;
-            // 
             // ddlSolutions
             // 
             this.ddlSolutions.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -355,6 +320,42 @@
             this.ddlSolutions.Size = new System.Drawing.Size(371, 21);
             this.ddlSolutions.TabIndex = 0;
             this.ddlSolutions.SelectedIndexChanged += new System.EventHandler(this.ddlSolutions_SelectedIndexChanged);
+            // 
+            // grdFlows
+            // 
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.grdFlows.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdFlows.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.grdFlows.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdFlows.DefaultCellStyle = dataGridViewCellStyle3;
+            this.grdFlows.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdFlows.Location = new System.Drawing.Point(0, 0);
+            this.grdFlows.Name = "grdFlows";
+            this.grdFlows.ReadOnly = true;
+            this.grdFlows.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdFlows.Size = new System.Drawing.Size(908, 694);
+            this.grdFlows.TabIndex = 6;
+            this.grdFlows.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdFlows_CellClick);
+            this.grdFlows.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdFlows_ColumnHeaderMouseClick);
+            // 
+            // saveDialog
+            // 
+            this.saveDialog.DefaultExt = "vsdx";
+            this.saveDialog.Filter = "Visio Files(*.vsdx)|*.vsdx";
             // 
             // FlowToVisioControl
             // 
@@ -373,22 +374,22 @@
             this.splitMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).EndInit();
             this.splitMain.ResumeLayout(false);
+            this.splitTop.Panel1.ResumeLayout(false);
+            this.splitTop.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitTop)).EndInit();
+            this.splitTop.ResumeLayout(false);
             this.splitSearch.Panel1.ResumeLayout(false);
             this.splitSearch.Panel1.PerformLayout();
             this.splitSearch.Panel2.ResumeLayout(false);
             this.splitSearch.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitSearch)).EndInit();
             this.splitSearch.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdFlows)).EndInit();
             this.splitSolution.Panel1.ResumeLayout(false);
             this.splitSolution.Panel1.PerformLayout();
             this.splitSolution.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitSolution)).EndInit();
             this.splitSolution.ResumeLayout(false);
-            this.splitTop.Panel1.ResumeLayout(false);
-            this.splitTop.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitTop)).EndInit();
-            this.splitTop.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdFlows)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

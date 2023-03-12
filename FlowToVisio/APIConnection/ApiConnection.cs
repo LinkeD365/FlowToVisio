@@ -16,8 +16,10 @@ namespace LinkeD365.FlowToVisio
         public LogicAppConn laConn;
 
         private bool LogicApp;
+
         // Azure Active Directory registered app clientid for Microsoft samples
         private const string clientId = "51f81489-12ee-4a9e-aaae-a2591f45987d";
+
         // Azure Active Directory registered app Redirect URI for Microsoft samples
         private Uri redirectUri = new Uri("app://58145B91-0C36-4500-8554-080854F2AC97");
 
@@ -27,7 +29,6 @@ namespace LinkeD365.FlowToVisio
         private const string returnText = "Return URL for Configured App Regisration";
         private const string labelText = "Label for Connection";
         private const string environmentText = "Power Automate Environment Id";
-
 
         public ApiConnection(APIConns apiConnections, bool logicApp)
         {
@@ -49,7 +50,6 @@ namespace LinkeD365.FlowToVisio
                     cboFlowConns.Enabled = false;
 
                     chkUseDevApp.CheckedChanged += ChkUseDevApp_CheckedChanged;
-
                 }
             }
             else if (apiConns.LogicAppConns.Any())
@@ -62,13 +62,10 @@ namespace LinkeD365.FlowToVisio
                 EnableControls();
                 cboLAConns.Enabled = false;
                 chkLADev.CheckedChanged += ChkLADev_CheckedChanged;
-
             }
 
             panelFlow.Visible = !LogicApp;
             panelLogicApp.Visible = LogicApp;
-
-
         }
 
         private void EnableControls()
@@ -85,7 +82,6 @@ namespace LinkeD365.FlowToVisio
                 //txtName.Enabled = false;
                 //txtReturnURL.Enabled = false;
             }
-
             else
             {
                 panelLogicApp.Controls.OfType<TextBox>().ToList().ForEach(ctl => ctl.Enabled = false);
@@ -172,7 +168,7 @@ namespace LinkeD365.FlowToVisio
 
         private string GetInteractiveClientToken()
         {
-            AuthenticationContext ac = new AuthenticationContext($"https://login.microsoftonline.com/{ (LogicApp ? laConn.TenantId : flowConn.TenantId)}");
+            AuthenticationContext ac = new AuthenticationContext($"https://login.microsoftonline.com/{(LogicApp ? laConn.TenantId : flowConn.TenantId)}");
             string serviceURL = LogicApp ? "https://management.azure.com/" : "https://service.flow.microsoft.com/";
             string appId = LogicApp ? laConn.AppId : flowConn.AppId;
 
@@ -297,11 +293,8 @@ namespace LinkeD365.FlowToVisio
             chkUseDevApp.CheckedChanged += ChkUseDevApp_CheckedChanged;
             panelFlow.Controls.OfType<TextBox>().ToList().ForEach(txt => txt.ForeColor = Color.Black);
 
-
             txtAppId.Enabled = !chkUseDevApp.Checked;
             txtReturnURL.Enabled = !chkUseDevApp.Checked;
-
-
         }
 
         private void btnAddLA_Click(object sender, EventArgs e)
@@ -320,7 +313,6 @@ namespace LinkeD365.FlowToVisio
             txtLAName.Enabled = true;
             txtSubscriptionId.Enabled = true;
             chkLADev.Enabled = true;
-
         }
 
         private void btnFlowAdd_Click(object sender, EventArgs e)
@@ -339,7 +331,6 @@ namespace LinkeD365.FlowToVisio
             txtName.Enabled = true;
             txtEnvironment.Enabled = true;
             chkUseDevApp.Enabled = true;
-
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -361,7 +352,6 @@ namespace LinkeD365.FlowToVisio
             apiConns.FlowConns.Remove(removeFlow);
             if (apiConns.FlowConns.Any())
             {
-
                 cboFlowConns.Items.AddRange(apiConns.FlowConns.ToArray());
                 cboFlowConns.SelectedIndex = 0;
             }
@@ -399,7 +389,6 @@ namespace LinkeD365.FlowToVisio
             apiConns.LogicAppConns.Remove(removeLA);
             if (apiConns.LogicAppConns.Any())
             {
-
                 cboLAConns.Items.AddRange(apiConns.LogicAppConns.ToArray());
                 cboLAConns.SelectedIndex = 0;
             }
@@ -436,22 +425,27 @@ namespace LinkeD365.FlowToVisio
                 case "txtLAName":
                 case "txtName":
                     return labelText;
+
                 case "txtSubscriptionId":
                     return subscriptionText;
+
                 case "txtLAApp":
                 case "txtAppId":
                     return appText;
+
                 case "txtLAReturnURL":
                 case "txtReturnURL":
                     return returnText;
+
                 case "txtLATenant":
                 case "txtTenant":
                     return tenantText;
+
                 case "txtEnvironment":
                     return environmentText;
+
                 default:
                     return string.Empty;
-
             }
         }
 

@@ -1,10 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace LinkeD365.FlowToVisio
@@ -63,7 +60,9 @@ namespace LinkeD365.FlowToVisio
             Shape.Elements().Where(el => el.Attribute("N").Value == "EndTrigger").First()
                 .SetAttributeValue("F", "_XFTRIGGER(Sheet." + child.Id + "!EventXFMod)");
             var connection = XElement.Parse("<Row T='Connection' IX='" + (current + 6) + "'>" +
-                                            //  "<Cell N='X' V='0' U = 'MM' F = 'Width*1/5' />" +
+                                            // "
+                                            // <Cell N="X" V="0" U="MM" F="Width*1/5"/>
+                                            // " +
                                             "<Cell N='X' F = 'Width*" + current + '/' + (children + 1) + "'/>" +
                                             "<Cell N = 'Y' V = '0' U = 'MM' F = 'Height*0' />" +
                                             "<Cell N = 'DirX' V = '0' />" +
@@ -82,6 +81,7 @@ namespace LinkeD365.FlowToVisio
             Utils.Connects.Add(ConnectEnd);
         }
     }
+
     public class Trigger : Action
     {
         public Trigger(JProperty triggerProperty) : base(triggerProperty)
@@ -112,7 +112,6 @@ namespace LinkeD365.FlowToVisio
             sb.AppendLine((property.Value["inputs"] as JObject)["variables"][0]["name"].ToString());
             sb.AppendLine("Type: " + (property.Value["inputs"] as JObject)["variables"][0]["type"]);
             AddText(sb);
-
         }
     }
 
@@ -147,7 +146,8 @@ namespace LinkeD365.FlowToVisio
 
             if (property.Value["inputs"]["body"] != null)
                 sb.AppendLine("Body:" + property.Value["inputs"]["body"]);
-            //  foreach (var header in property.Value["inputs"]["body"] as JObject) sb.AppendLine(header.Key + " : " + header.Value);
+            // foreach (var header in property.Value["inputs"]["body"] as JObject)
+            // sb.AppendLine(header.Key + " : " + header.Value);
 
             AddText(sb);
         }
@@ -187,7 +187,6 @@ namespace LinkeD365.FlowToVisio
             AddType("HTTP Request");
 
             AddText("Schema: " + Property.Value["inputs"]["schema"]);
-
         }
     }
 

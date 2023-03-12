@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -16,22 +17,23 @@ namespace LinkeD365.FlowToVisio
     public partial class FlowToVisioControl : PluginControlBase
     {
         private List<FlowDefinition> flows;
+        private List<FlowRun> flowRuns;
 
         //private FlowConnection flowConnection;
         private LogicAppConn logicAppConn;
+
         private FlowConn flowConn;
         private APIConns aPIConnections;
 
         private void LoadFlows()
         {
-
             WorkAsync(new WorkAsyncInfo
             {
                 Message = "Retrieiving the Flows",
                 Work = (w, e) =>
                 {
                     var qe = new QueryExpression("workflow");
-                    qe.ColumnSet.AddColumns("ismanaged", "clientdata", "description", "name", "createdon", "modifiedon", "modifiedby", "createdby");
+                    qe.ColumnSet.AddColumns("ismanaged", "clientdata", "description", "name", "createdon", "modifiedon", "modifiedby", "createdby", "workflowidunique");
                     qe.Criteria.AddCondition("category", ConditionOperator.Equal, 5);
                     List<FlowDefinition> flowList = new List<FlowDefinition>();
 
@@ -45,7 +47,8 @@ namespace LinkeD365.FlowToVisio
                             Definition = flowRecord["clientdata"].ToString(),
                             Description = !flowRecord.Attributes.Contains("description") ? string.Empty : flowRecord["description"].ToString(),
                             Solution = true,
-                            Managed = (bool)flowRecord["ismanaged"]
+                            Managed = (bool)flowRecord["ismanaged"],
+                            UniqueId = flowRecord["workflowidunique"].ToString()
                         });
                     }
 
@@ -62,7 +65,6 @@ namespace LinkeD365.FlowToVisio
                         flows = returnFlows;
                         grdFlows.DataSource = flows;
                         SortGrid("Name", SortOrder.Ascending);
-
                     }
 
                     btnConnectCDS.Visible = !returnFlows.Any();
@@ -99,7 +101,6 @@ namespace LinkeD365.FlowToVisio
                             Id = solution["solutionid"].ToString(),
                             Name = solution["friendlyname"].ToString(),
                             Publisher = ((EntityReference)solution["publisherid"]).Name
-
                         });
                     }
 
@@ -116,7 +117,6 @@ namespace LinkeD365.FlowToVisio
                     solList.Insert(0, new Solution() { Name = "Filter on Solution" });
                     ddlSolutions.DataSource = solList;
                     ddlSolutions.DisplayMember = "Name";
-
                 },
             });
         }
@@ -130,7 +130,6 @@ namespace LinkeD365.FlowToVisio
                 Message = "Retrieiving the Flows for Solution",
                 Work = (w, e) =>
                 {
-
                     var qe = new QueryExpression("workflow");
                     qe.ColumnSet.AddColumns("ismanaged", "clientdata", "description", "name", "createdon", "modifiedon", "modifiedby", "createdby");
                     qe.AddOrder("name", OrderType.Ascending);
@@ -140,7 +139,6 @@ namespace LinkeD365.FlowToVisio
                     var sol = solComp.AddLink("solution", "solutionid", "solutionid");
                     sol.EntityAlias = "sol";
                     sol.LinkCriteria.AddCondition("solutionid", ConditionOperator.Equal, solId);
-
 
                     List<FlowDefinition> flowList = new List<FlowDefinition>();
 
@@ -158,7 +156,6 @@ namespace LinkeD365.FlowToVisio
                         });
                     }
 
-
                     e.Result = flowList;
                 },
                 ProgressChanged = e =>
@@ -171,19 +168,15 @@ namespace LinkeD365.FlowToVisio
                     grdFlows.DataSource = flows;
                     if (returnFlows.Any())
                     {
-
                         SortGrid("Name", SortOrder.Ascending);
-
                     }
 
                     btnConnectCDS.Visible = !returnFlows.Any();
                     btnConnectLogicApps.Visible = returnFlows.Any();
                     btnConnectFlow.Visible = returnFlows.Any();
-
                 },
             });
         }
-
 
         private void LoadUnSolutionedFlows()
         {
@@ -224,7 +217,6 @@ namespace LinkeD365.FlowToVisio
                             btnConnectCDS.Visible = flows.Any();
                             btnConnectFlow.Visible = !flows.Any();
                             splitTop.Panel2Collapsed = true;
-
                         }
                 }
             );
@@ -239,6 +231,7 @@ namespace LinkeD365.FlowToVisio
             flows = GetFlows(flows, url, w);
             return flows;
         }
+
         private List<FlowDefinition> GetFlows(List<FlowDefinition> flows, string url, BackgroundWorker w)
         {
             HttpResponseMessage response = _client.GetAsync(url).GetAwaiter()
@@ -256,6 +249,7 @@ namespace LinkeD365.FlowToVisio
                             new FlowDefinition
                             {
                                 Id = flowDef["name"].ToString(),
+                                UniqueId = flowDef["name"].ToString(),
                                 Solution = false,
                                 Name = flowDef["properties"]["displayName"].ToString(),
                                 OwnerType = flowDef["properties"]["userType"].ToString()
@@ -277,6 +271,7 @@ namespace LinkeD365.FlowToVisio
                 return null;
             }
         }
+
         private List<FlowDefinition> GetLogicApps(List<FlowDefinition> flows, string url, BackgroundWorker w)
         {
             if (flows == null)
@@ -324,17 +319,16 @@ namespace LinkeD365.FlowToVisio
 
         private JObject LoadFlow(FlowDefinition flowDefinition, string fileName, int flowCount)
         {
-
             // GetClient();
             string api = flowDefinition.LogicApp
                 ? $"https://management.azure.com{flowDefinition.Id}?api-version=2016-06-01"
                 : $"https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConn.Environment}/flows/{flowDefinition.Id}?&api-version=2016-11-01";
             var result = _client.GetAsync(api).GetAwaiter().GetResult();
 
-
             if (result.StatusCode == HttpStatusCode.OK)
             {
-                //     flowObject = JObject.Parse(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                // flowObject
+                // = JObject.Parse(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                 flowDefinition.Definition = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
                 GenerateVisio(fileName, flowDefinition, flowCount, flowDefinition.LogicApp);
             }
@@ -344,17 +338,15 @@ namespace LinkeD365.FlowToVisio
                 ShowError($"Status: {result.StatusCode}\r\n{result.ReasonPhrase}\r\nSee XrmToolBox log for details.", "Get Flow Error");
             }
 
-
-
-
-
             return null;
         }
+
         internal void ShowError(string error, string caption = null)
         {
             ShowError(new Exception(error), caption);
         }
-        internal void ShowError(Exception error, string caption = null)
+
+        private void ShowError(Exception error, string caption = null)
         {
             LogError(error.ToString());
             if (error.InnerException != null)
@@ -391,7 +383,6 @@ namespace LinkeD365.FlowToVisio
                         return;
                     }
 
-
                     if (args.Result is List<FlowDefinition>)
                     {
                         flows = args.Result as List<FlowDefinition>;
@@ -404,14 +395,13 @@ namespace LinkeD365.FlowToVisio
                     btnConnectFlow.Visible = flows.Any();
                     btnConnectLogicApps.Visible = !flows.Any();
                     splitTop.Panel2Collapsed = true;
-
                 }
             });
-
         }
 
         private void Connect(bool logicApps)
         {
+            if (_client != null) return;
             ApiConnection apiConnection = new ApiConnection(aPIConnections, logicApps);
             try
             {
@@ -443,169 +433,76 @@ namespace LinkeD365.FlowToVisio
                 return;
             }
         }
-    }
-    public class Solution
-    {
-        public string Name { get; set; }
-        public string Publisher { get; set; }
-        public string Id { get; set; }
-    }
-    public class FlowDefinition
-    {
-        public bool Solution;
-        public string Id;
-        public string Definition;
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public bool Managed { get; set; }
-        public string OwnerType { get; set; }
-        public bool LogicApp { get; internal set; }
 
-        public List<Comment> Comments = new List<Comment>();
-    }
-
-    class FlowDefComparer : IComparer<FlowDefinition>
-    {
-        string memberName = string.Empty; // specifies the member name to be sorted
-        SortOrder sortOrder = SortOrder.None; // Specifies the SortOrder.
-
-
-        public FlowDefComparer(string strMemberName, SortOrder sortingOrder)
+        private void GetAllFlowRuns(FlowDefinition flow)
         {
-            memberName = strMemberName;
-            sortOrder = sortingOrder;
-        }
+            Connect(false);
+            if (_client == null) return;
+            SettingsManager.Instance.Save(typeof(APIConns), aPIConnections);
 
+            string url = $"https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/{flowConn.Environment}/flows/{flow.UniqueId}/runs?&api-version=2016-11-01";
+            flowRuns = new List<FlowRun>();
 
-        public int Compare(FlowDefinition flow1, FlowDefinition flow2)
-        {
-            int returnValue = 1;
-            switch (memberName)
+            WorkAsync(new WorkAsyncInfo
             {
-                case "Name":
-                    if (sortOrder == SortOrder.Ascending)
+                Message = "Loading Runs",
+                Work = (w, args) => args.Result = GetFlowRuns(flowRuns, url, w),
+                PostWorkCallBack = args =>
+                {
+                    if (args.Error != null)
                     {
-                        returnValue = flow1.Name.CompareTo(flow2.Name);
-                    }
-                    else
-                    {
-                        returnValue = flow2.Name.CompareTo(flow1.Name);
-                    }
-
-                    break;
-
-                case "Description":
-                    if (sortOrder == SortOrder.Ascending)
-                    {
-                        returnValue = flow1.Description.CompareTo(flow2.Description);
-                    }
-                    else
-                    {
-                        returnValue = flow2.Description.CompareTo(flow1.Description);
+                        ShowError(args.Error, "Error retrieving Flow Runs via API");
+                        return;
                     }
 
-                    break;
-                case "Managed":
-                    if (sortOrder == SortOrder.Ascending)
+                    if (args.Result is List<FlowRun>)
                     {
-                        returnValue = flow1.Managed.CompareTo(flow2.Managed);
+                        FlowRunForm flowRunForm = new FlowRunForm(args.Result as List<FlowRun>, flow, flowConn, _client, this);
+                        flowRunForm.ShowDialog();
+
+                        if (flowRunForm.DialogResult == DialogResult.Yes) GetAllFlowRuns(flow);
                     }
-                    else
-                    {
-                        returnValue = flow2.Managed.CompareTo(flow1.Managed);
-                    }
-                    break;
-                default:
-                    if (sortOrder == SortOrder.Ascending)
-                    {
-                        returnValue = flow1.Name.CompareTo(flow2.Name);
-                    }
-                    else
-                    {
-                        returnValue = flow2.Name.CompareTo(flow1.Name);
-                    }
-                    break;
-            }
-            return returnValue;
-        }
-    }
-    public class FlowConnection
-    {
-        public string AppId;// = string.Empty;
-        public string TenantId = string.Empty;
-        public string ReturnURL = string.Empty;
-        public string Environment = string.Empty;
-        public bool UseDev;
-        public string SubscriptionId = string.Empty;
-
-        public string LATenantId = string.Empty;
-        public string LAAppId = string.Empty;
-        public string LAReturnURL = string.Empty;
-        public bool LAUseDev;
-    }
-
-    public class APIConns
-    {
-        public List<LogicAppConn> LogicAppConns = new List<LogicAppConn>();
-        public List<FlowConn> FlowConns = new List<FlowConn>();
-
-        public Display Display = new Display();
-    }
-
-    public class Display
-    {
-        public bool ShowConCurrency { get; set; }
-        public bool ShowSecure { get; set; }
-        public bool ShowTrackedProps { get; set; }
-        public bool ShowTriggers { get; set; }
-        public bool ShowTrackingID { get; set; }
-        public bool ShowComments { get; set; } = true;
-    }
-
-    public class LogicAppConn
-    {
-        public int Id = 0;
-        public string Name = string.Empty;
-        public string SubscriptionId = string.Empty;
-        public string TenantId = string.Empty;
-        public string AppId = string.Empty;
-        public string ReturnURL = string.Empty;
-        public bool UseDev;
-
-        public override string ToString()
-        {
-            return Name;
+                }
+            });
+            // GetFlowRuns(url);
         }
 
-        public override bool Equals(object obj)
+        private List<FlowRun> GetFlowRuns(List<FlowRun> flows, string url, BackgroundWorker w)
         {
-            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            HttpResponseMessage response = _client.GetAsync(url).GetAwaiter().GetResult();
+            if (response.StatusCode == HttpStatusCode.OK)
             {
-                return false;
+                var flowRunsJO = JObject.Parse(
+                                       response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                if (flowRunsJO["value"].HasValues)
+                {
+                    foreach (JToken flowRunJO in flowRunsJO["value"].Children())
+                    {
+                        flows.Add(
+                            new FlowRun
+                            {
+                                Id = flowRunJO["name"].ToString(),// 2023-03-06T16:43:39.6247123Z
+                                Start = (DateTime)flowRunJO["properties"]["startTime"],//  DateTime.ParseExact(flowRunJO["properties"]["startTime"].ToString(), "yyyy-MM-ddTHH:mm:ss.fffffffZ", CultureInfo.InvariantCulture, DateTimeStyles.None),
+                                End = (DateTime?)flowRunJO["properties"]["endTime"],
+                                Status = flowRunJO["properties"]["status"].ToString()
+                            }); ; ;
+                    }
+                }
+
+                if (flowRunsJO.GetValue("nextLink") != null)
+                {
+                    GetFlowRuns(flows, flowRunsJO["nextLink"].ToString(), w);
+                }
+                return flowRuns;
             }
             else
             {
-                LogicAppConn p = (LogicAppConn)obj;
-                return (Id == p.Id);
+                LogError("Get Flow Runs via API", response);
+                ShowError(
+                    $"Status: {response.StatusCode}\r\n{response.ReasonPhrase}\r\nSee XrmToolBox log for details.",
+                    "Get Flow Runs via API error");
+                return null;
             }
         }
     }
-
-    public class FlowConn
-    {
-        public int Id = 0;
-        public string Name;
-        public string AppId;// = string.Empty;
-        public string TenantId = string.Empty;
-        public string ReturnURL = string.Empty;
-        public string Environment = string.Empty;
-        public bool UseDev;
-
-        public override string ToString()
-        {
-            return Name;
-        }
-    }
-
-
 }

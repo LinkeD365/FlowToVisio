@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,10 +21,7 @@ namespace LinkeD365.FlowToVisio
 
                 if (actionProperty.Parent != null && actionProperty.Parent.Children<JProperty>().Any(el => el.Value["runAfter"].HasValues && ((JProperty)el.Value["runAfter"].First()).Name == childAction.Name))
                     AddChildActions(actionProperty.Parent.Children<JProperty>().Where(el => el.Value["runAfter"].HasValues && ((JProperty)el.Value["runAfter"].First()).Name == childAction.Name), childAction, finalNo);
-
-
             }
         }
-
     }
 }

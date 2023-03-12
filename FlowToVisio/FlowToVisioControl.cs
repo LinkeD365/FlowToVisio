@@ -1,4 +1,5 @@
-﻿using McTools.Xrm.Connection;
+﻿using LinkeD365.FlowToVisio.Properties;
+using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
@@ -65,13 +66,10 @@ namespace LinkeD365.FlowToVisio
                     }
 
                     return;
-
                 }
-
             }
             catch (Exception)
             {
-
             }
             if (!SettingsManager.Instance.TryLoad(GetType(), out aPIConnections))
             {
@@ -79,7 +77,6 @@ namespace LinkeD365.FlowToVisio
 
                 LogWarning("Settings not found => a new settings file has been created!");
             }
-
         }
 
         private void tsbClose_Click(object sender, EventArgs e)
@@ -95,7 +92,14 @@ namespace LinkeD365.FlowToVisio
         }
 
         /// <summary>
-        /// This event occurs when the connection has been updated in XrmToolBox
+        /// This
+        /// event
+        /// occurs
+        /// when the
+        /// connection
+        /// has been
+        /// updated
+        /// in XrmToolBox
         /// </summary>
         public override void UpdateConnection(IOrganizationService newService, ConnectionDetail detail, string actionName, object parameter)
         {
@@ -103,7 +107,8 @@ namespace LinkeD365.FlowToVisio
 
             if (flowConn != null && detail != null)
             {
-                //  mySettings.LastUsedOrganizationWebappUrl = detail.WebApplicationUrl;
+                // mySettings.LastUsedOrganizationWebappUrl
+                // = detail.WebApplicationUrl;
                 LogInfo("Connection has changed to: {0}", detail.WebApplicationUrl);
             }
 
@@ -122,7 +127,6 @@ namespace LinkeD365.FlowToVisio
             {
                 var selectFlow = ((FlowDefinition)grdFlows.SelectedRows[0].DataBoundItem);
 
-
                 saveDialog.FileName = selectFlow.Name + ".vsdx";
                 if (saveDialog.ShowDialog() != DialogResult.OK)
                 {
@@ -132,7 +136,8 @@ namespace LinkeD365.FlowToVisio
                 if (selectFlow.Solution)
                 {
                     PopulateComment(selectFlow);
-                    // flowObject = JObject.Parse(selectFlow.Definition);
+                    // flowObject
+                    // = JObject.Parse(selectFlow.Definition);
                     GenerateVisio(saveDialog.FileName, selectFlow, 1);
                 }
                 else
@@ -164,14 +169,10 @@ namespace LinkeD365.FlowToVisio
                     else
                     {
                         LoadFlow(selFlow, saveDialog.FileName, flowCount);
-
                     }
                 }
-
-
             }
             CompleteVisio(saveDialog.FileName);
-
         }
 
         public List<dynamic> Sort<T>(List<dynamic> input, string property)
@@ -180,7 +181,8 @@ namespace LinkeD365.FlowToVisio
             var sortProperty = type.GetProperty(property);
             return input.OrderBy(p => sortProperty.GetValue(p, null)).ToList();
         }
-        private SortOrder getSortOrder(int columnIndex)
+
+        private SortOrder GetSortOrder(int columnIndex)
         {
             if (grdFlows.Columns[columnIndex].HeaderCell.SortGlyphDirection == SortOrder.None ||
                 grdFlows.Columns[columnIndex].HeaderCell.SortGlyphDirection == SortOrder.Descending)
@@ -194,15 +196,15 @@ namespace LinkeD365.FlowToVisio
                 return SortOrder.Descending;
             }
         }
+
         private void grdFlows_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            SortOrder sortOrder = getSortOrder(e.ColumnIndex);
+            if (grdFlows.Columns[e.ColumnIndex].SortMode == DataGridViewColumnSortMode.NotSortable) return;
+            SortOrder sortOrder = GetSortOrder(e.ColumnIndex);
 
             SortGrid(grdFlows.Columns[e.ColumnIndex].Name, sortOrder);
-            // string strColumnName = grdFlows.Columns[e.ColumnIndex].Name;
-
-
-
+            // string strColumnName
+            // = grdFlows.Columns[e.ColumnIndex].Name;
         }
 
         private void SortGrid(string name, SortOrder sortOrder)
@@ -233,6 +235,7 @@ namespace LinkeD365.FlowToVisio
             //GetClient();
             LoadUnSolutionedFlows();
         }
+
         private void PopulateComment(FlowDefinition selectFlow)
         {
             if (!selectFlow.Solution) return;
@@ -268,14 +271,33 @@ namespace LinkeD365.FlowToVisio
             ExecuteMethod(LoadSolutions);
         }
 
-
-
         private void InitGrid()
         {
             grdFlows.AutoResizeColumns();
             grdFlows.Columns["Name"].SortMode = DataGridViewColumnSortMode.Automatic;
+            grdFlows.Columns["Description"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
             grdFlows.Columns["Managed"].SortMode = DataGridViewColumnSortMode.Automatic;
+
+            if (btnConnectLogicApps.Visible)
+            {
+                if (grdFlows.Columns["history"] != null)
+                {
+                    var histCol = grdFlows.Columns["history"];
+                    histCol.DisplayIndex = grdFlows.ColumnCount - 1;
+                }
+                else
+                {
+                    DataGridViewImageColumn history = new DataGridViewImageColumn();
+                    history.Width = 20;
+                    history.HeaderText = "History";
+                    history.Name = "history";
+                    history.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                    history.Image = Resources.powerautomate__Custom_;
+                    history.ImageLayout = DataGridViewImageCellLayout.Normal;
+                    grdFlows.Columns.Add(history);
+                }
+            }
         }
 
         private void btnConnectLogicApps_Click(object sender, EventArgs e)
@@ -286,36 +308,30 @@ namespace LinkeD365.FlowToVisio
         private void chkShowConCurrency_CheckedChanged(object sender, EventArgs e)
         {
             aPIConnections.Display.ShowConCurrency = chkShowConCurrency.Checked;
-
         }
 
         private void chkShowConCurrency_Click(object sender, EventArgs e)
         {
         }
 
-
         private void chkShowTrackedProps_CheckedChanged(object sender, EventArgs e)
         {
             aPIConnections.Display.ShowTrackedProps = chkShowTrackedProps.Checked;
-
         }
 
         private void chkShowTriggerConditions_CheckedChanged(object sender, EventArgs e)
         {
             aPIConnections.Display.ShowTriggers = chkShowTriggerConditions.Checked;
-
         }
 
         private void chkShowSecure_CheckedChanged(object sender, EventArgs e)
         {
             aPIConnections.Display.ShowSecure = chkShowSecure.Checked;
-
         }
 
         private void chkShowCustomTracking_CheckedChanged(object sender, EventArgs e)
         {
             aPIConnections.Display.ShowTrackingID = chkShowCustomTracking.Checked;
-
         }
 
         private void chkShowComments_CheckedChanged(object sender, EventArgs e)
@@ -326,6 +342,15 @@ namespace LinkeD365.FlowToVisio
         private void ddlSolutions_SelectedIndexChanged(object sender, EventArgs e)
         {
             ExecuteMethod(GetFlowsForSolution);
+        }
+
+        private void grdFlows_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (grdFlows.Columns[e.ColumnIndex].Name == "history" && e.RowIndex >= 0)
+            {
+                FlowDefinition flow = grdFlows.Rows[e.RowIndex].DataBoundItem as FlowDefinition;
+                GetAllFlowRuns(flow);
+            }
         }
     }
 }

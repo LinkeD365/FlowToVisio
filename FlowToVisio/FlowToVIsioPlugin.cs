@@ -9,8 +9,8 @@ using XrmToolBox.Extensibility.Interfaces;
 
 namespace LinkeD365.FlowToVisio
 {
-    // Do not forget to update version number and author (company attribute) in AssemblyInfo.cs class
-    // To generate Base64 string for Images below, you can use https://www.base64-image.de/
+    // Do not forget to update version number and author (company attribute) in AssemblyInfo.cs
+    // class To generate Base64 string for Images below, you can use https://www.base64-image.de/
     [Export(typeof(IXrmToolBoxPlugin))]
     [ExportMetadata("Name", "Flow Visio Builder")]
     [ExportMetadata("Description", "Tool to document Power Automate Flows in Visio")]
@@ -22,7 +22,6 @@ namespace LinkeD365.FlowToVisio
     [ExportMetadata("PrimaryFontColor", "Black")]
     [ExportMetadata("SecondaryFontColor", "Gray")]
     public class FlowToVisioPlugin : PluginBase, IPayPalPlugin
-
 
     {
         public string DonationDescription => "Flow to Visio Fans";
@@ -45,9 +44,9 @@ namespace LinkeD365.FlowToVisio
         }
 
         /// <summary>
-        /// Event fired by CLR when an assembly reference fails to load
-        /// Assumes that related assemblies will be loaded from a subfolder named the same as the Plugin
-        /// For example, a folder named Sample.XrmToolBox.MyPlugin
+        /// Event fired by CLR when an assembly reference fails to load Assumes that related
+        /// assemblies will be loaded from a subfolder named the same as the Plugin For example, a
+        /// folder named Sample.XrmToolBox.MyPlugin
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
