@@ -34,6 +34,7 @@ namespace LinkeD365.FlowToVisio
             SortFlowGrid("Start", SortOrder.Descending);
             Text = "Runs for " + flowDefinition.Name;
             lblCancel.Visible = false;
+            Utils.Ai.WriteEvent("Flow Runs Displayed", runs.Count);
         }
 
         private void SetupFilter()
@@ -122,6 +123,8 @@ namespace LinkeD365.FlowToVisio
                     }
                 }
             });
+
+            Utils.Ai.WriteEvent("Flow Runs Cancelled", flowRuns.Count);
         }
 
         private void chkAll_CheckedChanged(object sender, EventArgs e)
