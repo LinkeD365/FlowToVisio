@@ -401,7 +401,8 @@ namespace LinkeD365.FlowToVisio
 
         private void Connect(bool logicApps)
         {
-            if (_client != null) return;
+            if (logicApps && logicAppConn != null) return;
+            if (!logicApps && flowConn != null) return;
             ApiConnection apiConnection = new ApiConnection(aPIConnections, logicApps);
             try
             {
