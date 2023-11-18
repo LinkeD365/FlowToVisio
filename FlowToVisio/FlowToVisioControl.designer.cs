@@ -98,7 +98,7 @@
             // 
             this.tsbClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbClose.Name = "tsbClose";
-            this.tsbClose.Size = new System.Drawing.Size(86, 28);
+            this.tsbClose.Size = new System.Drawing.Size(107, 28);
             this.tsbClose.Text = "Close this tool";
             this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
             // 
@@ -112,7 +112,7 @@
             this.btnCreateVisio.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateVisio.Image")));
             this.btnCreateVisio.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCreateVisio.Name = "btnCreateVisio";
-            this.btnCreateVisio.Size = new System.Drawing.Size(97, 28);
+            this.btnCreateVisio.Size = new System.Drawing.Size(116, 28);
             this.btnCreateVisio.Text = "Create Visio";
             this.btnCreateVisio.Click += new System.EventHandler(this.btnCreateVisio_Click);
             // 
@@ -121,7 +121,7 @@
             this.btnConnectFlow.Image = global::LinkeD365.FlowToVisio.Properties.Resources.powerautomate;
             this.btnConnectFlow.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnConnectFlow.Name = "btnConnectFlow";
-            this.btnConnectFlow.Size = new System.Drawing.Size(143, 28);
+            this.btnConnectFlow.Size = new System.Drawing.Size(170, 28);
             this.btnConnectFlow.Text = "Connect to Flow API";
             this.btnConnectFlow.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -130,7 +130,7 @@
             this.btnConnectCDS.Image = global::LinkeD365.FlowToVisio.Properties.Resources.Dataverse_32x32;
             this.btnConnectCDS.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnConnectCDS.Name = "btnConnectCDS";
-            this.btnConnectCDS.Size = new System.Drawing.Size(148, 28);
+            this.btnConnectCDS.Size = new System.Drawing.Size(179, 28);
             this.btnConnectCDS.Text = "Connect to Dataverse";
             this.btnConnectCDS.Click += new System.EventHandler(this.btnConnectCDS_Click);
             // 
@@ -139,7 +139,7 @@
             this.btnConnectLogicApps.Image = ((System.Drawing.Image)(resources.GetObject("btnConnectLogicApps.Image")));
             this.btnConnectLogicApps.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnConnectLogicApps.Name = "btnConnectLogicApps";
-            this.btnConnectLogicApps.Size = new System.Drawing.Size(156, 28);
+            this.btnConnectLogicApps.Size = new System.Drawing.Size(187, 28);
             this.btnConnectLogicApps.Text = "Connect to Logic Apps";
             this.btnConnectLogicApps.Click += new System.EventHandler(this.btnConnectLogicApps_Click);
             // 
@@ -155,14 +155,14 @@
             this.dropOptions.Image = global::LinkeD365.FlowToVisio.Properties.Resources.Options;
             this.dropOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.dropOptions.Name = "dropOptions";
-            this.dropOptions.Size = new System.Drawing.Size(86, 28);
+            this.dropOptions.Size = new System.Drawing.Size(99, 28);
             this.dropOptions.Text = "Options";
             // 
             // chkShowCustomTracking
             // 
             this.chkShowCustomTracking.CheckOnClick = true;
             this.chkShowCustomTracking.Name = "chkShowCustomTracking";
-            this.chkShowCustomTracking.Size = new System.Drawing.Size(203, 22);
+            this.chkShowCustomTracking.Size = new System.Drawing.Size(254, 26);
             this.chkShowCustomTracking.Text = "Show Custom Tracking";
             this.chkShowCustomTracking.CheckedChanged += new System.EventHandler(this.chkShowCustomTracking_CheckedChanged);
             // 
@@ -170,7 +170,7 @@
             // 
             this.chkShowSecure.CheckOnClick = true;
             this.chkShowSecure.Name = "chkShowSecure";
-            this.chkShowSecure.Size = new System.Drawing.Size(203, 22);
+            this.chkShowSecure.Size = new System.Drawing.Size(254, 26);
             this.chkShowSecure.Text = "Show Secure Params";
             this.chkShowSecure.CheckedChanged += new System.EventHandler(this.chkShowSecure_CheckedChanged);
             // 
@@ -178,7 +178,7 @@
             // 
             this.chkShowConCurrency.CheckOnClick = true;
             this.chkShowConCurrency.Name = "chkShowConCurrency";
-            this.chkShowConCurrency.Size = new System.Drawing.Size(203, 22);
+            this.chkShowConCurrency.Size = new System.Drawing.Size(254, 26);
             this.chkShowConCurrency.Text = "Show Concurrency";
             this.chkShowConCurrency.CheckedChanged += new System.EventHandler(this.chkShowConCurrency_CheckedChanged);
             this.chkShowConCurrency.Click += new System.EventHandler(this.chkShowConCurrency_Click);
@@ -187,7 +187,7 @@
             // 
             this.chkShowTriggerConditions.CheckOnClick = true;
             this.chkShowTriggerConditions.Name = "chkShowTriggerConditions";
-            this.chkShowTriggerConditions.Size = new System.Drawing.Size(203, 22);
+            this.chkShowTriggerConditions.Size = new System.Drawing.Size(254, 26);
             this.chkShowTriggerConditions.Text = "Show Trigger Conditions";
             this.chkShowTriggerConditions.CheckedChanged += new System.EventHandler(this.chkShowTriggerConditions_CheckedChanged);
             // 
@@ -196,7 +196,7 @@
             this.chkShowTrackedProps.CheckOnClick = true;
             this.chkShowTrackedProps.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.chkShowTrackedProps.Name = "chkShowTrackedProps";
-            this.chkShowTrackedProps.Size = new System.Drawing.Size(203, 22);
+            this.chkShowTrackedProps.Size = new System.Drawing.Size(254, 26);
             this.chkShowTrackedProps.Text = "Show Tracked Properties";
             this.chkShowTrackedProps.CheckedChanged += new System.EventHandler(this.chkShowTrackedProps_CheckedChanged);
             // 
@@ -204,7 +204,7 @@
             // 
             this.chkShowComments.CheckOnClick = true;
             this.chkShowComments.Name = "chkShowComments";
-            this.chkShowComments.Size = new System.Drawing.Size(203, 22);
+            this.chkShowComments.Size = new System.Drawing.Size(254, 26);
             this.chkShowComments.Text = "Show Comments";
             this.chkShowComments.CheckedChanged += new System.EventHandler(this.chkShowComments_CheckedChanged);
             // 
@@ -269,7 +269,7 @@
             this.lblSearch.AutoSize = true;
             this.lblSearch.Location = new System.Drawing.Point(3, 2);
             this.lblSearch.Name = "lblSearch";
-            this.lblSearch.Size = new System.Drawing.Size(41, 13);
+            this.lblSearch.Size = new System.Drawing.Size(46, 15);
             this.lblSearch.TabIndex = 5;
             this.lblSearch.Text = "Search";
             // 
@@ -306,7 +306,7 @@
             this.lblSolution.AutoSize = true;
             this.lblSolution.Location = new System.Drawing.Point(0, 6);
             this.lblSolution.Name = "lblSolution";
-            this.lblSolution.Size = new System.Drawing.Size(45, 13);
+            this.lblSolution.Size = new System.Drawing.Size(52, 15);
             this.lblSolution.TabIndex = 5;
             this.lblSolution.Text = "Solution";
             // 
@@ -346,6 +346,7 @@
             this.grdFlows.Location = new System.Drawing.Point(0, 0);
             this.grdFlows.Name = "grdFlows";
             this.grdFlows.ReadOnly = true;
+            this.grdFlows.RowHeadersWidth = 51;
             this.grdFlows.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdFlows.Size = new System.Drawing.Size(908, 694);
             this.grdFlows.TabIndex = 6;

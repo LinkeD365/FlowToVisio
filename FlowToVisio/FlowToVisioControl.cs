@@ -84,22 +84,9 @@ namespace LinkeD365.FlowToVisio
             CloseTool();
         }
 
-        public override void ClosingPlugin(PluginCloseInfo info)
-        {
-            SettingsManager.Instance.Save(GetType(), aPIConnections);
-
-            base.ClosingPlugin(info);
-        }
-
         /// <summary>
-        /// This
-        /// event
-        /// occurs
-        /// when the
-        /// connection
-        /// has been
-        /// updated
-        /// in XrmToolBox
+        /// This event occurs when the connection has been
+        /// updated in XrmToolBox
         /// </summary>
         public override void UpdateConnection(IOrganizationService newService, ConnectionDetail detail, string actionName, object parameter)
         {

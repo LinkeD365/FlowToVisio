@@ -11,6 +11,8 @@
 		<iconUrl>https://linked365.blog/wp-content/uploads/2020/03/smallIcon.png</iconUrl>
 		<description>A XrmToolBox tool to create Visio diagram of your Power Automate Flows that are within your CDS</description>
 		<releaseNotes>
+			Updated to latest version of XrmToolBox
+			
 			Added functionality to view flow Runs then cancel one or more runs
 
 			Updated tool version
