@@ -82,7 +82,7 @@ namespace LinkeD365.FlowToVisio
                 if (_actionTemplate == null)
                 {
 #if DEBUG
-                    _actionTemplate = JObject.Parse(File.ReadAllText(@"D:\Live\FlowToVisio\actions.json"));
+                    _actionTemplate = JObject.Parse(File.ReadAllText(@"C:\Live\FlowToVisio\actions.json"));
 #else
                     string jsonString =
                         new System.Net.WebClient().DownloadString("https://raw.githubusercontent.com/LinkeD365/FlowToVisio/master/actions.json");

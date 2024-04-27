@@ -1948,6 +1948,104 @@
           "parameter": true
         }
       }
+    },
+    "List Teams": {
+      "type": "OpenApiConnection",
+      "visioShape": "Teams",
+      "connectionName": "shared_teams",
+      "operationId": "GetAllTeams",
+      "display": {
+
+      }
+
+    },
+    "Add Team Member": {
+      "type": "OpenApiConnection",
+      "visioShape": "Teams",
+      "connectionName": "shared_teams",
+      "operationId": "AddMemberToTeam",
+      "display": {
+        "TeamsId": { "value": "inputs|parameters|teamId" },
+        "Member": { "value": "inputs|parameters|body/userId" },
+        "Add As Owner": { "value": "inputs|parameters|body/owner" }
+      },
+      "Create Teams Meeting": {
+        "type": "OpenApiConnection",
+        "visioShape": "Teams",
+        "connectionName": "shared_teams",
+        "operationId": "CreateTeamsMeeting",
+        "display": {
+          "CalendarId": { "value": "inputs|parameters|calendarid" },
+          "Subject": { "value": "inputs|parameters|item/subject" },
+          "Body": { "value": "inputs|parameters|item/body/content" },
+          "Timezone": { "value": "inputs|parameters|item/timeZone" },
+          "Start Time": { "value": "inputs|parameters|item/start/dateTime" },
+          "End Time": { "value": "inputs|parameters|item/end/dateTime" },
+          "Required Attendees": { "value": "inputs|parameters|item/requiredAttendees" },
+          "Optional Attendees": { "value": "inputs|parameters|item/optionalAttendees" },
+          "Values": {
+            "value": "inputs|parameters|item/",
+            "parameter": true
+          }
+        }
+      },
+      "Create a Chat": {
+        "type": "OpenApiConnection",
+        "visioShape": "Teams",
+        "connectionName": "shared_teams",
+        "operationId": "CreateChat",
+        "display": {
+          "Members": { "value": "inputs|parameters|item/members" },
+          "Title": { "value": "inputs|parameters|item/topic" }
+        }
+      },
+      "Create a Team": {
+        "type": "OpenApiConnection",
+        "visioShape": "Teams",
+        "connectionName": "shared_teams",
+        "operationId": "CreateATeam",
+        "display": {
+          "Display Name": { "value": "inputs|parameters|body/displayName" },
+          "Desciption": { "value": "inputs|parameters|body/description" },
+          "Visibility": { "value": "inputs|parameters|body/visibility" }
+        }
+      },
+      "Get Message": {
+        "type": "OpenApiConnection",
+        "visioShape": "Teams",
+        "connectionName": "shared_teams",
+        "operationId": "GetMessageDetails",
+        "display": {
+          "Message Id": { "value": "inputs|parameters|messageId" },
+          "Thread Type": { "value": "inputs|parameters|threadType" },
+          "Group": { "value": "inputs|parameters|recipient/groupId" },
+          "Channel": { "value": "inputs|parameters|body/recipient/channelId" },
+          "Visibility": { "value": "inputs|parameters|body/recipient/visibility" },
+          "Parent Message Id": { "value": "inputs|parameters|body/recipient/parentMessageId" },
+          "Recipient": { "value": "inputs|parameters|recipient" }
+
+        }
+      },
+      "Get messages": {
+        "type": "OpenApiConnection",
+        "visioShape": "Teams",
+        "connectionName": "shared_teams",
+        "operationId": "GetMessagesFromChannel",
+        "display": {
+          "Group": { "value": "inputs|parameters|groupId" },
+          "Channel": { "value": "inputs|parameters|channelId" }
+        }
+      },
+      "List members": {
+        "type": "OpenApiConnection",
+        "visioShape": "Teams",
+        "connectionName": "shared_teams",
+        "operationId": "ListMembers",
+        "display": {
+          "Thread Type": { "value": "inputs|parameters|threadType" },
+          "Recipient": { "value": "inputs|parameters|body/recipient" }
+        }
+      }
     }
   }
 }

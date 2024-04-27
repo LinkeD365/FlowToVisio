@@ -9,63 +9,67 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<projectUrl>https://github.com/LinkeD365/FlowToVisio</projectUrl>
 		<iconUrl>https://linked365.blog/wp-content/uploads/2020/03/smallIcon.png</iconUrl>
-		<description>A XrmToolBox tool to create Visio diagram of your Power Automate Flows that are within your CDS</description>
+		<description>A XrmToolBox tool to create Visio diagram of your Power Automate Flows that are within solutions, not in solutions and also Logic Apps</description>
 		<releaseNotes>
-			Updated to latest version of XrmToolBox
-			
-			Added functionality to view flow Runs then cancel one or more runs
+      Tweaked Teams displays and added fix for switches
+      #43 Fixed
+      PR from @filcole
 
-			Updated tool version
-			added Actions for dataverse
-			#36 Added solution filter
+      Updated to latest version of XrmToolBox
 
-			#35 Added toggle to display comments
+      Added functionality to view flow Runs then cancel one or more runs
 
-			#33, #34 flows with [] in the name are corrupted (Thanks @RobCieloCosta, @banderson-eco)
+      Updated tool version
+      added Actions for dataverse
+      #36 Added solution filter
 
-			#31 Added Options drop down to allow display of advanced settings
-			Added more detail to Http triggers and actions
+      #35 Added toggle to display comments
 
-			#31, #32 Reduced bottom border for all shapes (Thanks @rappen, @mrhyde1st)
-			#30 Added append to string icon and value (DO IT YOUR SELF NEXT TIME @MCJ)
-			#29 Added SQL actions, which led to a lot of work to get parameters showing (Bloody MCJ)
-			#28 Added open file option (Thanks @MCJ)
-			#27 Resolved issue with Dataverse shape (thanks @Geoff-RSM)
-			#26 Resolved issue where no connectors on logic apps caused error (thanks @BTSSCarol)
-			#15 Allowed multi select of flows to create a large file (thanks @MichaelLaMontagne)
+      #33, #34 flows with [] in the name are corrupted (Thanks @RobCieloCosta, @banderson-eco)
 
-			#25 Added Help and improved user interface for connecting to Power Automate and Logic Apps
+      #31 Added Options drop down to allow display of advanced settings
+      Added more detail to Http triggers and actions
 
-			#23 Fixed Filter/Search
-			#22 Fixed Sort
-			#20 Also returns flows that have been shared with me (Thanks Gilles) 👍
-			#24 Allowed multi configurations for Power Automate and Logic Apps (Thanks Fred) 🙌
-			Changed retrun from Flow and Logic apps to check if there are more to get
+      #31, #32 Reduced bottom border for all shapes (Thanks @rappen, @mrhyde1st)
+      #30 Added append to string icon and value (DO IT YOUR SELF NEXT TIME @MCJ)
+      #29 Added SQL actions, which led to a lot of work to get parameters showing (Bloody MCJ)
+      #28 Added open file option (Thanks @MCJ)
+      #27 Resolved issue with Dataverse shape (thanks @Geoff-RSM)
+      #26 Resolved issue where no connectors on logic apps caused error (thanks @BTSSCarol)
+      #15 Allowed multi select of flows to create a large file (thanks @MichaelLaMontagne)
 
-			#17 Added Office 365 actions
+      #25 Added Help and improved user interface for connecting to Power Automate and Logic Apps
 
-			#16 Added Logic App config, very beta 🤞
+      #23 Fixed Filter/Search
+      #22 Fixed Sort
+      #20 Also returns flows that have been shared with me (Thanks Gilles) 👍
+      #24 Allowed multi configurations for Power Automate and Logic Apps (Thanks Fred) 🙌
+      Changed retrun from Flow and Logic apps to check if there are more to get
 
-			#14 Removed File button
-			#13 Fixed bug in conditions missing steps
-			#8 Implemented INoConnectionRequired to tidy up and removed initial call to get flows from Dataverse 😜
+      #17 Added Office 365 actions
 
-			#11 Fixed display of _ in titles
-			#10 Modified Title rendering to allow for quotes and double quotes (Thanks Amey)
+      #16 Added Logic App config, very beta 🤞
 
-			#9 Added Dev Azure APP info
-			Added additional logging around Flow API access
-			Added Append Array Increment Variables 🎁
-			Added Office Users✨
+      #14 Removed File button
+      #13 Fixed bug in conditions missing steps
+      #8 Implemented INoConnectionRequired to tidy up and removed initial call to get flows from Dataverse 😜
 
-			#7 Resolved issue with repeat was a class
-			Added PowerApp, more CDS, Forms, Customer Voice
-			10.7
-			#3 Fixed readonly grid
-			#5 Hope you are happy Jonas
-			#6 hopefully 🤞🏽
-			Added Onedrive and Word Templates
-		</releaseNotes>
+      #11 Fixed display of _ in titles
+      #10 Modified Title rendering to allow for quotes and double quotes (Thanks Amey)
+
+      #9 Added Dev Azure APP info
+      Added additional logging around Flow API access
+      Added Append Array Increment Variables 🎁
+      Added Office Users✨
+
+      #7 Resolved issue with repeat was a class
+      Added PowerApp, more CDS, Forms, Customer Voice
+      10.7
+      #3 Fixed readonly grid
+      #5 Hope you are happy Jonas
+      #6 hopefully 🤞🏽
+      Added Onedrive and Word Templates
+    </releaseNotes>
 		<copyright>Copyright 2020</copyright>
 		<tags>XrmToolBox Plugins Flow Visio</tags>
 		<dependencies>
